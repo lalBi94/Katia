@@ -1,0 +1,38 @@
+@import "../../../../main.scss";
+
+#myaccount-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    .data-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 40%;
+
+        #identifier {
+            font-size: 0.8em;
+            color: white;
+            background: $red;
+            padding: 5px;
+            font-weight: bold;
+        }
+
+        .data-modifier {
+            cursor: pointer;
+        }
+
+        @media (max-width: $responsive) {
+            width: 80%;
+        }
+    }
+
+    .data {
+        border-bottom: 1px solid $black;
+        padding-bottom: 5px;
+    }
+}

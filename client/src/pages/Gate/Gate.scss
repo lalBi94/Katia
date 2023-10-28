@@ -1,0 +1,21 @@
+#gate-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    #selector {
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+    }
+
+    #register-container,
+    #login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 5px;
+    }
+}
