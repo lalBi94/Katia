@@ -11,7 +11,7 @@ const KCEncrypt = (w) => {
         let newW = "";
 
         for (let i = 0; i < w.length; ++i) {
-            newW += `@@${(w.charCodeAt(i) - KS_K * i).toString(16)}##.`;
+            newW += `@@${(w.charCodeAt(i) + 1 * KS_K * i).toString(16)}##.`;
         }
 
         return newW;

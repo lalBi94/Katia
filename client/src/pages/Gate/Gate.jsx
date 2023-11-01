@@ -3,6 +3,7 @@ import axios from "axios"
 import { SHA512 } from 'crypto-js'
 import "./Gate.scss"
 import Layout from "../../Layout/Layout"
+import { cipherRequest } from "../../services/KTSec/KTSec"
 
 export default function Gate() {
     const [firstname, setFirstname] = useState("")
@@ -84,21 +85,21 @@ export default function Gate() {
 
         if(email.length > 0 && password.length > 0) {
             const hash = SHA512(password).toString()
+            const toSend = JSON.stringify({email: email, password: hash})
 
-            axios.post("http://127.0.0.1:3001/customer/login", {
-                email: email,
-                password: hash
-            }).then((token) => {
-                if(token.data) {
-                    localStorage.setItem("katiacm", token.data)
-                    setStatus("OK")
-                    window.location.href = "/customer"
-                } else {
-                    setStatus("UNKNOWN USER")
+            cipherRequest(toSend, "http://127.0.0.1:3001/customer/login").then(
+                (token) => {
+                    if(token) {
+                        localStorage.setItem("katiacm", token)
+                        setStatus("OK")
+                        window.location.href = "/customer"
+                    }  else {
+                        setStatus("UNKNOWN USER")
+                    }
+            
+                    setLockDown(false)
                 }
-
-                setLockDown(false)
-            })
+            )
         }
     }
 
@@ -106,15 +107,16 @@ export default function Gate() {
         <Layout>
             <div id="gate-container">
                 <div id="selector">
-                    <button onClick={handleLogin}>Connexion</button>
-                    <button onClick={handleRegister}>Inscription</button>
+                    <button class="selector-btn" onClick={handleLogin}>Connexion</button>
+                    <button class="selector-btn" onClick={handleRegister}>Inscription</button>
                 </div>
 
+                
                 { isLogin ?
                     <div id="login-container">
                         <h3>Connexion {`(${status})`}</h3>
-                        <input className="login-input ipt" type="text" placeholder="e-mail" onChange={handleEmail} disabled={lockDown} />
-                        <input className="login-input ipt" type="password" placeholder="mot de passe" onChange={handlePassword} disabled={lockDown} />
+                        <input className="login-input ipt" type="text" placeholder="E-mail" onChange={handleEmail} disabled={lockDown} />
+                        <input className="login-input ipt" type="password" placeholder="Mot de passe" onChange={handlePassword} disabled={lockDown} />
                         <button className="login-btn btn" onClick={handleLoginSubmit} disabled={lockDown}>Se connecter</button>
                     </div>
                 :
@@ -122,8 +124,8 @@ export default function Gate() {
                         <h3>Inscription {`(${status})`}</h3>
                         <input className="register-input ipt" type="text" placeholder="Prenom" onChange={handleFirstname} disabled={lockDown} />
                         <input className="register-input ipt" type="text" placeholder="Nom" onChange={handleLastname} disabled={lockDown} />
-                        <input className="register-input ipt" type="email" placeholder="e-mail" onChange={handleEmail} disabled={lockDown} />
-                        <input className="register-input ipt" type="password" placeholder="mot de passe" onChange={handlePassword} disabled={lockDown} />
+                        <input className="register-input ipt" type="email" placeholder="E-mail" onChange={handleEmail} disabled={lockDown} />
+                        <input className="register-input ipt" type="password" placeholder="Mot de passe" onChange={handlePassword} disabled={lockDown} />
                         <button className="register-btn btn" onClick={handleRegisterSubmit}>S'inscrire</button>
                     </div>
                 }

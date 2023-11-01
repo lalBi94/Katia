@@ -1,4 +1,4 @@
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
 const jwt = require("jsonwebtoken");
 const CustomerSchema = require("./CustomerSchema");
 
@@ -71,7 +71,7 @@ class Customers {
     /**
      * Check if token is currently register in server
      * @param {string} token
-     * @return {{status: 0|1}}
+     * @return {Promise<{status: 0|1}>}
      */
     async verifyTokenValidity(token) {
         try {
@@ -88,7 +88,7 @@ class Customers {
      * @param {string} lastname
      * @param {string} email
      * @param {string} password
-     * @return {{status: number} | {status: number, token: string}}
+     * @return {Promise<{status: number} | {status: number, token: string}>}
      */
     async register(firstname, lastname, email, password) {
         try {
@@ -133,7 +133,7 @@ class Customers {
      * Log a client and send token
      * @param {string} email
      * @param {string} password
-     * @return {string}
+     * @return {Promise<string>}
      */
     async login(email, password) {
         console.log(`?Login:: try ${email} [...]`);
@@ -158,7 +158,7 @@ class Customers {
     /**
      * Get user data
      * @param {string} token
-     * @return {{}}
+     * @return {Promise<{}>}
      */
     async getInfo(token) {
         try {
@@ -166,6 +166,85 @@ class Customers {
             delete decoded.password;
 
             if (decoded) return { status: this.status.succes, data: decoded };
+        } catch (err) {
+            return { status: this.status.error };
+        }
+    }
+
+    /**
+     * Change firstname
+     * @param {string} firstname 
+     * @param {string} token
+     * @return {Promise<boolean>}
+     */
+    async changeFirstname(firstname, token) {
+        try {
+            const decoded = await this.decodeToken(token);
+            const update = { $set: { firstname: firstname } };
+    
+            const result = await this.collections.list.updateOne(
+                { _id: new ObjectId(decoded._id) },
+                update
+            );
+    
+            if (result.modifiedCount > 0) {
+                return { status: this.status.succes };
+            } else {
+                return { status: this.status.error };
+            }
+        } catch (err) {
+            return { status: this.status.error };
+        }
+    }
+    
+    /**
+     * Change lastname
+     * @param {string} lastname 
+     * @param {string} token
+     * @return {Promise<boolean>}
+     */
+    async changeLastname(lastname, token) {
+        try {
+            const decoded = await this.decodeToken(token);
+            const update = { $set: { lastname: lastname } };
+    
+            const result = await this.collections.list.updateOne(
+                { _id: new ObjectId(decoded._id) },
+                update
+            );
+    
+            if (result.modifiedCount > 0) {
+                return { status: this.status.succes };
+            } else {
+                return { status: this.status.error };
+            }
+        } catch (err) {
+            return { status: this.status.error };
+        }
+    }
+
+    async changeEmail(email, token) {
+        try {
+            const decoded = await this.decodeToken(token);
+
+            const check = await this.collections.list.findOne({email: email})
+
+            if(check) {
+                return { status: this.status.error };
+            }
+
+            const update = { $set: { email: email } };
+    
+            const result = await this.collections.list.updateOne(
+                { _id: new ObjectId(decoded._id) },
+                update
+            );
+    
+            if (result.modifiedCount > 0) {
+                return { status: this.status.succes };
+            } else {
+                return { status: this.status.error };
+            }
         } catch (err) {
             return { status: this.status.error };
         }

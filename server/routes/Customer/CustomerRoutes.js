@@ -24,6 +24,12 @@ const limiter_4login = express_rateL({
     message: "Too many request wait 30 minutes.",
 });
 
+const limiter_4modifying = express_rateL({
+    windowMs: 60 * 60 * 1000,
+    max: 10,
+    message: "Too many request wait 1 hour.",
+})
+
 /**
  * Registration
  * @param {{firstname: string, lastname: string, email: string, password: string}} req.body
@@ -45,10 +51,16 @@ router.post("/register", (req, res) => {
  */
 router.use("/login", limiter_4login);
 router.post("/login", (req, res) => {
-    const { email, password } = req.body;
+    const { 
+        data
+    } = req.body;
 
-    customers_services.login(email, password).then((token) => {
-        res.json(token ? token : null);
+    const decrypt = JSON.parse(KCDecrypt(data))
+    const decryptEmail = decrypt.email
+    const decryptPassword = decrypt.password
+
+    customers_services.login(decryptEmail, decryptPassword).then((token) => {
+        res.json(token ? KSEncrypt(JSON.stringify(token)) : null);
     });
 });
 
@@ -65,6 +77,59 @@ router.post("/getInfo", (req, res) => {
         res.json(data ? KSEncrypt(JSON.stringify(data)) : null);
     });
 });
+
+/**
+ * Modify Firstname
+ * @param {"{data: string, token: string}"} data new Firstname
+ * @return {boolean}
+ */
+router.use("/changeFirstname", limiter_4modifying)
+router.post("/changeFirstname", (req, res) => {
+    const {
+        data
+    } = req.body
+
+    const decrypt = JSON.parse(KCDecrypt(data))
+    const decryptData = decrypt.firstname
+    const decryptToken = decrypt.token
+
+    customers_services.changeFirstname(decryptData, decryptToken).then((result) => {
+        const sCrypt = KSEncrypt(JSON.stringify({data: result}))
+        res.json(sCrypt)
+    })
+})
+
+router.use("/changeLastname", limiter_4modifying)
+router.post("/changeLastname", (req, res) => {
+    const {
+        data
+    } = req.body
+
+    const decrypt = JSON.parse(KCDecrypt(data))
+    const decryptData = decrypt.lastname
+    const decryptToken = decrypt.token
+
+    customers_services.changeLastname(decryptData, decryptToken).then((result) => {
+        const sCrypt = KSEncrypt(JSON.stringify({data: result}))
+        res.json(sCrypt)
+    })
+})
+
+router.use("/changeEmail", limiter_4modifying)
+router.use("/changeEmail", (req, res) => {
+    const {
+        data
+    } = req.body
+
+    const decrypt = JSON.parse(KCDecrypt(data))
+    const decryptData = decrypt.email
+    const decryptToken = decrypt.token
+
+    customers_services.changeEmail(decryptData, decryptToken).then((result) => {
+        const sCrypt = KSEncrypt(JSON.stringify({data: result}))
+        res.json(sCrypt)
+    })
+})
 
 /**
  * Check is takin is valid

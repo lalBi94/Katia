@@ -31,7 +31,7 @@ const KCDecrypt = (w) => {
 
         for (let i = 0; i < splitedW.length - 1; ++i) {
             const toTransform = splitedW[i].slice(2);
-            const uncrypt = parseInt(toTransform, 16) + KS_K * i;
+            const uncrypt = parseInt(toTransform, 16) - 1 * KS_K * i;
             newW += String.fromCharCode(uncrypt);
         }
 
