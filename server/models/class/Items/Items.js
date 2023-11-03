@@ -1,4 +1,4 @@
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
 
 const ItemSchema = require("./ItemSchema");
 
@@ -38,7 +38,7 @@ class Items {
 	 * @param {number} price
 	 * @param {number} promotion
 	 * @param {string} imgRef
-	 * @return {Promise<string|null>}
+	 * @return {Promise<{status: number}|null>}
 	 */
 	async setItem(name, price, promotion, imgRef) {
 		try {
@@ -80,6 +80,25 @@ class Items {
 			return items;
 		} catch (err) {
 			return null;
+		}
+	}
+
+	/**
+	 * Delete this list of items
+	 * @param {Array<string>} items
+	 * @return {Promise<{status: number}|null>}
+	 */
+	async deleteItems(items) {
+		try {
+			for (let i = 0; i <= items.length - 1; ++i) {
+				await this.collections.list.deleteOne({
+					_id: new ObjectId(items[i]),
+				});
+			}
+
+			return { status: this.status.succes };
+		} catch (err) {
+			return { status: this.status.error };
 		}
 	}
 }

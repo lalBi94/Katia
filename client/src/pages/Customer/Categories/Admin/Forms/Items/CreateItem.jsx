@@ -65,7 +65,7 @@ export default function CreateItem({ handleClose }) {
 	};
 
 	return (
-		<div id="popup-container">
+		<div className="popup-container">
 			<span className="popup-title">Création d'article</span>
 
 			{status === 1 ? (
@@ -116,7 +116,7 @@ export default function CreateItem({ handleClose }) {
 				placeholder="Url de l'image"
 			/>
 
-			<div id="popup-btn-container">
+			<div className="popup-btn-container">
 				<button className="btn hvr-shrink" onClick={handleCreateItem}>
 					Creer
 				</button>

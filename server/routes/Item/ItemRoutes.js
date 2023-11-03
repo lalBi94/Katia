@@ -30,6 +30,21 @@ router.post("/setItem", (req, res) => {
 	});
 });
 
+router.post("/deleteItems", (req, res) => {
+	const { data } = req.body
+	
+	const decrypt = JSON.parse(KCDecrypt(data));
+	const token = decrypt.token;
+
+	customer_services.decodeToken(token).then((data) => {
+		if (data.type !== "admin") return null;
+	});
+
+	items_services.deleteItems(decrypt.data).then((status) => {
+		res.json(KSEncrypt(JSON.stringify(status)))
+	})
+})
+
 router.post("/getAllItems", (req, res) => {
 	items_services.getAllItems().then((data) => {
 		res.json(data);

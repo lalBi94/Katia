@@ -1,6 +1,24 @@
 @import "../../../../../main.scss";
 
-#popup-container {
+.btn {
+	background: $red;
+	border: none;
+	color: white;
+	padding: 15px;
+	cursor: pointer;
+	font-weight: bold;
+	font-size: 1em;
+}
+
+.ipt {
+	width: 55%;
+	height: 15%;
+	text-align: center;
+	padding: 5px;
+	font-size: 1.3em;
+}
+
+.popup-container {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -8,6 +26,49 @@
 	width: 100%;
 	gap: 20px;
 	padding: 20px;
+
+	.popup-modify {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 20px;
+
+		.ipt {
+			width: 100%;
+		}
+		
+		.popup-modify-img {
+			width: 100px;
+			height: 100px;
+		}
+	}
+
+	.popup-list-w-actions {
+		display: flex;
+		flex-direction: column;
+		height: 300px;
+		overflow-y: scroll;
+		gap: 5px;
+		width: 70%;
+
+		.popup-list-data {
+			border: 2px solid $red;
+			padding: 10px;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			cursor: pointer;
+
+			.popup-list-data-img {
+				width: 30px;
+			}
+
+			.popup-list-data-name {
+				font-weight: bold;
+			}
+		}
+	}
 
 	.error {
 		color: white;
@@ -28,29 +89,11 @@
 		font-weight: bold;
 	}
 
-	.ipt {
-		width: 55%;
-		height: 15%;
-		text-align: center;
-		padding: 5px;
-		font-size: 1.3em;
-	}
-
-	#popup-btn-container {
+	.popup-btn-container {
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		flex-wrap: wrap;
 		gap: 15px;
-
-		.btn {
-			background: $red;
-			border: none;
-			color: white;
-			padding: 15px;
-			cursor: pointer;
-			font-weight: bold;
-			font-size: 1em;
-		}
 	}
 }

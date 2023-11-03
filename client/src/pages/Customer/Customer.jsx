@@ -28,6 +28,10 @@ export default function Customer() {
 	useEffect(() => {
 		const token = localStorage.getItem("katiacm");
 
+		if(!token) {
+			window.location.href = "/home"
+		}
+
 		cipherRequest(token, "http://127.0.0.1:3001/customer/getInfo").then(
 			(res) => {
 				switch (res.status) {

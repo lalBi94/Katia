@@ -1,6 +1,8 @@
 import "./Admin.scss";
 import { useState } from "react";
 import CreateItem from "./Forms/Items/CreateItem";
+import DeleteItem from "./Forms/Items/DeleteItem";
+import ModifyItem from "./Forms/Items/ModifyItem";
 
 export default function Admin() {
 	const [form, setForm] = useState(null);
@@ -14,6 +16,15 @@ export default function Admin() {
 			case "create_item": {
 				setForm(<CreateItem handleClose={handleCloseForm} />);
 				break;
+			}
+
+			case "delete_item": {
+				setForm(<DeleteItem handleClose={handleCloseForm} />);
+				break;
+			}
+
+			case "modify_item": {
+				setForm(<ModifyItem handleClose={handleCloseForm} />);
 			}
 		}
 	};
@@ -34,10 +45,22 @@ export default function Admin() {
 					>
 						Créer un article
 					</button>
-					<button className="admin-category-btn">
-						Supprimer un article
+
+					<button
+						onClick={() => {
+							handleForm("delete_item");
+						}}
+						className="admin-category-btn"
+					>
+						Supprimer des article
 					</button>
-					<button className="admin-category-btn">
+
+					<button
+						onClick={() => {
+							handleForm("modify_item");
+						}}
+						className="admin-category-btn"
+					>
 						Modifier un article
 					</button>
 				</div>
