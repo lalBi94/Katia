@@ -37,7 +37,7 @@
 		.ipt {
 			width: 100%;
 		}
-		
+
 		.popup-modify-img {
 			width: 100px;
 			height: 100px;
@@ -51,6 +51,11 @@
 		overflow-y: scroll;
 		gap: 5px;
 		width: 70%;
+
+		.active {
+			background: $red;
+			color: white;
+		}
 
 		.popup-list-data {
 			border: 2px solid $red;

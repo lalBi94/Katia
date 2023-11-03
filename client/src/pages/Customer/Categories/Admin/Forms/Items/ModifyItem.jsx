@@ -9,21 +9,25 @@ export default function ModifyItem({ handleClose }) {
 	const [modifyPrice, setModifyPrice] = useState("");
 	const [modifyPromotion, setModifyPromotion] = useState("");
 	const [modifyImgRef, setModifyImgRef] = useState("");
-	//const [status, setStatus] = useState(null);
+	const [status, setStatus] = useState(null);
 
 	const handleModifyName = (e) => {
+		setStatus(null);
 		setModifyName(e.target.value);
 	};
 
 	const handleModifyImgRef = (e) => {
+		setStatus(null);
 		setModifyImgRef(e.target.value);
 	};
 
 	const handleModifyPrice = (e) => {
+		setStatus(null);
 		setModifyPrice(e.target.value);
 	};
 
 	const handleModifyPromotion = (e) => {
+		setStatus(null);
 		setModifyPromotion(e.target.value);
 	};
 
@@ -35,6 +39,8 @@ export default function ModifyItem({ handleClose }) {
 	}, []);
 
 	const handleSelect = (item) => {
+		setStatus(null);
+
 		if (JSON.stringify(item) === JSON.stringify(selectedItem)) {
 			setSelectedItem({});
 		} else {
@@ -42,15 +48,50 @@ export default function ModifyItem({ handleClose }) {
 		}
 	};
 
+	const handleModify = () => {
+		const name = modifyName.length > 0 ? modifyName : selectedItem.name;
+		const price = modifyPrice.length > 0 ? modifyPrice : selectedItem.price;
+		const promotion =
+			modifyPromotion.length > 0
+				? modifyPromotion
+				: selectedItem.promotion;
+		const imgRef =
+			modifyImgRef.length > 0 ? modifyImgRef : selectedItem.imgRef;
+		const id = selectedItem._id;
+
+		axios
+			.post("http://localhost:3001/item/modifyItem", {
+				id: id,
+				name: name,
+				price: price,
+				promotion: promotion,
+				imgRef: imgRef,
+				token: localStorage.getItem("katiacm"),
+			})
+			.then((res) => {
+				setStatus(res.data.status);
+			});
+	};
+
 	return (
 		<div className="popup-container">
 			<span className="popup-title">Modifier un articles</span>
+
+			{status === 0 ? <p className="succes">Article modifié !</p> : null}
+
+			{status === 1 ? (
+				<p className="error">Un probleme est survenu !</p>
+			) : null}
 
 			<div className="popup-list-w-actions">
 				{showedItems.length > 0
 					? Object.keys(showedItems).map((v, k) => (
 							<div
-								className="popup-list-data"
+								className={`popup-list-data ${
+									selectedItem._id === showedItems[v]._id
+										? "active"
+										: ""
+								}`}
 								key={k}
 								onClick={() => {
 									handleSelect(showedItems[v]);
@@ -78,7 +119,7 @@ export default function ModifyItem({ handleClose }) {
 					/>
 					<input
 						onChange={handleModifyImgRef}
-						type="number"
+						type="text"
 						className="popup-modify-url ipt"
 						placeholder={`URL de l'image: ${selectedItem.imgRef}`}
 					/>
@@ -104,7 +145,7 @@ export default function ModifyItem({ handleClose }) {
 			) : null}
 
 			<div className="popup-btn-container">
-				<button className="btn hvr-shrink" onClick={null}>
+				<button className="btn hvr-shrink" onClick={handleModify}>
 					Modifier
 				</button>
 				<button className="btn hvr-shrink" onClick={handleClose}>

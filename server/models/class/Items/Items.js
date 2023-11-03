@@ -101,6 +101,32 @@ class Items {
 			return { status: this.status.error };
 		}
 	}
+
+	async modifyItem(id, name, price, promotion, imgRef) {
+		try {
+			const update = {
+				$set: {
+					name: name,
+					price: price,
+					promotion: promotion,
+					imgRef: imgRef,
+				},
+			};
+
+			const result = await this.collections.list.updateOne(
+				{ _id: new ObjectId(id) },
+				update
+			);
+
+			if (result.modifiedCount > 0) {
+				return { status: this.status.succes };
+			} else {
+				return { status: this.status.error };
+			}
+		} catch (err) {
+			return { status: this.status.error };
+		}
+	}
 }
 
 module.exports = Items;

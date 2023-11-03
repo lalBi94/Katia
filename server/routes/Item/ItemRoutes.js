@@ -31,8 +31,8 @@ router.post("/setItem", (req, res) => {
 });
 
 router.post("/deleteItems", (req, res) => {
-	const { data } = req.body
-	
+	const { data } = req.body;
+
 	const decrypt = JSON.parse(KCDecrypt(data));
 	const token = decrypt.token;
 
@@ -41,14 +41,28 @@ router.post("/deleteItems", (req, res) => {
 	});
 
 	items_services.deleteItems(decrypt.data).then((status) => {
-		res.json(KSEncrypt(JSON.stringify(status)))
-	})
-})
+		res.json(KSEncrypt(JSON.stringify(status)));
+	});
+});
 
 router.post("/getAllItems", (req, res) => {
 	items_services.getAllItems().then((data) => {
 		res.json(data);
 	});
+});
+
+router.post("/modifyItem", (req, res) => {
+	const { id, name, price, promotion, imgRef, token } = req.body;
+
+	customer_services.decodeToken(token).then((data) => {
+		if (data.type !== "admin") return null;
+	});
+
+	items_services
+		.modifyItem(id, name, price, promotion, imgRef)
+		.then((status) => {
+			res.json(status);
+		});
 });
 
 module.exports = router;
