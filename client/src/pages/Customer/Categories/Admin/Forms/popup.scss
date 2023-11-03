@@ -1,0 +1,56 @@
+@import "../../../../../main.scss";
+
+#popup-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	gap: 20px;
+	padding: 20px;
+
+	.error {
+		color: white;
+		background: $red;
+		font-weight: bold;
+		padding: 10px;
+	}
+
+	.succes {
+		color: white;
+		background: $green;
+		font-weight: bold;
+		padding: 10px;
+	}
+
+	.popup-title {
+		font-size: 1.3em;
+		font-weight: bold;
+	}
+
+	.ipt {
+		width: 55%;
+		height: 15%;
+		text-align: center;
+		padding: 5px;
+		font-size: 1.3em;
+	}
+
+	#popup-btn-container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 15px;
+
+		.btn {
+			background: $red;
+			border: none;
+			color: white;
+			padding: 15px;
+			cursor: pointer;
+			font-weight: bold;
+			font-size: 1em;
+		}
+	}
+}

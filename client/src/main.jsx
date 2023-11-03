@@ -8,15 +8,13 @@ import Customer from "./pages/Customer/Customer";
 import Shop from "./pages/Shop/Shop";
 
 const router = createBrowserRouter([
-    { path: "/", element: <Home /> },
-    { path: "/home", element: <Home /> },
-    { path: "/gate", element: <Gate /> },
-    { path: "/customer", element: <Customer /> },
-    { path: "/shop", element: <Shop /> },
+	{ path: "/", element: <Home /> },
+	{ path: "/home", element: <Home /> },
+	{ path: "/gate", element: <Gate /> },
+	{ path: "/customer", element: <Customer /> },
+	{ path: "/shop", element: <Shop /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <React.StrictMode>
-        <RouterProvider router={router} />
-    </React.StrictMode>
+	<RouterProvider router={router} />
 );

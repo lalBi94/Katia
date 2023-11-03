@@ -1,35 +1,40 @@
 import { useEffect } from "react";
 import NavBar from "../components/NavBar/NavBar";
-import axios from "axios";
+import { cipherRequest } from "../services/KTSec/KTSec";
 
 export default function Layout({ children }) {
-    useEffect(() => {
-        const token = localStorage.getItem("katiacm");
-        if (!token) return;
+	useEffect(() => {
+		const token = localStorage.getItem("katiacm");
 
-        axios
-            .post("http://localhost:3001/customer/verifyTokenValidity", {
-                token: token,
-            })
-            .then((result) => {
-                switch (result.data.status) {
-                    case 0: {
-                        break;
-                    }
+		if (!token) {
+			return;
+		}
 
-                    case 1: {
-                        localStorage.removeItem("katiacm");
-                        window.location.reload();
-                    }
-                }
-            });
-    }, []);
+		const toSend = JSON.stringify({ token: token });
 
-    return (
-        <>
-            <NavBar />
+		cipherRequest(
+			toSend,
+			"http://localhost:3001/customer/verifyTokenValidity"
+		).then((status) => {
+			switch (status.status) {
+				case 0: {
+					break;
+				}
 
-            <main>{children}</main>
-        </>
-    );
+				case 1: {
+					window.location.href = "/gate";
+					localStorage.removeItem("katiacm");
+					break;
+				}
+			}
+		});
+	}, []);
+
+	return (
+		<div id="layout-container">
+			<NavBar />
+
+			<main>{children}</main>
+		</div>
+	);
 }

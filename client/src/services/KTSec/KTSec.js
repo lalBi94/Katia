@@ -7,17 +7,17 @@ const KS_K = 9999;
  * @return {Promise<string>}
  */
 const KCEncrypt = (w) => {
-    try {
-        let newW = "";
+	try {
+		let newW = "";
 
-        for (let i = 0; i < w.length; ++i) {
-            newW += `@@${(w.charCodeAt(i) + 1 * KS_K * i).toString(16)}##.`;
-        }
+		for (let i = 0; i < w.length; ++i) {
+			newW += `@@${(w.charCodeAt(i) + 1 * KS_K * i).toString(16)}##.`;
+		}
 
-        return newW;
-    } catch (err) {
-        return null;
-    }
+		return newW;
+	} catch (err) {
+		return null;
+	}
 };
 
 /**
@@ -26,20 +26,20 @@ const KCEncrypt = (w) => {
  * @return {Promise<string>}
  */
 const KSDecrypt = (w) => {
-    try {
-        const splitedW = w.split("##.");
-        let newW = "";
+	try {
+		const splitedW = w.split("##.");
+		let newW = "";
 
-        for (let i = 0; i < splitedW.length - 1; ++i) {
-            const toTransform = splitedW[i].slice(2);
-            const uncrypt = parseInt(toTransform, 16) + KS_K * i;
-            newW += String.fromCharCode(uncrypt);
-        }
+		for (let i = 0; i < splitedW.length - 1; ++i) {
+			const toTransform = splitedW[i].slice(2);
+			const uncrypt = parseInt(toTransform, 16) + KS_K * i;
+			newW += String.fromCharCode(uncrypt);
+		}
 
-        return newW;
-    } catch (err) {
-        return null;
-    }
+		return newW;
+	} catch (err) {
+		return null;
+	}
 };
 
 /**
@@ -49,18 +49,18 @@ const KSDecrypt = (w) => {
  * @return {Promise<{}>}
  */
 const cipherRequest = (data, where) => {
-    return new Promise((resolve, reject) => {
-        try {
-            const clientcr = KCEncrypt(data);
+	return new Promise((resolve, reject) => {
+		try {
+			const clientcr = KCEncrypt(data);
 
-            axios.post(where, { data: clientcr }).then((res) => {
-                const serverdcr = KSDecrypt(res.data);
-                resolve(JSON.parse(serverdcr));
-            });
-        } catch (err) {
-            reject(null);
-        }
-    });
+			axios.post(where, { data: clientcr }).then((res) => {
+				const serverdcr = KSDecrypt(res.data);
+				resolve(JSON.parse(serverdcr));
+			});
+		} catch (err) {
+			reject(null);
+		}
+	});
 };
 
 export { cipherRequest };

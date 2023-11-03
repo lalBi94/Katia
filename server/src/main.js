@@ -29,5 +29,5 @@ app.use("/customer", customers);
 app.use("/item", item);
 
 app.listen(process.env.PORT, () => {
-    console.log(`${logColor}?Server:: on ${process.env.PORT}`, "[OK]\x1b[0m");
+	console.log(`${logColor}?Server:: on ${process.env.PORT}`, "[OK]\x1b[0m");
 });

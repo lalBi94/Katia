@@ -1,0 +1,45 @@
+@import "../../../../main.scss";
+
+#admin-container {
+	display: flex;
+	flex-direction: column;
+
+	#admin-form-popup {
+		position: absolute;
+		background: white;
+		padding: 10px;
+		height: auto;
+		width: 60%;
+		border: 5px dashed $red;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+
+	.admin-category {
+		display: flex;
+		flex-direction: column;
+
+		.admin-category-title {
+		}
+
+		.admin-category-btns {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			gap: 10px;
+
+			.admin-category-btn {
+				background: $red;
+				border: none;
+				padding: 10px;
+				color: white;
+				font-size: 1.1em;
+
+				&:hover {
+					background: $dark_red;
+				}
+			}
+		}
+	}
+}

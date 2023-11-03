@@ -1,59 +1,59 @@
 @import "../../main.scss";
 
 #customer-container {
-    width: 100%;
+	width: 100%;
 
-    #customer-header {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 30px;
-        font-size: 0.8em;
+	#customer-header {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 10px;
+		margin-bottom: 30px;
+		font-size: 0.8em;
 
-        #customer-title,
-        #customer-subtitle {
-            margin: 0 auto;
-        }
-    }
+		#customer-title,
+		#customer-subtitle {
+			margin: 0 auto;
+		}
+	}
 
-    #customer-informations-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-        width: 100%;
-        margin-bottom: 30px;
+	#customer-informations-container {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 20px;
+		width: 100%;
+		margin-bottom: 30px;
 
-        @media (max-width: $responsive) {
-            width: 100%;
-        }
+		@media (max-width: $responsive) {
+			width: 100%;
+		}
 
-        #customer-category-container {
-            display: flex;
-            flex-direction: row;
-            list-style-type: none;
-            color: white;
-            font-weight: bold;
-            background: $red;
-            align-items: center;
-            justify-content: space-around;
-            text-align: center;
+		#customer-category-container {
+			display: flex;
+			flex-direction: row;
+			list-style-type: none;
+			color: white;
+			font-weight: bold;
+			background: $red;
+			align-items: center;
+			justify-content: space-around;
+			text-align: center;
 
-            .customer-category-link {
-                cursor: pointer;
-                padding: 20px;
+			.customer-category-link {
+				cursor: pointer;
+				padding: 20px;
 
-                &:hover {
-                    background: $dark_red;
-                }
-            }
+				&:hover {
+					background: $dark_red;
+				}
+			}
 
-            @media (max-width: $responsive) {
-                flex-wrap: wrap;
-            }
-        }
-    }
+			@media (max-width: $responsive) {
+				flex-wrap: wrap;
+			}
+		}
+	}
 }
