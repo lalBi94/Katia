@@ -61,7 +61,7 @@ export default function DeleteItem({ handleClose }) {
 								<img
 									className="popup-list-data-img"
 									src={showedItems[v].imgRef}
-									alt=""
+									alt={`Image de ${showedItems[v].name}`}
 								/>
 								<span className="popup-list-data-name">
 									{showedItems[v].name} ({items[v].price}€)

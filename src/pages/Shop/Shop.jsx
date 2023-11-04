@@ -61,7 +61,7 @@ export default function Shop() {
 										<img
 											className="item-imgRef"
 											src={chunked[current][v].imgRef}
-											alt=""
+											alt={`Image de ${chunked[current][v].name}`}
 										/>
 
 										<span className="item-title">

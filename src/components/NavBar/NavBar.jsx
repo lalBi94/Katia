@@ -31,7 +31,7 @@ export default function NavBar() {
 				<img
 					className="nav-link img hvr-wobble-bottom"
 					src={logo}
-					alt="Logo des delices de katia"
+					alt="Logo des delices de Katia"
 					onClick={goToHome}
 				/>
 			</li>

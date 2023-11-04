@@ -100,7 +100,7 @@ export default function ModifyItem({ handleClose }) {
 								<img
 									className="popup-list-data-img"
 									src={showedItems[v].imgRef}
-									alt=""
+									alt={`Image de ${showedItems[v].name}`}
 								/>
 								<span className="popup-list-data-name">
 									{showedItems[v].name} ({items[v].price}€)
@@ -115,7 +115,7 @@ export default function ModifyItem({ handleClose }) {
 					<img
 						className="popup-modify-img"
 						src={selectedItem.imgRef}
-						alt=""
+						alt={`Image de ${showedItems[v].name}`}
 					/>
 					<input
 						onChange={handleModifyImgRef}
