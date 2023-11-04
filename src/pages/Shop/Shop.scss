@@ -30,6 +30,7 @@
         flex-wrap: wrap;
 
         .item-container {
+            cursor: pointer;
             border-top: 3px solid $red;
             display: flex;
             flex-direction: column;
