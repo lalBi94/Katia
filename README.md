@@ -1,8 +1,9 @@
 ### Informations
-Frontend `React.js + Vite`
-Database `MongoDB`
-API `Express.js`
+Frontend `React.js + Vite`<br/>
+Database `MongoDB`<br/>
+API `Express.js`<br/>
 
+### Get started
 Install dependencies
 ```bash
 npm install
@@ -14,5 +15,5 @@ npm run dev
 ```
 
 ### Contributors
-- Bilal Boudjemline
-- Ethan Brezeky
+Bilal Boudjemline<br/>
+Ethan Brezeky
