@@ -1,19 +1,20 @@
-### Informations
+## Informations
 Frontend `React.js + Vite`<br/>
 Database `MongoDB`<br/>
-API `Express.js`<br/>
+Backend `Express.js`<br/>
+API <a href="https://github.com/lalBi94/katia-api">HERE</a>
 
-### Get started
+## Get started
 Install dependencies
 ```bash
-npm install
+npm  install
 ```
 
 Start Client
 ```bash
-npm run dev
+npm  run  dev
 ```
 
-### Contributors
+## Contributors
 Bilal Boudjemline<br/>
 Ethan Brezeky
