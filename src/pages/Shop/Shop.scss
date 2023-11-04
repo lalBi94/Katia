@@ -30,10 +30,11 @@
         flex-wrap: wrap;
 
         .item-container {
+            border-top: 3px solid $red;
             display: flex;
             flex-direction: column;
-            width: 300px;
-            height: 300px;
+            width: 250px;
+            height: 250px;
             justify-content: space-between;
             align-items: center;
             padding: 20px;
@@ -43,9 +44,33 @@
                 font-weight: bold;
                 font-size: 1.1em;
             }
-    
-            .item-price {
-                .item-promotion {
+
+            .item-price-promo {
+                display: flex;
+
+                .item-price-w-promo {
+                    color: $red;
+                    text-decoration: line-through;
+                }
+
+                .item-promotion-container {
+                    display: flex;
+                    flex-direction: row;
+                    text-align: center;
+                    gap: 10px;
+
+                    .item-new-price {
+                        color: black;
+                    }
+
+                    .item-promotion {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        background: $red;
+                        padding: 5px;
+                        color: white
+                    }
                 }
             }
     

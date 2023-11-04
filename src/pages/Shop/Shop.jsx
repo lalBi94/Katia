@@ -3,7 +3,7 @@ import Layout from "../../Layout/Layout";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "hover.css";
-import { useParams } from "react-router-dom";
+import { motion } from "framer-motion";
 
 export default function Shop() {
 	const [chunked, setChunked] = useState([[]]);
@@ -24,10 +24,12 @@ export default function Shop() {
 	};
 
 	useEffect(() => {
-		axios.post("https://katia-api.osc-fr1.scalingo.io/item/getAllItems").then((res) => {
-			const newRes = chunks(res.data, 8);
-			setChunked(newRes);
-		});
+		axios
+			.post("https://katia-api.osc-fr1.scalingo.io/item/getAllItems")
+			.then((res) => {
+				const newRes = chunks(res.data, 8);
+				setChunked(newRes);
+			});
 	}, []);
 
 	return (
@@ -48,30 +50,75 @@ export default function Shop() {
 				<div id="shop-data-container">
 					{chunked[current].length > 0
 						? Object.keys(chunked[current]).map((v, k) => (
-								<div
-									className="item-container hvr-shrink"
+								<motion.div
+									initial={{ opacity: 0.5 }}
+									animate={{ opacity: 1 }}
+									exit={{ opacity: 0 }}
+									duration={1500}
 									key={k}
 								>
-									<img
-										className="item-imgRef"
-										src={chunked[current][v].imgRef}
-										alt=""
-									/>
+									<div className="item-container hvr-shrink">
+										<img
+											className="item-imgRef"
+											src={chunked[current][v].imgRef}
+											alt=""
+										/>
 
-									<span className="item-title">
-										{chunked[current][v].name}
-									</span>
-
-									<span className="item-price">
-										{chunked[current][v].price}€ &nbsp;
-										
-										<span className="item-promotion">
-											{chunked[current][v].promotion > 0
-												? `(${chunked[current][v].promotion}%)`
-												: null}
+										<span className="item-title">
+											{chunked[current][v].name}
 										</span>
-									</span>
-								</div>
+
+										<div
+											className={
+												chunked[current][v].promotion >
+												0
+													? "item-price-container item-price-promo"
+													: "item-price-container"
+											}
+										>
+											<span
+												className={
+													chunked[current][v]
+														.promotion > 0
+														? "item-price-w-promo"
+														: "item-price"
+												}
+											>
+												{chunked[current][v].price}€
+												&nbsp;
+											</span>
+
+											{chunked[current][v].promotion >
+											0 ? (
+												<span className="item-promotion-container">
+													<span className="item-new-price">
+														&nbsp;
+														{(
+															chunked[current][v]
+																.price -
+															(chunked[current][v]
+																.price *
+																chunked[
+																	current
+																][v]
+																	.promotion) /
+																100
+														).toFixed(2)}
+														€
+													</span>
+
+													<span className="item-promotion">
+														{
+															chunked[current][v]
+																.promotion
+														}
+														%
+													</span>
+												</span>
+											) : null}
+										</div>
+									</div>
+								</motion.div>
 						  ))
 						: null}
 				</div>
