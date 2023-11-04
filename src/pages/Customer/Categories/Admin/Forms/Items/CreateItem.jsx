@@ -51,7 +51,7 @@ export default function CreateItem({ handleClose }) {
 			imgRef: imgRef,
 		});
 
-		cipherRequest(toSend, "http://127.0.0.1:3001/item/setItem").then(
+		cipherRequest(toSend, "https://katia-api.osc-fr1.scalingo.io/item/setItem").then(
 			(res) => {
 				setStatus(res.status);
 			}

@@ -10,10 +10,12 @@ export default function DeleteItem({ handleClose }) {
 	const [status, setStatus] = useState(null);
 
 	useEffect(() => {
-		axios.post("https://katia-api.osc-fr1.scalingo.io/item/getAllItems").then((res) => {
-			setItems(res.data);
-			setShowedItems(res.data);
-		});
+		axios
+			.post("https://katia-api.osc-fr1.scalingo.io/item/getAllItems")
+			.then((res) => {
+				setItems(res.data);
+				setShowedItems(res.data);
+			});
 	}, []);
 
 	const handleSelect = (id) => {
@@ -33,7 +35,7 @@ export default function DeleteItem({ handleClose }) {
 			data: selectedItems,
 		});
 
-		cipherRequest(toSend, "http://127.0.0.1:3001/item/deleteItems").then(
+		cipherRequest(toSend, "https://katia-api.osc-fr1.scalingo.io/item/deleteItems").then(
 			(res) => {
 				setStatus(res.status);
 			}

@@ -45,7 +45,7 @@ export default function MyAccount({ data }) {
 				});
 				cipherRequest(
 					toSend,
-					"http://127.0.0.1:3001/customer/changeFirstname"
+					"https://katia-api.osc-fr1.scalingo.io/customer/changeFirstname"
 				).then((status) => {
 					switch (status.data.status) {
 						case 0: {
@@ -72,7 +72,7 @@ export default function MyAccount({ data }) {
 				});
 				cipherRequest(
 					toSend,
-					"http://127.0.0.1:3001/customer/changeLastname"
+					"https://katia-api.osc-fr1.scalingo.io/customer/changeLastname"
 				).then((status) => {
 					switch (status.data.status) {
 						case 0: {
@@ -99,7 +99,7 @@ export default function MyAccount({ data }) {
 				});
 				cipherRequest(
 					toSend,
-					"http://127.0.0.1:3001/customer/changeEmail"
+					"https://katia-api.osc-fr1.scalingo.io/customer/changeEmail"
 				).then((status) => {
 					switch (status.data.status) {
 						case 0: {
