@@ -14,7 +14,7 @@ export default function Layout({ children }) {
 
 		cipherRequest(
 			toSend,
-			"http://localhost:3001/customer/verifyTokenValidity"
+			"https://katia-api.osc-fr1.scalingo.io/customer/verifyTokenValidity"
 		).then((status) => {
 			switch (status.status) {
 				case 0: {

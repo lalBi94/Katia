@@ -32,7 +32,7 @@ export default function Customer() {
 			window.location.href = "/home";
 		}
 
-		cipherRequest(token, "http://127.0.0.1:3001/customer/getInfo").then(
+		cipherRequest(token, "https://katia-api.osc-fr1.scalingo.io/customer/getInfo").then(
 			(res) => {
 				switch (res.status) {
 					case 0: {

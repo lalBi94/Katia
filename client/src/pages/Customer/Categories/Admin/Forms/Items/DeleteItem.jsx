@@ -10,7 +10,7 @@ export default function DeleteItem({ handleClose }) {
 	const [status, setStatus] = useState(null);
 
 	useEffect(() => {
-		axios.post("http://localhost:3001/item/getAllItems").then((res) => {
+		axios.post("https://katia-api.osc-fr1.scalingo.io/item/getAllItems").then((res) => {
 			setItems(res.data);
 			setShowedItems(res.data);
 		});

@@ -24,7 +24,7 @@ export default function Shop() {
 	};
 
 	useEffect(() => {
-		axios.post("http://localhost:3001/item/getAllItems").then((res) => {
+		axios.post("https://katia-api.osc-fr1.scalingo.io/item/getAllItems").then((res) => {
 			const newRes = chunks(res.data, 8);
 			setChunked(newRes);
 		});

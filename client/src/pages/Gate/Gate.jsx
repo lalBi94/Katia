@@ -62,7 +62,7 @@ export default function Gate() {
 
 			cipherRequest(
 				toSend,
-				"http://127.0.0.1:3001/customer/register"
+				"https://katia-api.osc-fr1.scalingo.io/customer/register"
 			).then((data) => {
 				switch (data.status) {
 					case 0: {
@@ -95,7 +95,7 @@ export default function Gate() {
 			const hash = SHA512(password).toString();
 			const toSend = JSON.stringify({ email: email, password: hash });
 
-			cipherRequest(toSend, "http://127.0.0.1:3001/customer/login").then(
+			cipherRequest(toSend, "https://katia-api.osc-fr1.scalingo.io/customer/login").then(
 				(token) => {
 					if (token) {
 						localStorage.setItem("katiacm", token);

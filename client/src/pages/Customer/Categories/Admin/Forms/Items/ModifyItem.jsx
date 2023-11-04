@@ -32,7 +32,7 @@ export default function ModifyItem({ handleClose }) {
 	};
 
 	useEffect(() => {
-		axios.post("http://localhost:3001/item/getAllItems").then((res) => {
+		axios.post("https://katia-api.osc-fr1.scalingo.io/item/getAllItems").then((res) => {
 			setItems(res.data);
 			setShowedItems(res.data);
 		});
@@ -60,7 +60,7 @@ export default function ModifyItem({ handleClose }) {
 		const id = selectedItem._id;
 
 		axios
-			.post("http://localhost:3001/item/modifyItem", {
+			.post("https://katia-api.osc-fr1.scalingo.io/item/modifyItem", {
 				id: id,
 				name: name,
 				price: price,
