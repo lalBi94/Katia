@@ -40,6 +40,7 @@ export default function ModifyItem({ handleClose }) {
 
 	const handleSelect = (item) => {
 		setStatus(null);
+		console.log(item)
 
 		if (JSON.stringify(item) === JSON.stringify(selectedItem)) {
 			setSelectedItem({});
@@ -115,7 +116,7 @@ export default function ModifyItem({ handleClose }) {
 					<img
 						className="popup-modify-img"
 						src={selectedItem.imgRef}
-						alt={`Image de ${showedItems[v].name}`}
+						alt={`Image de ${showedItems.name}`}
 					/>
 					<input
 						onChange={handleModifyImgRef}
