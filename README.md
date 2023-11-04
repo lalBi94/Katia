@@ -7,12 +7,12 @@ API <a href="https://github.com/lalBi94/katia-api">HERE</a>
 ## Get started
 Install dependencies
 ```bash
-npm  install
+npm install
 ```
 
 Start Client
 ```bash
-npm  run  dev
+npm run dev
 ```
 
 ## Contributors
