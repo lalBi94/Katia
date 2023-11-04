@@ -29,7 +29,7 @@ export default function Customer() {
 		const token = localStorage.getItem("katiacm");
 
 		if (!token) {
-			window.location.href = "/home";
+			window.location.href = "/Katia/home";
 		}
 
 		cipherRequest(token, "https://katia-api.osc-fr1.scalingo.io/customer/getInfo").then(

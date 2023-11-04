@@ -9,14 +9,13 @@ import Shop from "./pages/Shop/Shop";
 
 const router = createBrowserRouter([
 	{ path: "/", element: <Home /> },
-	{ path: "/home", element: <Home /> },
-	{ path: "/gate", element: <Gate /> },
-	{ path: "/customer", element: <Customer /> },
-	{ path: "/shop", element: <Shop /> },
+	{ path: "/Katia/", element: <Home /> },
+	{ path: "/Katia/home", element: <Home /> },
+	{ path: "/Katia/gate", element: <Gate /> },
+	{ path: "/Katia/customer", element: <Customer /> },
+	{ path: "/Katia/shop", element: <Shop /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-	<React.StrictMode>
-		<RouterProvider router={router} />
-	</React.StrictMode>
+	<RouterProvider router={router} />
 );

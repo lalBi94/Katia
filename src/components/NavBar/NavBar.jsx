@@ -17,7 +17,7 @@ export default function NavBar() {
 	};
 
 	const goToHome = () => {
-		window.location.href = "/home";
+		window.location.href = "/Katia/home";
 	};
 
 	const revokeToken = () => {
@@ -39,7 +39,7 @@ export default function NavBar() {
 
 		home: (
 			<li className="nav-element resp">
-				<Link className="nav-link hvr-wobble-bottom" to="/home">
+				<Link className="nav-link hvr-wobble-bottom" to="/Katia/home">
 					Accueil
 				</Link>
 			</li>
@@ -47,7 +47,7 @@ export default function NavBar() {
 
 		shop: (
 			<li className="nav-element resp">
-				<Link className="nav-link hvr-wobble-bottom" to="/shop">
+				<Link className="nav-link hvr-wobble-bottom" to="/Katia/shop">
 					Boutique
 				</Link>
 			</li>
@@ -55,7 +55,7 @@ export default function NavBar() {
 
 		gate: (
 			<li className="nav-element resp">
-				<Link className="nav-link hvr-wobble-bottom" to="/gate">
+				<Link className="nav-link hvr-wobble-bottom" to="/Katia/gate">
 					Portail
 				</Link>
 			</li>
@@ -66,7 +66,7 @@ export default function NavBar() {
 				<li className="nav-element nav-element-customer-instance">
 					<Link
 						className="hvr-wobble-bottom nav-link nav-link-customer-instance"
-						to="/customer"
+						to="/Katia/customer"
 					>
 						Espace Client
 					</Link>

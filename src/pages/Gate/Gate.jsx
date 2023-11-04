@@ -68,7 +68,7 @@ export default function Gate() {
 					case 0: {
 						localStorage.setItem("katiacm", data.token);
 						setStatus("OK");
-						window.location.href = "/customer";
+						window.location.href = "/Katia/customer";
 						break;
 					}
 
@@ -100,7 +100,7 @@ export default function Gate() {
 					if (token) {
 						localStorage.setItem("katiacm", token);
 						setStatus("OK");
-						window.location.href = "/customer";
+						window.location.href = "/Katia/customer";
 					} else {
 						setStatus("UNKNOWN USER");
 					}
