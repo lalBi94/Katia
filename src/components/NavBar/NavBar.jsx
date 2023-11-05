@@ -25,6 +25,10 @@ export default function NavBar() {
 		goToHome();
 	};
 
+	const reload = () => {
+		window.location.reload()
+	}
+
 	const [links, _] = useState({
 		logo: (
 			<li className="nav-element">
