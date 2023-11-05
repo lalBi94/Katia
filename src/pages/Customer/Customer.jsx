@@ -32,21 +32,22 @@ export default function Customer() {
 			window.location.href = "/Katia/home";
 		}
 
-		cipherRequest(token, "https://katia-api.osc-fr1.scalingo.io/customer/getInfo").then(
-			(res) => {
-				switch (res.status) {
-					case 0: {
-						setUserData(res.data);
-						handleMyAccount(res.data);
-						break;
-					}
+		cipherRequest(
+			token,
+			"https://katia-api.osc-fr1.scalingo.io/customer/getInfo"
+		).then((res) => {
+			switch (res.status) {
+				case 0: {
+					setUserData(res.data);
+					handleMyAccount(res.data);
+					break;
+				}
 
-					case 1: {
-						break;
-					}
+				case 1: {
+					break;
 				}
 			}
-		);
+		});
 	}, []);
 
 	return (

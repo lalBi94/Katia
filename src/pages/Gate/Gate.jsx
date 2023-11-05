@@ -95,19 +95,20 @@ export default function Gate() {
 			const hash = SHA512(password).toString();
 			const toSend = JSON.stringify({ email: email, password: hash });
 
-			cipherRequest(toSend, "https://katia-api.osc-fr1.scalingo.io/customer/login").then(
-				(token) => {
-					if (token) {
-						localStorage.setItem("katiacm", token);
-						setStatus("OK");
-						window.location.href = "/Katia/customer";
-					} else {
-						setStatus("UNKNOWN USER");
-					}
-
-					setLockDown(false);
+			cipherRequest(
+				toSend,
+				"https://katia-api.osc-fr1.scalingo.io/customer/login"
+			).then((token) => {
+				if (token) {
+					localStorage.setItem("katiacm", token);
+					setStatus("OK");
+					window.location.href = "/Katia/customer";
+				} else {
+					setStatus("UNKNOWN USER");
 				}
-			);
+
+				setLockDown(false);
+			});
 		}
 	};
 
