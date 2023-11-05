@@ -35,18 +35,6 @@ export default function Shop() {
 	return (
 		<Layout>
 			<div id="shop-container">
-				<div className="shop-navigation">
-					<button
-						className="before hvr-shrink"
-						onClick={handleBefore}
-					>
-						Precedent
-					</button>
-					<button className="after hvr-shrink" onClick={handleAfter}>
-						Suivant
-					</button>
-				</div>
-
 				<div id="shop-data-container">
 					{chunked[current].length > 0
 						? Object.keys(chunked[current]).map((v, k) => (

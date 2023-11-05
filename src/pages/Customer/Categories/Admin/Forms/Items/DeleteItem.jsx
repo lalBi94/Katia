@@ -44,10 +44,10 @@ export default function DeleteItem({ handleClose }) {
 
 	return (
 		<div className="popup-container">
-			<span className="popup-title">Supprimer des articles</span>
+			<span className="popup-title">Supprimer des Produits</span>
 
 			{status === 0 ? (
-				<p className="succes">Articles supprimés avec succes !</p>
+				<p className="succes">Produit(s) supprimés avec succes !</p>
 			) : null}
 
 			{status === 1 ? (

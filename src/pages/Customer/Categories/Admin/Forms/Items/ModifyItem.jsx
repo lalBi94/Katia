@@ -76,9 +76,9 @@ export default function ModifyItem({ handleClose }) {
 
 	return (
 		<div className="popup-container">
-			<span className="popup-title">Modifier un articles</span>
+			<span className="popup-title">Modifier un Produit</span>
 
-			{status === 0 ? <p className="succes">Article modifié !</p> : null}
+			{status === 0 ? <p className="succes">Produit modifié !</p> : null}
 
 			{status === 1 ? (
 				<p className="error">Un probleme est survenu !</p>

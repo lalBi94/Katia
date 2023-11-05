@@ -34,7 +34,7 @@ export default function Admin() {
 			{form ? <div id="admin-form-popup">{form}</div> : null}
 
 			<div className="admin-category">
-				<h3 className="admin-category-title">Articles</h3>
+				<h3 className="admin-category-title">Produits</h3>
 
 				<div className="admin-category-btns">
 					<button
@@ -43,7 +43,7 @@ export default function Admin() {
 						}}
 						className="admin-category-btn"
 					>
-						Créer un article
+						Créer un Produit
 					</button>
 
 					<button
@@ -52,7 +52,7 @@ export default function Admin() {
 						}}
 						className="admin-category-btn"
 					>
-						Supprimer des article
+						Supprimer des Produits
 					</button>
 
 					<button
@@ -61,7 +61,7 @@ export default function Admin() {
 						}}
 						className="admin-category-btn"
 					>
-						Modifier un article
+						Modifier un Produit
 					</button>
 				</div>
 			</div>

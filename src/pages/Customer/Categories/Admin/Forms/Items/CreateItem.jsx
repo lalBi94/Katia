@@ -66,14 +66,14 @@ export default function CreateItem({ handleClose }) {
 
 	return (
 		<div className="popup-container">
-			<span className="popup-title">Création d'article</span>
+			<span className="popup-title">Création de Produit</span>
 
 			{status === 1 ? (
 				<p className="error">Une erreur est survenue !</p>
 			) : null}
 
 			{status === 2 ? (
-				<p className="error">Cet article existe deja !</p>
+				<p className="error">Ce Produit existe deja !</p>
 			) : null}
 
 			{status === 3 ? (
@@ -81,7 +81,7 @@ export default function CreateItem({ handleClose }) {
 			) : null}
 
 			{status === 0 ? (
-				<p className="succes">L'article a été crée !</p>
+				<p className="succes">Le Produit a été crée !</p>
 			) : null}
 
 			<input
