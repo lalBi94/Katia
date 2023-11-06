@@ -3,13 +3,22 @@ import "./NavBar.scss";
 import { useEffect, useState } from "react";
 import logo from "../../assets/logo.png";
 import "hover.css";
+import { cipherRequest } from "../../services/KTSec/KTSec";
 
 export default function NavBar() {
 	const [isLogged, setIsLogged] = useState(false);
 	const [inBurger, setInBurger] = useState(false);
+	const [inCart, setInCart] = useState(null)
 
 	useEffect(() => {
 		setIsLogged(localStorage.getItem("katiacm") ? true : false);
+
+		const toSend = JSON.stringify({token: localStorage.getItem("katiacm")})
+
+		cipherRequest(toSend, "https://katia-api.osc-fr1.scalingo.io/order/getOrdersOf").then((res) => {
+			setInCart(res.data.length)
+			console.log(res.data.length)
+		})
 	}, []);
 
 	const handleInBuger = () => {
@@ -96,7 +105,16 @@ export default function NavBar() {
 				{links.logo}
 				{links.home}
 				{links.shop}
-
+				{isLogged ? 
+					<div className="nav-element spe">
+						<Link
+							className="nav-link hvr-wobble-bottom"
+							to="/Katia/cart"
+						>
+							🛒 Panier <span className="nav-element-cart-len">{inCart}</span>
+						</Link> 
+					</div>
+				: null}
 				{!isLogged ? links.gate : links.instance_client}
 
 				{links.burger}
@@ -110,6 +128,16 @@ export default function NavBar() {
 
 					{links.home}
 					{links.shop}
+					{isLogged ? 
+						<div className="nav-element">
+							<Link
+								className="nav-link hvr-wobble-bottom"
+								to="/Katia/cart"
+							>
+								🛒 Panier <span>{inCart}</span>
+							</Link> 
+						</div>
+					: null}
 
 					{!isLogged ? links.gate : links.instance_client}
 				</div>

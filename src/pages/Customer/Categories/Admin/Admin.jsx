@@ -85,6 +85,9 @@ export default function Admin() {
 					<button className="admin-category-btn">
 						Modifier un client
 					</button>
+					<button className="admin-category-btn">
+						Modifier les permissions d'un client
+					</button>
 				</div>
 			</div>
 

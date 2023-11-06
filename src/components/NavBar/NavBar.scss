@@ -110,6 +110,24 @@
 				text-decoration: none;
 				font-size: 1.1em;
 				color: $black;
+				display: flex;
+				gap: 8px;
+				flex-direction: row;
+				justify-content: center;
+				align-items: center;
+
+				.nav-element-cart-len {
+					display: flex;
+					flex-direction: row;
+					justify-content: center;
+					align-items: center;
+					background: $red;
+					color: white;
+					width: 13px;
+					height: 13px;
+					padding: 6px;
+					border-radius: 50%;
+				}
 			}
 		}
 

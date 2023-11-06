@@ -1,5 +1,4 @@
-import { useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
 import { SHA512 } from "crypto-js";
 import "./Gate.scss";
 import Layout from "../../Layout/Layout";
@@ -13,6 +12,11 @@ export default function Gate() {
 	const [isLogin, setIsLogin] = useState(true);
 	const [lockDown, setLockDown] = useState(false);
 	const [status, setStatus] = useState("Waiting...");
+
+	useEffect(() => {
+		if (localStorage.getItem("katiacm"))
+			window.location.href = "/Katia/customer";
+	}, []);
 
 	const handleFirstname = (e) => {
 		setStatus("Waiting...");

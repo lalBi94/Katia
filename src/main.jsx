@@ -6,6 +6,7 @@ import Home from "./pages/Home/Home";
 import "./main.scss";
 import Customer from "./pages/Customer/Customer";
 import Shop from "./pages/Shop/Shop";
+import Cart from "./pages/Cart/Cart";
 
 const router = createBrowserRouter([
 	{ path: "/", element: <Home /> },
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
 	{ path: "/Katia/gate", element: <Gate /> },
 	{ path: "/Katia/customer", element: <Customer /> },
 	{ path: "/Katia/shop", element: <Shop /> },
+	{ path: "/Katia/cart", element: <Cart /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

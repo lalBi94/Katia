@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "hover.css";
 import { motion } from "framer-motion";
+import { cipherRequest } from "../../services/KTSec/KTSec";
 
 export default function Shop() {
 	const [chunked, setChunked] = useState([[]]);
 	const [current, setCurrent] = useState(0);
+	const [clientId, setClientId] = useState(null);
 
 	const chunks = (r, j) =>
 		r.reduce(
@@ -23,6 +25,27 @@ export default function Shop() {
 		setCurrent(current === 0 ? current : current - 1);
 	};
 
+	const addToCart = (itemId, qte) => {
+		if (!clientId) {
+			window.location.href = "/Katia/gate";
+		} else {
+			const toSend = JSON.stringify({
+				token_c: localStorage.getItem("katiacm"),
+				itemId: itemId,
+				qte: qte,
+			});
+
+			console.log(toSend);
+
+			cipherRequest(
+				toSend,
+				"https://katia-api.osc-fr1.scalingo.io/order/addToCart"
+			).then((res) => {
+				console.log(res);
+			});
+		}
+	};
+
 	useEffect(() => {
 		axios
 			.post("https://katia-api.osc-fr1.scalingo.io/item/getAllItems")
@@ -30,6 +53,15 @@ export default function Shop() {
 				const newRes = chunks(res.data, 8);
 				setChunked(newRes);
 			});
+
+		if (localStorage.getItem("katiacm")) {
+			cipherRequest(
+				localStorage.getItem("katiacm"),
+				"https://katia-api.osc-fr1.scalingo.io/customer/getUserId"
+			).then((res) => {
+				setClientId(res);
+			});
+		}
 	}, []);
 
 	return (
@@ -45,12 +77,33 @@ export default function Shop() {
 									duration={1500}
 									key={k}
 								>
-									<div className="item-container hvr-shrink">
+									<div className="item-container hvr-float">
 										<img
 											className="item-imgRef"
 											src={chunked[current][v].imgRef}
 											alt={`Image de ${chunked[current][v].name}`}
 										/>
+
+										<span className="item-hover-actions">
+											<div className="item-hover-actions-blur"></div>
+											<button
+												onClick={() => {
+													addToCart(
+														chunked[current][v]._id,
+														1
+													);
+												}}
+												className="item-hover-actions-items btn"
+											>
+												+ Ajouter au panier
+											</button>
+											<button
+												onClick={null}
+												className="item-hover-actions-items btn"
+											>
+												Acheter
+											</button>
+										</span>
 
 										<span className="item-title">
 											{chunked[current][v].name}
@@ -72,8 +125,7 @@ export default function Shop() {
 														: "item-price"
 												}
 											>
-												{chunked[current][v].price}€
-												&nbsp;
+												{chunked[current][v].price}€ (HT)											&nbsp;
 											</span>
 
 											{chunked[current][v].promotion >
@@ -92,7 +144,7 @@ export default function Shop() {
 																	.promotion) /
 																100
 														).toFixed(2)}
-														€
+														€ (HT)
 													</span>
 
 													<span className="item-promotion">
@@ -112,13 +164,10 @@ export default function Shop() {
 				</div>
 
 				<div className="shop-navigation">
-					<button
-						className="before hvr-shrink"
-						onClick={handleBefore}
-					>
+					<button className="before" onClick={handleBefore}>
 						Precedent
 					</button>
-					<button className="after hvr-shrink" onClick={handleAfter}>
+					<button className="after" onClick={handleAfter}>
 						Suivant
 					</button>
 				</div>
