@@ -30,12 +30,6 @@
 		align-items: center;
 		flex-wrap: wrap;
 
-		@media (max-width: 420px) {
-			.item-container {
-				width: 350px;
-			}
-		}
-
 		.item-container {
 			border-top: 3px solid $red;
 			display: flex;
@@ -123,6 +117,12 @@
 			.item-imgRef {
 				width: 200px;
 				height: 200px;
+			}
+		}
+
+		@media (max-width: $responsive) {
+			.item-container {
+				width: 80%;
 			}
 		}
 	}
