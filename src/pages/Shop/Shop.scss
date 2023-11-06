@@ -30,6 +30,12 @@
 		align-items: center;
 		flex-wrap: wrap;
 
+		@media (max-width: 420px) {
+			.item-container {
+				width: 350px;
+			}
+		}
+
 		.item-container {
 			border-top: 3px solid $red;
 			display: flex;

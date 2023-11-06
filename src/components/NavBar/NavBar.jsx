@@ -106,12 +106,12 @@ export default function NavBar() {
 				{links.home}
 				{links.shop}
 				{isLogged ? 
-					<div className="nav-element spe">
+					<div className="nav-element resp">
 						<Link
 							className="nav-link hvr-wobble-bottom"
 							to="/Katia/cart"
 						>
-							🛒 Panier <span className="nav-element-cart-len">{inCart}</span>
+							Panier <span className="nav-element-cart-len">{inCart}</span>
 						</Link> 
 					</div>
 				: null}
@@ -129,14 +129,14 @@ export default function NavBar() {
 					{links.home}
 					{links.shop}
 					{isLogged ? 
-						<div className="nav-element">
+						<li className="nav-element resp">
 							<Link
-								className="nav-link hvr-wobble-bottom"
+								className="nav-link spe hvr-wobble-bottom"
 								to="/Katia/cart"
 							>
-								🛒 Panier <span>{inCart}</span>
+								Panier <span className="nav-element-cart-len">{inCart}</span>
 							</Link> 
-						</div>
+						</li>
 					: null}
 
 					{!isLogged ? links.gate : links.instance_client}
