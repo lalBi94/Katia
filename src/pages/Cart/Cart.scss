@@ -1,0 +1,94 @@
+@import "../../main.scss";
+
+#cart-container {
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	gap: 25px;
+    color: $black;
+	width: 100%;
+	align-items: center;
+	justify-content: center;
+
+	#cart-items-container {
+		#cart-item-thead {
+			th {
+				padding: 25px;
+			}
+			.cart-items-titles {
+				text-align: left;
+				font-size: 1.1em;
+			}
+		}
+
+		#cart-item-tbody {
+			.cart-items {
+				td {
+					padding: 25px;
+				}
+
+				.cart-item-name {
+					display: flex;
+					flex-direction: row;
+					gap: 5px;
+					font-weight: bold;
+					border-bottom: 1px solid $black;
+					align-items: center;
+					justify-content: left;
+	
+					.cart-item-price {
+						font-size: smaller;
+						color: $dark_red;
+					}
+				}
+	
+				.cart-item-qte {
+					text-align: right;
+				}
+	
+				.cart-item-final-price {
+					text-align: right;
+				}
+	
+				.cart-item-u-price {
+					font-size: smaller;
+					text-align: right;
+				}
+	
+				.cart-item-actions {
+					display: flex;
+					flex-direction: row;
+					flex-wrap: wrap;
+					justify-content: right;
+					gap: 5px;
+	
+					.cart-item-btn {
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						width: 30px;
+						height: 30px;
+					}
+				}
+			}
+		}
+	}
+
+	#cart-total-container {
+		display: flex;
+        flex-wrap: wrap;
+
+		#cart-total-btns {
+			display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+			justify-content: center;
+			align-items: center;
+
+			.cart-total-btn {
+                padding: 10px;
+                font-size: 0.9em;
+			}
+		}
+	}
+}

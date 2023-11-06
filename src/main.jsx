@@ -7,6 +7,7 @@ import "./main.scss";
 import Customer from "./pages/Customer/Customer";
 import Shop from "./pages/Shop/Shop";
 import Cart from "./pages/Cart/Cart";
+import { StrictMode } from 'react';
 
 const router = createBrowserRouter([
 	{ path: "/", element: <Home /> },
@@ -19,5 +20,7 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-	<RouterProvider router={router} />
+	<StrictMode>
+		<RouterProvider router={router} />
+	</StrictMode>
 );

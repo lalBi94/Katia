@@ -40,7 +40,6 @@ export default function ModifyItem({ handleClose }) {
 
 	const handleSelect = (item) => {
 		setStatus(null);
-		console.log(item)
 
 		if (JSON.stringify(item) === JSON.stringify(selectedItem)) {
 			setSelectedItem({});

@@ -8,4 +8,27 @@ html {
 	font-family: "Roboto", sans-serif;
 	margin: 0 auto;
 	padding: 0;
+	color: $black;
+}
+
+.btn {
+	background: $red;
+	border: none;
+	color: white;
+	padding: 15px;
+	cursor: pointer;
+	font-weight: bold;
+	font-size: 1em;
+
+	&:hover {
+		background: $dark_red;
+	}
+}
+
+.ipt {
+	width: 55%;
+	height: 15%;
+	text-align: center;
+	padding: 5px;
+	font-size: 1.3em;
 }

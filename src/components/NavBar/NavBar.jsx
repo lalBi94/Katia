@@ -12,12 +12,18 @@ export default function NavBar() {
 
 	useEffect(() => {
 		setIsLogged(localStorage.getItem("katiacm") ? true : false);
+		
+		if(!localStorage.getItem("c_len")) {
+			localStorage.setItem("c_len", 0)	
+		} else {
+			setInCart(localStorage.getItem("c_len"))
+		}
 
 		const toSend = JSON.stringify({token: localStorage.getItem("katiacm")})
 
 		cipherRequest(toSend, "https://katia-api.osc-fr1.scalingo.io/order/getOrdersOf").then((res) => {
-			setInCart(res.data.length)
-			console.log(res.data.length)
+			localStorage.setItem("c_len", res.data.length)
+			setInCart(localStorage.getItem("c_len"))
 		})
 	}, []);
 
@@ -83,7 +89,7 @@ export default function NavBar() {
 
 				<li className="nav-element nav-element-customer-instance resp">
 					<button
-						className="hvr-buzz-out nav-link-customer-instance btn"
+						className="hvr-buzz-out nav-link-customer-instance btn-deco btn"
 						onClick={revokeToken}
 					>
 						Deconnexion

@@ -40,8 +40,8 @@
 					align-items: center;
 					background: white;
 					color: $red;
-					width: 13px;
-					height: 13px;
+					width: 20px;
+					height: 20px;
 					padding: 3px;
 					border-radius: 50%;
 				}
@@ -103,18 +103,11 @@
 			flex-direction: column;
 			gap: 10px;
 
-			.btn {
-				background: $red;
-				padding: 10px;
+			.btn-deco {
+				padding: 8px;
 				border: none;
-				font-weight: bold;
-				color: white;
 				border-radius: 3px;
-				cursor: pointer;
-
-				&:hover {
-					background: $dark_red;
-				}
+				font-size: 0.95em;
 			}
 		}
 

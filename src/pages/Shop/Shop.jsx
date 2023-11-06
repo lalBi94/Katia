@@ -25,7 +25,16 @@ export default function Shop() {
 		setCurrent(current === 0 ? current : current - 1);
 	};
 
-	const addToCart = (itemId, qte) => {
+	const addToCart = (itemId, qte, element) => {
+		const e = element.target
+		e.style.background = "#349734"
+		e.innerText = "Ajouté au panier !"
+
+		setTimeout(() => {
+			e.style.background = "#cb4a4a"
+			e.innerText = "+ Ajouter au panier"
+		}, 800)
+
 		if (!clientId) {
 			window.location.href = "/Katia/gate";
 		} else {
@@ -34,8 +43,6 @@ export default function Shop() {
 				itemId: itemId,
 				qte: qte,
 			});
-
-			console.log(toSend);
 
 			cipherRequest(
 				toSend,
@@ -87,10 +94,11 @@ export default function Shop() {
 										<span className="item-hover-actions">
 											<div className="item-hover-actions-blur"></div>
 											<button
-												onClick={() => {
+												onClick={(e) => {
 													addToCart(
 														chunked[current][v]._id,
-														1
+														1,
+														e
 													);
 												}}
 												className="item-hover-actions-items btn"
