@@ -34,7 +34,6 @@ export default function Cart() {
 					}
 
 					setTotal(n.toFixed(2));
-
 					break;
 				}
 

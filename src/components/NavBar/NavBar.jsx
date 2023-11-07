@@ -3,28 +3,13 @@ import "./NavBar.scss";
 import { useEffect, useState } from "react";
 import logo from "../../assets/logo.png";
 import "hover.css";
-import { cipherRequest } from "../../services/KTSec/KTSec";
 
 export default function NavBar() {
 	const [isLogged, setIsLogged] = useState(false);
 	const [inBurger, setInBurger] = useState(false);
-	const [inCart, setInCart] = useState(null)
 
 	useEffect(() => {
 		setIsLogged(localStorage.getItem("katiacm") ? true : false);
-		
-		if(!localStorage.getItem("c_len")) {
-			localStorage.setItem("c_len", 0)	
-		} else {
-			setInCart(localStorage.getItem("c_len"))
-		}
-
-		const toSend = JSON.stringify({token: localStorage.getItem("katiacm")})
-
-		cipherRequest(toSend, "https://katia-api.osc-fr1.scalingo.io/order/getOrdersOf").then((res) => {
-			localStorage.setItem("c_len", res.data.length)
-			setInCart(localStorage.getItem("c_len"))
-		})
 	}, []);
 
 	const handleInBuger = () => {
@@ -103,6 +88,17 @@ export default function NavBar() {
 				☰
 			</li>
 		),
+
+		cart: (
+			<li className="nav-element resp">
+				<Link
+					className="nav-link spe hvr-wobble-bottom"
+					to="/Katia/cart"
+				>
+					Panier
+				</Link>
+			</li>
+		),
 	});
 
 	return (
@@ -111,16 +107,9 @@ export default function NavBar() {
 				{links.logo}
 				{links.home}
 				{links.shop}
-				{isLogged ? 
-					<div className="nav-element resp">
-						<Link
-							className="nav-link hvr-wobble-bottom"
-							to="/Katia/cart"
-						>
-							Panier <span className="nav-element-cart-len">{inCart}</span>
-						</Link> 
-					</div>
-				: null}
+				{isLogged ? (
+					links.cart
+				) : null}
 				{!isLogged ? links.gate : links.instance_client}
 
 				{links.burger}
@@ -134,16 +123,9 @@ export default function NavBar() {
 
 					{links.home}
 					{links.shop}
-					{isLogged ? 
-						<li className="nav-element resp">
-							<Link
-								className="nav-link spe hvr-wobble-bottom"
-								to="/Katia/cart"
-							>
-								Panier <span className="nav-element-cart-len">{inCart}</span>
-							</Link> 
-						</li>
-					: null}
+					{isLogged ? (
+						links.cart
+					) : null}
 
 					{!isLogged ? links.gate : links.instance_client}
 				</div>

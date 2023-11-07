@@ -27,12 +27,17 @@
 					padding: 25px;
 				}
 
+				@media (max-width: $responsive) {
+					td {
+						padding: 5px;
+					}
+				}
+
 				.cart-item-name {
 					display: flex;
 					flex-direction: row;
 					gap: 5px;
 					font-weight: bold;
-					border-bottom: 1px solid $black;
 					align-items: center;
 					justify-content: left;
 	

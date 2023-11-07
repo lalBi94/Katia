@@ -19,21 +19,23 @@ export default function Shop() {
 
 	const handleAfter = () => {
 		setCurrent(current === chunked.length - 1 ? current : current + 1);
+		window.scrollTo(0, 0);
 	};
 
 	const handleBefore = () => {
 		setCurrent(current === 0 ? current : current - 1);
+		window.scrollTo(0, 0);
 	};
 
 	const addToCart = (itemId, qte, element) => {
-		const e = element.target
-		e.style.background = "#349734"
-		e.innerText = "Ajouté au panier !"
+		const e = element.target;
+		e.style.background = "#349734";
+		e.innerText = "Ajouté au panier !";
 
 		setTimeout(() => {
-			e.style.background = "#cb4a4a"
-			e.innerText = "+ Ajouter au panier"
-		}, 800)
+			e.style.background = "#cb4a4a";
+			e.innerText = "+ Ajouter au panier";
+		}, 800);
 
 		if (!clientId) {
 			window.location.href = "/Katia/gate";
@@ -133,7 +135,8 @@ export default function Shop() {
 														: "item-price"
 												}
 											>
-												{chunked[current][v].price}€ (HT)											&nbsp;
+												{chunked[current][v].price}€
+												(HT) &nbsp;
 											</span>
 
 											{chunked[current][v].promotion >
