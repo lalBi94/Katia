@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import Layout from "../../Layout/Layout";
 import { cipherRequest } from "../../services/KTSec/KTSec";
 import "./Cart.scss";
+import { Puff } from "react-loader-spinner";
 
 export default function Cart() {
 	const [data, setData] = useState([]);
 	const [total, setTotal] = useState(0);
-	const [tva, _] = useState(20);
 
 	useEffect(() => {
 		const toSend = JSON.stringify({
@@ -90,19 +90,32 @@ export default function Cart() {
 					<div id="cart-total-container">
 						<div id="cart-total-btns">
 							<button className="cart-total-btn btn">
-								Acheter ({total}€)
+								Acheter ({total}€ TTC)
 							</button>
-							<button className="cart-total-btn btn">
-								Retourner à la boutique
-							</button>
+
 							<button className="cart-total-btn btn">
 								Vider le panier
+							</button>
+
+							<button className="cart-total-btn btn">
+								Retourner à la boutique
 							</button>
 						</div>
 					</div>
 				</div>
 			) : (
-				<div>Vous n'avez rien dans votre panier</div>
+				<div class="loader">
+					<Puff
+						height="80"
+						width="80"
+						radius={1}
+						color="#cb4a4a"
+						ariaLabel="puff-loading"
+						wrapperStyle={{}}
+						wrapperClass=""
+						visible={true}
+					/>
+				</div>
 			)}
 		</Layout>
 	);

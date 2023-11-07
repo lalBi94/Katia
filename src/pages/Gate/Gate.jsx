@@ -11,7 +11,6 @@ export default function Gate() {
 	const [password, setPassword] = useState("");
 	const [isLogin, setIsLogin] = useState(true);
 	const [lockDown, setLockDown] = useState(false);
-	const [status, setStatus] = useState("Waiting...");
 
 	useEffect(() => {
 		if (localStorage.getItem("katiacm"))
@@ -19,32 +18,26 @@ export default function Gate() {
 	}, []);
 
 	const handleFirstname = (e) => {
-		setStatus("Waiting...");
 		setFirstname(e.target.value);
 	};
 
 	const handleLastname = (e) => {
-		setStatus("Waiting...");
 		setLastname(e.target.value);
 	};
 
 	const handleEmail = (e) => {
-		setStatus("Waiting...");
 		setEmail(e.target.value);
 	};
 
 	const handlePassword = (e) => {
-		setStatus("Waiting...");
 		setPassword(e.target.value);
 	};
 
 	const handleLogin = () => {
-		setStatus("Waiting...");
 		setIsLogin(true);
 	};
 
 	const handleRegister = () => {
-		setStatus("Waiting...");
 		setIsLogin(false);
 	};
 
@@ -71,18 +64,15 @@ export default function Gate() {
 				switch (data.status) {
 					case 0: {
 						localStorage.setItem("katiacm", data.token);
-						setStatus("OK");
 						window.location.href = "/Katia/customer";
 						break;
 					}
 
 					case 1: {
-						setStatus("ERROR");
 						break;
 					}
 
 					case 2: {
-						setStatus("ALREADY EXIST");
 						break;
 					}
 				}
@@ -105,10 +95,7 @@ export default function Gate() {
 			).then((token) => {
 				if (token) {
 					localStorage.setItem("katiacm", token);
-					setStatus("OK");
 					window.location.href = "/Katia/customer";
-				} else {
-					setStatus("UNKNOWN USER");
 				}
 
 				setLockDown(false);
@@ -130,7 +117,7 @@ export default function Gate() {
 
 				{isLogin ? (
 					<div id="login-container">
-						<h3>Connexion {`(${status})`}</h3>
+						<h3>Connexion</h3>
 						<input
 							className="login-input ipt"
 							type="text"
@@ -155,7 +142,7 @@ export default function Gate() {
 					</div>
 				) : (
 					<div id="register-container">
-						<h3>Inscription {`(${status})`}</h3>
+						<h3>Inscription</h3>
 						<input
 							className="register-input ipt"
 							type="text"

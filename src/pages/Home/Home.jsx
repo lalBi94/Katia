@@ -1,10 +1,12 @@
 import Layout from "../../Layout/Layout";
 import "./Home.scss";
+import dessert from "../../assets/dessert.png";
+import plats from "../../assets/plats.png";
 
 export default function Home() {
 	return (
 		<Layout>
-			<h1>Home</h1>
+			<div id="home-container"></div>
 		</Layout>
 	);
 }

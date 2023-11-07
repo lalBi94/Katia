@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import NavBar from "../components/NavBar/NavBar";
 import { cipherRequest } from "../services/KTSec/KTSec";
+import Footer from "../components/Footer/Footer";
+import "./Layout.scss"
 
 export default function Layout({ children }) {
 	useEffect(() => {
@@ -35,6 +37,8 @@ export default function Layout({ children }) {
 			<NavBar />
 
 			<main>{children}</main>
+
+			{/* <Footer /> */}
 		</div>
 	);
 }

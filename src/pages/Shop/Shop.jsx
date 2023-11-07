@@ -3,6 +3,7 @@ import Layout from "../../Layout/Layout";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "hover.css";
+import { Puff } from "react-loader-spinner";
 import { motion } from "framer-motion";
 import { cipherRequest } from "../../services/KTSec/KTSec";
 
@@ -77,101 +78,110 @@ export default function Shop() {
 		<Layout>
 			<div id="shop-container">
 				<div id="shop-data-container">
-					{chunked[current].length > 0
-						? Object.keys(chunked[current]).map((v, k) => (
-								<motion.div
-									initial={{ opacity: 0.5 }}
-									animate={{ opacity: 1 }}
-									exit={{ opacity: 0 }}
-									duration={1500}
-									key={k}
-								>
-									<div className="item-container hvr-float">
-										<img
-											className="item-imgRef"
-											src={chunked[current][v].imgRef}
-											alt={`Image de ${chunked[current][v].name}`}
-										/>
+					{chunked[current].length > 0 ? (
+						Object.keys(chunked[current]).map((v, k) => (
+							<motion.div
+								initial={{ opacity: 0.5 }}
+								animate={{ opacity: 1 }}
+								exit={{ opacity: 0 }}
+								duration={1500}
+								key={k}
+							>
+								<div className="item-container hvr-float">
+									<img
+										className="item-imgRef"
+										src={chunked[current][v].imgRef}
+										alt={`Image de ${chunked[current][v].name}`}
+									/>
 
-										<span className="item-hover-actions">
-											<div className="item-hover-actions-blur"></div>
-											<button
-												onClick={(e) => {
-													addToCart(
-														chunked[current][v]._id,
-														1,
-														e
-													);
-												}}
-												className="item-hover-actions-items btn"
-											>
-												+ Ajouter au panier
-											</button>
-											<button
-												onClick={null}
-												className="item-hover-actions-items btn"
-											>
-												Acheter
-											</button>
-										</span>
+									<span className="item-hover-actions">
+										<div className="item-hover-actions-blur"></div>
+										<button
+											onClick={(e) => {
+												addToCart(
+													chunked[current][v]._id,
+													1,
+													e
+												);
+											}}
+											className="item-hover-actions-items btn"
+										>
+											+ Ajouter au panier
+										</button>
+										<button
+											onClick={null}
+											className="item-hover-actions-items btn"
+										>
+											Acheter
+										</button>
+									</span>
 
-										<span className="item-title">
-											{chunked[current][v].name}
-										</span>
+									<span className="item-title">
+										{chunked[current][v].name}
+									</span>
 
-										<div
+									<div
+										className={
+											chunked[current][v].promotion > 0
+												? "item-price-container item-price-promo"
+												: "item-price-container"
+										}
+									>
+										<span
 											className={
 												chunked[current][v].promotion >
 												0
-													? "item-price-container item-price-promo"
-													: "item-price-container"
+													? "item-price-w-promo"
+													: "item-price"
 											}
 										>
-											<span
-												className={
-													chunked[current][v]
-														.promotion > 0
-														? "item-price-w-promo"
-														: "item-price"
-												}
-											>
-												{chunked[current][v].price}€
-												(HT) &nbsp;
-											</span>
+											{chunked[current][v].price}€ (HT)
+											&nbsp;
+										</span>
 
-											{chunked[current][v].promotion >
-											0 ? (
-												<span className="item-promotion-container">
-													<span className="item-new-price">
-														&nbsp;
-														{(
+										{chunked[current][v].promotion > 0 ? (
+											<span className="item-promotion-container">
+												<span className="item-new-price">
+													&nbsp;
+													{(
+														chunked[current][v]
+															.price -
+														(chunked[current][v]
+															.price *
 															chunked[current][v]
-																.price -
-															(chunked[current][v]
-																.price *
-																chunked[
-																	current
-																][v]
-																	.promotion) /
-																100
-														).toFixed(2)}
-														€ (HT)
-													</span>
-
-													<span className="item-promotion">
-														{
-															chunked[current][v]
-																.promotion
-														}
-														%
-													</span>
+																.promotion) /
+															100
+													).toFixed(2)}
+													€ (HT)
 												</span>
-											) : null}
-										</div>
+
+												<span className="item-promotion">
+													{
+														chunked[current][v]
+															.promotion
+													}
+													%
+												</span>
+											</span>
+										) : null}
 									</div>
-								</motion.div>
-						  ))
-						: null}
+								</div>
+							</motion.div>
+						))
+					) : (
+						<div className="loader">
+							<Puff
+								height="80"
+								width="80"
+								radius={1}
+								color="#cb4a4a"
+								ariaLabel="puff-loading"
+								wrapperStyle={{}}
+								wrapperClass=""
+								visible={true}
+							/>
+						</div>
+					)}
 				</div>
 
 				<div className="shop-navigation">

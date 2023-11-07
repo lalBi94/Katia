@@ -1,7 +1,6 @@
 @import "../../main.scss";
 
 #cart-container {
-	position: absolute;
 	display: flex;
 	flex-direction: column;
 	gap: 25px;
@@ -13,11 +12,12 @@
 	#cart-items-container {
 		#cart-item-thead {
 			th {
-				padding: 25px;
+				padding: 20px;
 			}
 			.cart-items-titles {
 				text-align: left;
 				font-size: 1.1em;
+				text-align: center;
 			}
 		}
 
@@ -40,6 +40,7 @@
 					font-weight: bold;
 					align-items: center;
 					justify-content: left;
+					height: 50px;
 	
 					.cart-item-price {
 						font-size: smaller;

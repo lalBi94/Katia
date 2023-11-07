@@ -4,6 +4,7 @@ import "./Customer.scss";
 import MyAccount from "./Categories/MyAccount/MyAccount";
 import { cipherRequest } from "../../services/KTSec/KTSec";
 import Admin from "./Categories/Admin/Admin";
+import { Puff } from "react-loader-spinner";
 
 export default function Customer() {
 	const [userData, setUserData] = useState({});
@@ -96,7 +97,21 @@ export default function Customer() {
 
 					<div id="customer-information">{selectedComponent}</div>
 				</div>
-			) : null}
+			) : (
+				<div class="loader">
+					<Puff
+						height="80"
+						width="80"
+						radius={1}
+						color="#cb4a4a"
+						ariaLabel="puff-loading"
+						wrapperStyle={{}}
+						wrapperClass=""
+						visible={true}
+					/>
+				</div>
+			)
+			}
 		</Layout>
 	);
 }
