@@ -11,6 +11,7 @@ export default function Shop() {
 	const [chunked, setChunked] = useState([[]]);
 	const [current, setCurrent] = useState(0);
 	const [clientId, setClientId] = useState(null);
+	const [lockdown, setLockdown] = useState(false);
 
 	const chunks = (r, j) =>
 		r.reduce(
@@ -21,11 +22,13 @@ export default function Shop() {
 	const handleAfter = () => {
 		setCurrent(current === chunked.length - 1 ? current : current + 1);
 		window.scrollTo(0, 0);
+		setLockdown(false);
 	};
 
 	const handleBefore = () => {
 		setCurrent(current === 0 ? current : current - 1);
 		window.scrollTo(0, 0);
+		setLockdown(false);
 	};
 
 	const addToCart = (itemId, qte, element) => {
@@ -52,6 +55,7 @@ export default function Shop() {
 				"https://katia-api.osc-fr1.scalingo.io/order/addToCart"
 			).then((res) => {
 				console.log(res);
+				setLockdown(false);
 			});
 		}
 	};
@@ -97,7 +101,10 @@ export default function Shop() {
 									<span className="item-hover-actions">
 										<div className="item-hover-actions-blur"></div>
 										<button
+											disabled={lockdown}
 											onClick={(e) => {
+												setLockdown(true);
+
 												addToCart(
 													chunked[current][v]._id,
 													1,
@@ -108,8 +115,12 @@ export default function Shop() {
 										>
 											+ Ajouter au panier
 										</button>
+
 										<button
-											onClick={null}
+											disabled={lockdown}
+											onClick={() => {
+												setLockdown(false);
+											}}
 											className="item-hover-actions-items btn"
 										>
 											Acheter
@@ -185,10 +196,25 @@ export default function Shop() {
 				</div>
 
 				<div className="shop-navigation">
-					<button className="before" onClick={handleBefore}>
+					<button
+						disabled={lockdown}
+						className="before"
+						onClick={() => {
+							setLockdown(true);
+							handleBefore();
+						}}
+					>
 						Precedent
 					</button>
-					<button className="after" onClick={handleAfter}>
+
+					<button
+						disabled={lockdown}
+						className="after"
+						onClick={() => {
+							setLockdown(true);
+							handleAfter();
+						}}
+					>
 						Suivant
 					</button>
 				</div>

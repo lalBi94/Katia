@@ -3,7 +3,6 @@ import axios from "axios";
 
 export default function ModifyItem({ handleClose }) {
 	const [showedItems, setShowedItems] = useState([]);
-	const [items, setItems] = useState([]);
 	const [selectedItem, setSelectedItem] = useState({});
 	const [modifyName, setModifyName] = useState("");
 	const [modifyPrice, setModifyPrice] = useState("");
@@ -33,7 +32,6 @@ export default function ModifyItem({ handleClose }) {
 
 	useEffect(() => {
 		axios.post("https://katia-api.osc-fr1.scalingo.io/item/getAllItems").then((res) => {
-			setItems(res.data);
 			setShowedItems(res.data);
 		});
 	}, []);
@@ -103,7 +101,7 @@ export default function ModifyItem({ handleClose }) {
 									alt={`Image de ${showedItems[v].name}`}
 								/>
 								<span className="popup-list-data-name">
-									{showedItems[v].name} ({items[v].price}€)
+									{showedItems[v].name} ({showedItems[v].price}€)
 								</span>
 							</div>
 					  ))

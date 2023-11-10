@@ -3,6 +3,11 @@
 #admin-container {
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 20px;
+	width: 100%;
 
 	#admin-form-popup {
 		display: flex;
@@ -13,7 +18,7 @@
 		border: 5px solid $red;
 		top: 50%;
 		left: 50%;
-		width: 50%;
+		width: 80%;
 		transform: translate(-50%, -50%);
 	}
 
@@ -22,12 +27,15 @@
 		flex-direction: column;
 
 		.admin-category-title {
+			text-align: center;
 		}
 
 		.admin-category-btns {
 			display: flex;
 			flex-direction: row;
 			flex-wrap: wrap;
+			justify-content: center;
+			align-items: center;
 			gap: 10px;
 
 			.admin-category-btn {
@@ -41,6 +49,14 @@
 					background: $dark_red;
 				}
 			}
+		}
+	}
+
+	@media (max-width: $responsive) {
+		#admin-form-popup {
+			display: flex;
+			justify-content: center;
+			align-items: center;
 		}
 	}
 }

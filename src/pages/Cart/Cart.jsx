@@ -7,47 +7,140 @@ import { Puff } from "react-loader-spinner";
 export default function Cart() {
 	const [data, setData] = useState([]);
 	const [total, setTotal] = useState(0);
+	const [lockdown, setLockdown] = useState(false);
+	const [loader, setLoader] = useState(true);
+
+	const removeItem = (item_id, id) => {
+		const toSend = JSON.stringify({
+			token: localStorage.getItem("katiacm"),
+			item_id: item_id,
+		});
+
+		cipherRequest(
+			toSend,
+			"https://katia-api.osc-fr1.scalingo.io/order/removeItem"
+		).then((res) => {
+			console.log(res);
+			const cpy = [...data];
+			cpy.splice(id, 1);
+			setData(cpy);
+			calculTotal(cpy);
+
+			setLockdown(false);
+		});
+	};
+
+	const clearCart = () => {
+		if(!data) return
+		
+		for (let i = 0; i <= data.length - 1; ++i) {
+			removeItem(data[i]._id, i);
+		}
+
+		setLockdown(false);
+	};
+
+	const addOrRemoveOneToItemOrder = (item_id, action, count, id) => {
+		if (parseInt(count, 10) === 1 && action === "-") {
+			removeItem(item_id, id);
+		}
+
+		const toSend = JSON.stringify({
+			token: localStorage.getItem("katiacm"),
+			item_id: item_id,
+			sign: action,
+		});
+
+		cipherRequest(
+			toSend,
+			"https://katia-api.osc-fr1.scalingo.io/order/addOrRemoveOneToItemOrder"
+		).then((res) => {
+			switch (res.status) {
+				case 0: {
+					const cpy = [...data];
+
+					for (let i = 0; i <= cpy.length - 1; ++i) {
+						if (cpy[i]._id === item_id) {
+							action === "+" ? cpy[i].qte++ : cpy[i].qte--;
+							setData(cpy);
+							calculTotal(cpy);
+						}
+					}
+
+					break;
+				}
+			}
+
+			setLockdown(false);
+		});
+	};
+
+	const calculTotal = (data) => {
+		const parsedData = data.map((item) => {
+			return {
+				price: parseFloat(item.price),
+				qte: parseInt(item.qte),
+			};
+		});
+
+		const total = parsedData.reduce((acc, item) => {
+			return acc + item.price * item.qte;
+		}, 0);
+
+		setTotal(total.toFixed(2));
+	};
 
 	useEffect(() => {
 		const toSend = JSON.stringify({
 			token: localStorage.getItem("katiacm"),
 		});
+
 		cipherRequest(
 			toSend,
 			"https://katia-api.osc-fr1.scalingo.io/order/getOrdersOf"
 		).then((res) => {
+			console.log(res);
+
 			switch (res.status) {
 				case 0: {
-					setData(res.data);
-
-					let n = 0.0;
-
-					for (let i = 0; i <= res.data.length - 1; ++i) {
-						n +=
-							parseFloat(res.data[i].price) *
-							parseInt(res.data[i].qte);
-						console.log(
-							`${parseFloat(res.data[i].price)}*${parseInt(
-								res.data[i].qte
-							)}=${n}`
-						);
+					if (res.data.length === 0) {
+						setData(null);
+						setLoader(false);
+						return;
 					}
 
-					setTotal(n.toFixed(2));
+					setData(res.data);
+					calculTotal(res.data);
 					break;
 				}
 
 				case 1: {
-					setData(null);
 					break;
 				}
 			}
+
+			setLoader(false);
 		});
 	}, []);
 
 	return (
 		<Layout>
-			{data.length > 0 ? (
+			{loader ? (
+				<div className="loader">
+					<Puff
+						height="80"
+						width="80"
+						radius={1}
+						color="#cb4a4a"
+						ariaLabel="puff-loading"
+						wrapperStyle={{}}
+						wrapperClass=""
+						visible={true}
+					/>
+				</div>
+			) : null}
+
+			{data ? (
 				<div id="cart-container">
 					<table id="cart-items-container">
 						<thead id="cart-item-thead">
@@ -75,11 +168,47 @@ export default function Cart() {
 										{data[v].price * data[v].qte}€
 									</td>
 									<td className="cart-item-actions">
-										<button className="cart-item-btn btn">
+										<button
+											disabled={lockdown}
+											className="cart-item-btn btn"
+											onClick={() => {
+												setLockdown(true);
+												addOrRemoveOneToItemOrder(
+													data[v]._id,
+													"-",
+													data[v].qte,
+													v
+												);
+											}}
+										>
 											-
 										</button>
-										<button className="cart-item-btn btn">
+
+										<button
+											disabled={lockdown}
+											className="cart-item-btn btn"
+											onClick={() => {
+												setLockdown(true);
+												addOrRemoveOneToItemOrder(
+													data[v]._id,
+													"+",
+													data[v].qte,
+													v
+												);
+											}}
+										>
 											+
+										</button>
+
+										<button
+											disabled={lockdown}
+											className="cart-item-btn btn"
+											onClick={() => {
+												setLockdown(true);
+												removeItem(data[v]._id, v);
+											}}
+										>
+											×
 										</button>
 									</td>
 								</tr>
@@ -89,34 +218,41 @@ export default function Cart() {
 
 					<div id="cart-total-container">
 						<div id="cart-total-btns">
-							<button className="cart-total-btn btn">
+							<button
+								className="cart-total-btn btn"
+								disabled={lockdown}
+								onClick={() => {
+									setLockdown(true);
+								}}
+							>
 								Acheter ({total}€ TTC)
 							</button>
 
-							<button className="cart-total-btn btn">
+							<button
+								className="cart-total-btn btn"
+								onClick={() => {
+									setLockdown(true);
+									clearCart();
+								}}
+								disabled={lockdown}
+							>
 								Vider le panier
 							</button>
 
-							<button className="cart-total-btn btn">
+							<button
+								className="cart-total-btn btn"
+								disabled={lockdown}
+								onClick={() => {
+									setLockdown(true);
+								}}
+							>
 								Retourner à la boutique
 							</button>
 						</div>
 					</div>
 				</div>
-			) : (
-				<div class="loader">
-					<Puff
-						height="80"
-						width="80"
-						radius={1}
-						color="#cb4a4a"
-						ariaLabel="puff-loading"
-						wrapperStyle={{}}
-						wrapperClass=""
-						visible={true}
-					/>
-				</div>
-			)}
+			) :
+				<div>Vous n'avez pas d'article dans votre panier</div>}
 		</Layout>
 	);
 }

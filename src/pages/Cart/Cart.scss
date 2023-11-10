@@ -29,7 +29,7 @@
 
 				@media (max-width: $responsive) {
 					td {
-						padding: 5px;
+						padding: 0;
 					}
 				}
 
@@ -39,11 +39,12 @@
 					gap: 5px;
 					font-weight: bold;
 					align-items: center;
-					justify-content: left;
+					justify-content: space-between;
 					height: 50px;
 	
 					.cart-item-price {
 						font-size: smaller;
+						text-align: left;
 						color: $dark_red;
 					}
 				}
