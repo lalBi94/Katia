@@ -9,6 +9,20 @@ export default function Cart() {
 	const [total, setTotal] = useState(0);
 	const [lockdown, setLockdown] = useState(false);
 	const [loader, setLoader] = useState(true);
+	const [codeQR, setCodeQR] = useState(null)
+
+	const buy = () => {
+		const toSend = JSON.stringify({
+			token: localStorage.getItem("katiacm"),
+			items_list: data
+		})
+
+		cipherRequest(toSend, "https://katia-api.osc-fr1.scalingo.io/reservation/addReservation").then((res) => {
+			setCodeQR({codeqr: res.codeqr, text: res.codetxt})
+			setLockdown(false)
+			console.log(res)
+		})
+	}
 
 	const removeItem = (item_id, id) => {
 		const toSend = JSON.stringify({
@@ -31,13 +45,13 @@ export default function Cart() {
 	};
 
 	const clearCart = () => {
-		if(!data) return
-		
-		for (let i = 0; i <= data.length - 1; ++i) {
-			removeItem(data[i]._id, i);
-		}
+		try {
+			for (let i = 0; i <= data.length - 1; ++i) {
+				removeItem(data[i]._id, i);
+			}
 
-		setLockdown(false);
+			window.location.reload()
+		} catch(donothing) {}
 	};
 
 	const addOrRemoveOneToItemOrder = (item_id, action, count, id) => {
@@ -125,6 +139,13 @@ export default function Cart() {
 
 	return (
 		<Layout>
+			{codeQR ? 
+				<div id="codeQR-container">
+					<img src={codeQR.codeqr} alt={`Code QR contenant le texte : ${codeQR.text}`} />
+					<span>{codeQR.text}</span>
+				</div>
+			: null}
+
 			{loader ? (
 				<div className="loader">
 					<Puff
@@ -223,9 +244,10 @@ export default function Cart() {
 								disabled={lockdown}
 								onClick={() => {
 									setLockdown(true);
+									buy()
 								}}
 							>
-								Acheter ({total}€ TTC)
+								Réserver ({total}€ TTC)
 							</button>
 
 							<button

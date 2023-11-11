@@ -1,5 +1,5 @@
 import axios from "axios";
-const KS_K = 9999;
+const KS_K = 43870257;
 
 /**
  * Client request encryption.
@@ -53,7 +53,11 @@ const cipherRequest = (data, where) => {
 		try {
 			const clientcr = KCEncrypt(data);
 
-			axios.post(where, { data: clientcr }).then((res) => {
+			axios.post(where, { data: clientcr }, {
+				headers: {
+					'Access-Control-Allow-Origin': '*'
+				}
+			}).then((res) => {
 				const serverdcr = KSDecrypt(res.data);
 				resolve(JSON.parse(serverdcr));
 			});
