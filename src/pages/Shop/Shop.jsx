@@ -170,7 +170,6 @@ export default function Shop() {
 											}
 										>
 											{chunked[current][v].price}€ (HT)
-											&nbsp;
 										</span>
 
 										{chunked[current][v].promotion > 0 ? (
@@ -221,7 +220,7 @@ export default function Shop() {
 				<div className="shop-navigation">
 					<button
 						disabled={lockdown}
-						className="before"
+						className="before hvr-shrink btn"
 						onClick={() => {
 							setLockdown(true);
 							handleBefore();
@@ -232,7 +231,7 @@ export default function Shop() {
 
 					<button
 						disabled={lockdown}
-						className="after"
+						className="after hvr-shrink btn"
 						onClick={() => {
 							setLockdown(true);
 							handleAfter();

@@ -4,7 +4,8 @@ import { cipherRequest } from "../../services/KTSec/KTSec";
 import "./Cart.scss";
 import { Puff } from "react-loader-spinner";
 import { Link } from "react-router-dom";
-import "hover.css"
+import "hover.css";
+import RCode from "../../components/RCode/RCode";
 
 /**
  * Panier du client
@@ -78,7 +79,7 @@ export default function Cart() {
 
 	/**
 	 * Supprimer l'integralite du panier
-	 * @return {Promise<>}
+	 * @return {Promise<void>}
 	 */
 	const clearCart = async () => {
 		try {
@@ -189,6 +190,12 @@ export default function Cart() {
 		<Layout>
 			{codeQR ? (
 				<div id="codeQR-big-container">
+					<h2>
+						Votre commande a été validée.
+						<br />
+						<span id="codeQR-thx">Merci pour votre achat !</span>
+					</h2>
+
 					<table id="codeQR-container">
 						<thead id="codeQR-headers">
 							<tr id="codeQR-headers-line">
@@ -196,7 +203,7 @@ export default function Cart() {
 								<th className="codeQR-header">
 									Code de reservation
 								</th>
-								<th className="codeQR-header">Montant</th>
+								<th className="codeQR-header">Montant (TTC)</th>
 							</tr>
 						</thead>
 
@@ -210,7 +217,7 @@ export default function Cart() {
 								</td>
 
 								<td className="codeQR-data res">
-									<span>{codeQR.text}</span>
+									<RCode code={codeQR.text}/>
 								</td>
 
 								<td className="codeQR-data">
@@ -220,7 +227,13 @@ export default function Cart() {
 						</tbody>
 					</table>
 
-					<Link id="codeQR-redirection" className="hvr-shrink" to="/Katia/customer">Aller sur votre <b>Espace Client</b></Link>
+					<Link
+						id="codeQR-redirection"
+						className="hvr-shrink"
+						to="/Katia/customer"
+					>
+						Aller sur votre <b>Espace Client</b>
+					</Link>
 				</div>
 			) : null}
 
@@ -276,7 +289,7 @@ export default function Cart() {
 										<td className="cart-item-actions">
 											<button
 												disabled={lockdown}
-												className="cart-item-btn btn"
+												className="cart-item-btn minus hvr-shrink"
 												onClick={() => {
 													setLockdown(true);
 													addOrRemoveOneToItemOrder(
@@ -292,7 +305,7 @@ export default function Cart() {
 
 											<button
 												disabled={lockdown}
-												className="cart-item-btn btn"
+												className="cart-item-btn plus hvr-shrink"
 												onClick={() => {
 													setLockdown(true);
 													addOrRemoveOneToItemOrder(
@@ -308,7 +321,7 @@ export default function Cart() {
 
 											<button
 												disabled={lockdown}
-												className="cart-item-btn btn"
+												className="cart-item-btn remove hvr-shrink"
 												onClick={() => {
 													setLockdown(true);
 													removeItem(data[v]._id, v);

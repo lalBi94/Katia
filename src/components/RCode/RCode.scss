@@ -1,0 +1,19 @@
+@import "../../main.scss";
+
+.reservation {
+    width: 100px;
+    font-size: larger;
+    font-family: 'Courier New', Courier, serif;
+    background: rgb(231, 231, 231);
+    border-radius: 10px;
+    border: 1.3px solid rgb(131, 131, 131);
+    padding: 10px;
+    letter-spacing: 4px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+
+    &::selection {
+        background: transparent;
+    }
+}
