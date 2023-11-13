@@ -9,19 +9,17 @@ import { cipherRequest } from "../../../../services/KTSec/KTSec";
  * @return {HTMLElement}
  */
 export default function MyAccount({ data }) {
+	const [firstNameM, setFirstNameM] = useState("");
+	const [lastNameM, setLastNameM] = useState("");
+	const [emailM, setEmailM] = useState("");
+	//const [passwordM, setPasswordM] = useState("");
+	const [isErr, setIsErr] = useState({ flag: false, status: -1 });
 	const [isModify, setIsModify] = useState({
 		firstname: false,
 		lastname: false,
 		password: false,
 		email: false,
 	});
-
-	const [firstNameM, setFirstNameM] = useState("");
-	const [lastNameM, setLastNameM] = useState("");
-	const [emailM, setEmailM] = useState("");
-	const [passwordM, setPasswordM] = useState("");
-
-	const [isErr, setIsErr] = useState({ flag: false, status: -1 });
 
 	const handleIsModify = (field) => {
 		setIsErr({ flag: false, status: -1 });
