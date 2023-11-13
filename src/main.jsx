@@ -1,3 +1,16 @@
+/** 
+	$-------------------------------------------$
+	|            Frontend du client 	        |
+	| @name katia-client 					    |
+	| @version 1.0 					   		    |
+	| @license MIT 					            |
+	| @link https://github.com/lalBi94/Katia    |
+	| @copyright Les delices de Katia 		    |
+	| @contact : bilal.boudjemline@etu.u-pec.fr |
+	| @contact : ethan.brezeky@etu.u-pec.fr 	|
+	$-------------------------------------------$
+*/
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";

@@ -131,6 +131,11 @@ export default function MyAccount({ data }) {
 							setIsErr({ flag: false, status: 1 });
 							break;
 						}
+
+						case 2: {
+							setIsErr({ flag: false, status: 2 });
+							break;
+						}
 					}
 				});
 
@@ -144,7 +149,15 @@ export default function MyAccount({ data }) {
 	return (
 		<div id="myaccount-container">
 			{!isErr.flag && isErr.status === 1 ? (
-				<p id="error">Une erreur est survenue !</p>
+				<p id="error">
+					Une erreur est survenue !
+				</p>
+			) : null}
+
+			{!isErr.flag && isErr.status === 2 ? (
+				<p id="error">
+					Cet email n'est pas disponible !
+					</p>
 			) : null}
 
 			{isErr.flag && isErr.status === 0 ? (

@@ -4,7 +4,7 @@ const KS_K = 43870257;
 /**
  * Chiffrement des requetes clientes
  * @param {string} w Chaine a chiffrer
- * @return {string}
+ * @return {?string}
  */
 const KCEncrypt = (w) => {
 	try {
@@ -22,8 +22,8 @@ const KCEncrypt = (w) => {
 
 /**
  * Dechiffrement des reponses serveur
- * @param {string} w Chaine a chiffrer
- * @return {string}
+ * @param {string} w Chaine a dechiffrer
+ * @return {?string}
  */
 const KSDecrypt = (w) => {
 	try {
