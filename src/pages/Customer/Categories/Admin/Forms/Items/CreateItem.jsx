@@ -3,13 +3,17 @@ import "../popup.scss";
 import { cipherRequest } from "../../../../../../services/KTSec/KTSec";
 import "hover.css";
 
+/**
+ * [ADMIN FEATURES] Creer un produit
+ * @param {{handleClose: <void>}} param0 Fonction qui fermera ce formulaire
+ * @return {HTMLElement}
+ */
 export default function CreateItem({ handleClose }) {
 	const [name, setName] = useState("");
 	const [price, setPrice] = useState("");
 	const [promotion, setPromotion] = useState("");
 	const [imgRef, setImgRef] = useState("");
 	const [status, setStatus] = useState(null);
-
 	const [refs, _] = useState({
 		name: useRef(null),
 		price: useRef(null),
@@ -17,26 +21,46 @@ export default function CreateItem({ handleClose }) {
 		imgRef: useRef(null),
 	});
 
+	/**
+	 * Nom du produit
+	 * @param {Event} e
+	 */
 	const handleName = (e) => {
 		setStatus(null);
 		setName(e.target.value);
 	};
 
+	/**
+	 * Prix du produit
+	 * @param {Event} e
+	 */
 	const handlePrice = (e) => {
 		setStatus(null);
 		setPrice(e.target.value);
 	};
 
+	/**
+	 * Promotion du produit
+	 * @param {Event} e
+	 */	
 	const handlePromotion = (e) => {
 		setStatus(null);
 		setPromotion(e.target.value);
 	};
 
+	/**
+	 * Url de l'image du produit
+	 * @param {Event} e
+	 */	
 	const handleImgRef = (e) => {
 		setStatus(null);
 		setImgRef(e.target.value);
 	};
 
+	/**
+	 * Creer le produit
+	 * @return {void}
+	 */
 	const handleCreateItem = () => {
 		if (!name || !price || !promotion || !imgRef) {
 			setStatus(3);
@@ -58,6 +82,10 @@ export default function CreateItem({ handleClose }) {
 		);
 	};
 
+	/**
+	 * Vider les champs
+	 * @return {void}
+	 */
 	const handleClear = () => {
 		for (let e in refs) {
 			refs[e].current.value = "";

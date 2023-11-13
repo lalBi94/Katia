@@ -3,6 +3,11 @@ import "../popup.scss";
 import axios from "axios";
 import { cipherRequest } from "../../../../../../services/KTSec/KTSec";
 
+/**
+ * [ADMIN FEATURES] Supprimer un produit
+ * @param {{handleClose: <void>}} param0 Fonction qui fermera ce formulaire
+ * @return {HTMLElement}
+ */
 export default function DeleteItem({ handleClose }) {
 	const [showedItems, setShowedItems] = useState([]);
 	const [items, setItems] = useState([]);
@@ -18,6 +23,10 @@ export default function DeleteItem({ handleClose }) {
 			});
 	}, []);
 
+	/**
+	 * Ajouter les produits selectionnes dans selectedItems
+	 * @param {number} id Identifiant du produit dans la liste 
+	 */
 	const handleSelect = (id) => {
 		if (selectedItems.indexOf(id) >= 0) {
 			selectedItems.splice(selectedItems.indexOf(id), 1);
@@ -26,6 +35,10 @@ export default function DeleteItem({ handleClose }) {
 		}
 	};
 
+	/**
+	 * Supprimer les produits selectionnes
+	 * @return {void}
+	 */
 	const handleDelete = () => {
 		if (selectedItems.length === 0) {
 			return;

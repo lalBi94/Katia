@@ -4,6 +4,10 @@ import { useEffect, useState } from "react";
 import logo from "../../assets/logo.png";
 import "hover.css";
 
+/**
+ * Navigation bar normal/burger du site
+ * @return {HTMLElement}
+ */
 export default function NavBar() {
 	const [isLogged, setIsLogged] = useState(false);
 	const [inBurger, setInBurger] = useState(false);
@@ -12,19 +16,28 @@ export default function NavBar() {
 		setIsLogged(localStorage.getItem("katiacm") ? true : false);
 	}, []);
 
+	/**
+	 * Activer ou non le mode Burger
+	 */
 	const handleInBuger = () => {
 		setInBurger(!inBurger);
 	};
 
+	/**
+	 * Retourner a la page d'accueil 
+	 */
 	const goToHome = () => {
 		window.location.href = "/Katia/home";
 	};
 
+	/**
+	 * Supprimer le token + retourner a l'ecran d'accueil
+	 */
 	const revokeToken = () => {
 		localStorage.removeItem("katiacm");
 		goToHome();
 	};
-
+	
 	const [links, _] = useState({
 		logo: (
 			<li className="nav-element">

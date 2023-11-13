@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+/**
+ * [ADMIN FEATURES] Modifier un produit
+ * @param {{handleClose: <void>}} param0 Fonction qui fermera ce formulaire
+ * @return {HTMLElement}
+ */
 export default function ModifyItem({ handleClose }) {
 	const [showedItems, setShowedItems] = useState([]);
 	const [selectedItem, setSelectedItem] = useState({});
@@ -10,32 +15,46 @@ export default function ModifyItem({ handleClose }) {
 	const [modifyImgRef, setModifyImgRef] = useState("");
 	const [status, setStatus] = useState(null);
 
+	/**
+	 * Nom du produit
+	 * @param {Event} e
+	 */
 	const handleModifyName = (e) => {
 		setStatus(null);
 		setModifyName(e.target.value);
 	};
 
+	/**
+	 * Url de l'image du produit
+	 * @param {Event} e
+	 */	
 	const handleModifyImgRef = (e) => {
 		setStatus(null);
 		setModifyImgRef(e.target.value);
 	};
 
+	/**
+	 * Prix du produit
+	 * @param {Event} e
+	 */
 	const handleModifyPrice = (e) => {
 		setStatus(null);
 		setModifyPrice(e.target.value);
 	};
 
+	/**
+	 * Promotion du produit
+	 * @param {Event} e
+	 */	
 	const handleModifyPromotion = (e) => {
 		setStatus(null);
 		setModifyPromotion(e.target.value);
 	};
 
-	useEffect(() => {
-		axios.post("https://katia-api.osc-fr1.scalingo.io/item/getAllItems").then((res) => {
-			setShowedItems(res.data);
-		});
-	}, []);
-
+	/**
+	 * Selectionner un produit
+	 * @param {*} item Produit selectionne 
+	 */
 	const handleSelect = (item) => {
 		setStatus(null);
 
@@ -46,6 +65,10 @@ export default function ModifyItem({ handleClose }) {
 		}
 	};
 
+	/**
+	 * Modifier le produit selectionner
+	 * @return {void}
+	 */
 	const handleModify = () => {
 		const name = modifyName.length > 0 ? modifyName : selectedItem.name;
 		const price = modifyPrice.length > 0 ? modifyPrice : selectedItem.price;
@@ -70,6 +93,12 @@ export default function ModifyItem({ handleClose }) {
 				setStatus(res.data.status);
 			});
 	};
+
+	useEffect(() => {
+		axios.post("https://katia-api.osc-fr1.scalingo.io/item/getAllItems").then((res) => {
+			setShowedItems(res.data);
+		});
+	}, []);
 
 	return (
 		<div className="popup-container">

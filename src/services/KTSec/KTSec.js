@@ -2,9 +2,9 @@ import axios from "axios";
 const KS_K = 43870257;
 
 /**
- * Client request encryption.
- * @param {string} w String to encrypt.
- * @return {Promise<string>}
+ * Chiffrement des requetes clientes
+ * @param {string} w Chaine a chiffrer
+ * @return {string}
  */
 const KCEncrypt = (w) => {
 	try {
@@ -21,9 +21,9 @@ const KCEncrypt = (w) => {
 };
 
 /**
- * Server response decryption.
- * @param {string} w String to decrypt.
- * @return {Promise<string>}
+ * Dechiffrement des reponses serveur
+ * @param {string} w Chaine a chiffrer
+ * @return {string}
  */
 const KSDecrypt = (w) => {
 	try {
@@ -43,9 +43,9 @@ const KSDecrypt = (w) => {
 };
 
 /**
- * Create a cipher request
- * @param {string} data Data to send.
- * @param {string} where target url.
+ * Creer une requete chiffrer
+ * @param {string} data Donnees modifier par une des 2 fn ci-dessus
+ * @param {string} where Url de l'API
  * @return {Promise<{}>}
  */
 const cipherRequest = (data, where) => {

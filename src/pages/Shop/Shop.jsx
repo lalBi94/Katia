@@ -7,30 +7,53 @@ import { Puff } from "react-loader-spinner";
 import { motion } from "framer-motion";
 import { cipherRequest } from "../../services/KTSec/KTSec";
 
+/**
+ * Page de la boutique
+ * @return {HTMLElement}
+ */
 export default function Shop() {
 	const [chunked, setChunked] = useState([[]]);
 	const [current, setCurrent] = useState(0);
 	const [clientId, setClientId] = useState(null);
 	const [lockdown, setLockdown] = useState(false);
 
+	/**
+	 * Devisier le tableau en plusieurs chunks
+	 * @param {*} r Liste d'objets
+	 * @param {*} j Par combien diviser la liste
+	 * @returns 
+	 */
 	const chunks = (r, j) =>
 		r.reduce(
 			(a, b, i, g) => (!(i % j) ? a.concat([g.slice(i, i + j)]) : a),
 			[]
 		);
 
+	/**
+	 * Page de produits suivante
+	 */
 	const handleAfter = () => {
 		setCurrent(current === chunked.length - 1 ? current : current + 1);
 		window.scrollTo(0, 0);
 		setLockdown(false);
 	};
 
+	/**
+	 * Page de produits precedente
+	 */
 	const handleBefore = () => {
 		setCurrent(current === 0 ? current : current - 1);
 		window.scrollTo(0, 0);
 		setLockdown(false);
 	};
 
+	/**
+	 * Ajouter un produit au panier
+	 * @param {*} itemId Identifiant du produit
+	 * @param {*} qte Quantite du produit
+	 * @param {HTMLElement} element Tag du bouton selectionne
+	 * @return {void}
+	 */
 	const addToCart = (itemId, qte, element) => {
 		const e = element.target;
 		e.style.background = "#349734";

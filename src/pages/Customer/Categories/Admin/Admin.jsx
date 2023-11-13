@@ -4,13 +4,25 @@ import CreateItem from "./Forms/Items/CreateItem";
 import DeleteItem from "./Forms/Items/DeleteItem";
 import ModifyItem from "./Forms/Items/ModifyItem";
 
+/**
+ * [ADMIN FEATURES] Administration du site
+ * @return {HTMLElement}
+ */
 export default function Admin() {
 	const [form, setForm] = useState(null);
 
+	/**
+	 * Ouvrir/Fermer le formulaire
+	 * @return {void}
+	 */
 	const handleCloseForm = () => {
 		setForm(null);
 	};
 
+	/**
+	 * Faire poper un formulaire
+	 * @param {string} what 
+	 */
 	const handleForm = (what) => {
 		switch (what) {
 			case "create_item": {

@@ -2,6 +2,10 @@ import "./Footer.scss";
 import { Link } from "react-router-dom";
 import "hover.css"
 
+/**
+ * Footer du site internet
+ * @return {HTMLElement}
+ */
 export default function Footer() {
 	return (
 		<footer id="footer-container">

@@ -1,9 +1,13 @@
 import { useState } from "react";
 import "./MyAccount.scss";
 import "hover.css";
-import axios from "axios";
 import { cipherRequest } from "../../../../services/KTSec/KTSec";
 
+/**
+ * Visualiser les informations du client
+ * @param {{data: {}}} param0 
+ * @return {HTMLElement}
+ */
 export default function MyAccount({ data }) {
 	const [isModify, setIsModify] = useState({
 		firstname: false,
@@ -24,18 +28,34 @@ export default function MyAccount({ data }) {
 		setIsModify({ ...isModify, [field]: !isModify[field] });
 	};
 
+	/**
+	 * Email du client
+	 * @param {Event} e 
+	 */
 	const handleEmail = (e) => {
 		setEmailM(e.target.value);
 	};
 
+	/**
+	 * Prenom du client
+	 * @param {Event} e 
+	 */
 	const handleFirstname = (e) => {
 		setFirstNameM(e.target.value);
 	};
 
+	/**
+	 * Nom de famille du client
+	 * @param {Event} e 
+	 */
 	const handleLastname = (e) => {
 		setLastNameM(e.target.value);
 	};
 
+	/**
+	 * Changer une des inputs
+	 * @param {"email"|"firstname"|"lastname"|} what Mode de changement
+	 */
 	const changeData = (what) => {
 		switch (what) {
 			case "firstname": {

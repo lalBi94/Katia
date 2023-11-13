@@ -4,6 +4,10 @@ import "./Gate.scss";
 import Layout from "../../Layout/Layout";
 import { cipherRequest } from "../../services/KTSec/KTSec";
 
+/**
+ * Portal de connexion/inscription
+ * @return {HTMLElement}
+ */
 export default function Gate() {
 	const [firstname, setFirstname] = useState("");
 	const [lastname, setLastname] = useState("");
@@ -17,30 +21,56 @@ export default function Gate() {
 			window.location.href = "/Katia/customer";
 	}, []);
 
+	/**
+	 * Nom de famille du futur client
+	 * @param {Event} e 
+	 */
 	const handleFirstname = (e) => {
 		setFirstname(e.target.value);
 	};
 
+	/**
+	 * Prenom du futur client
+	 * @param {Event} e 
+	 */
 	const handleLastname = (e) => {
 		setLastname(e.target.value);
 	};
 
+	/**
+	 * Email du futur client
+	 * @param {Event} e 
+	 */
 	const handleEmail = (e) => {
 		setEmail(e.target.value);
 	};
 
+	/**
+	 * Mot de passe du futur client
+	 * @param {Event} e 
+	 */
 	const handlePassword = (e) => {
 		setPassword(e.target.value);
 	};
 
+	/**
+	 * Switch -> Login
+	 */
 	const handleLogin = () => {
 		setIsLogin(true);
 	};
 
+	/**
+	 * Switch -> Register
+	 */
 	const handleRegister = () => {
 		setIsLogin(false);
 	};
 
+	/**
+	 * Envoyer le forumlaire d'inscription
+	 * @return {void}
+	 */
 	const handleRegisterSubmit = () => {
 		setLockDown(true);
 
@@ -82,6 +112,10 @@ export default function Gate() {
 		}
 	};
 
+	/**
+	 * Envoyer le forumlaire de connexion
+	 * @return {void}
+	 */
 	const handleLoginSubmit = () => {
 		setLockDown(true);
 

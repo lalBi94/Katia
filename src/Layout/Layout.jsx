@@ -4,6 +4,11 @@ import { cipherRequest } from "../services/KTSec/KTSec";
 import Footer from "../components/Footer/Footer";
 import "./Layout.scss"
 
+/**
+ * Layout de toutes les pages
+ * @param {{childen: HTMLElement}} param0
+ * @return {HTMLElement}
+ */
 export default function Layout({ children }) {
 	useEffect(() => {
 		const token = localStorage.getItem("katiacm");

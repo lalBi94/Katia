@@ -4,6 +4,10 @@ import { cipherRequest } from "../../services/KTSec/KTSec";
 import "./Cart.scss";
 import { Puff } from "react-loader-spinner";
 
+/**
+ * Panier du client
+ * @return {HTMLElement}
+ */
 export default function Cart() {
 	const [data, setData] = useState([]);
 	const [total, setTotal] = useState(0);
@@ -11,6 +15,10 @@ export default function Cart() {
 	const [loader, setLoader] = useState(true);
 	const [codeQR, setCodeQR] = useState(null)
 
+	/**
+	 * Envoyer le panier dans les reservations
+	 * @return {void}
+	 */
 	const buy = () => {
 		const toSend = JSON.stringify({
 			token: localStorage.getItem("katiacm"),
@@ -20,10 +28,17 @@ export default function Cart() {
 		cipherRequest(toSend, "https://katia-api.osc-fr1.scalingo.io/reservation/addReservation").then((res) => {
 			setCodeQR({codeqr: res.codeqr, text: res.codetxt})
 			setLockdown(false)
-			console.log(res)
+			setData(null)
+			setTotal(0)
 		})
 	}
 
+	/**
+	 * Supprimer un produit du panier
+	 * @param {string} item_id Identifiant du produit
+	 * @param {number} id Index du produit dans la liste
+	 * @return {void}
+	 */
 	const removeItem = (item_id, id) => {
 		const toSend = JSON.stringify({
 			token: localStorage.getItem("katiacm"),
@@ -44,6 +59,10 @@ export default function Cart() {
 		});
 	};
 
+	/**
+	 * Supprimer l'integralite du panier
+	 * @return void
+	 */
 	const clearCart = () => {
 		try {
 			for (let i = 0; i <= data.length - 1; ++i) {
@@ -54,6 +73,14 @@ export default function Cart() {
 		} catch(donothing) {}
 	};
 
+	/**
+	 * Augmenter ou baisser la quantite
+	 * @param {string} item_id Identifiant du produit
+	 * @param {"+"|"-"} action Choisir si on veut augmenter/diminuer la quantite
+	 * @param {number} count Quantite du produit
+	 * @param {number} id Index du produit dans la liste
+	 * @return {void}
+	 */
 	const addOrRemoveOneToItemOrder = (item_id, action, count, id) => {
 		if (parseInt(count, 10) === 1 && action === "-") {
 			removeItem(item_id, id);
@@ -89,6 +116,10 @@ export default function Cart() {
 		});
 	};
 
+	/**
+	 * Calculer le total du panier
+	 * @param {Array<{}>} data 
+	 */
 	const calculTotal = (data) => {
 		const parsedData = data.map((item) => {
 			return {

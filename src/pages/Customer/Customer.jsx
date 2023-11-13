@@ -6,24 +6,45 @@ import { cipherRequest } from "../../services/KTSec/KTSec";
 import Admin from "./Categories/Admin/Admin";
 import { Puff } from "react-loader-spinner";
 
+/**
+ * Page cliente
+ * @return {HTMLElement}
+ */
 export default function Customer() {
 	const [userData, setUserData] = useState({});
 	const [selectedComponent, setSelectedComponent] = useState(null);
 
+	/**
+	 * Renvoyer la page de la modification cliente
+	 * @param {{}} data Informations du client
+	 * @return {void}
+	 */
 	const handleMyAccount = (data) => {
 		setSelectedComponent(<MyAccount data={data} />);
 	};
 
+	/**
+	 * Ouvrir le panel d'administration
+	 * @return {void}
+	 */
+	const handleAdmin = () => {
+		setSelectedComponent(<Admin />);
+	};
+
+	/**
+	 * Ouvrir la liste des reservations en cours
+	 * @return {void}
+	 */
 	const handleReservations = () => {
 		setSelectedComponent(null);
 	};
 
+	/**
+	 * Ouvrir la liste des reservations passe en cours
+	 * @return {void}
+	 */
 	const handleHistory = () => {
 		setSelectedComponent(null);
-	};
-
-	const handleAdmin = () => {
-		setSelectedComponent(<Admin />);
 	};
 
 	useEffect(() => {
