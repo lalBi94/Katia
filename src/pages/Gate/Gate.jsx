@@ -18,7 +18,7 @@ export default function Gate() {
 
 	useEffect(() => {
 		if (localStorage.getItem("katiacm"))
-			window.location.href = "/Katia/customer";
+			window.location.href = "/Katia/#/customer";
 	}, []);
 
 	/**
@@ -94,7 +94,7 @@ export default function Gate() {
 				switch (data.status) {
 					case 0: {
 						localStorage.setItem("katiacm", data.token);
-						window.location.href = "/Katia/customer";
+						window.location.href = "/Katia/#/customer";
 						break;
 					}
 
@@ -129,7 +129,7 @@ export default function Gate() {
 			).then((token) => {
 				if (token) {
 					localStorage.setItem("katiacm", token);
-					window.location.href = "/Katia/customer";
+					window.location.href = "/Katia/#/customer"
 				}
 
 				setLockDown(false);

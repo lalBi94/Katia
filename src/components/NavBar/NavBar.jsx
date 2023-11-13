@@ -27,7 +27,7 @@ export default function NavBar() {
 	 * Retourner a la page d'accueil 
 	 */
 	const goToHome = () => {
-		window.location.href = "/Katia/home";
+		window.location.href = "/Katia/#/home";
 	};
 
 	/**
@@ -52,7 +52,7 @@ export default function NavBar() {
 
 		home: (
 			<li className="nav-element resp">
-				<Link className="nav-link hvr-wobble-bottom" to="/Katia/home">
+				<Link className="nav-link hvr-wobble-bottom" to="/home">
 					Accueil
 				</Link>
 			</li>
@@ -60,7 +60,7 @@ export default function NavBar() {
 
 		shop: (
 			<li className="nav-element resp">
-				<Link className="nav-link hvr-wobble-bottom" to="/Katia/shop">
+				<Link className="nav-link hvr-wobble-bottom" to="/shop">
 					Boutique
 				</Link>
 			</li>
@@ -68,7 +68,7 @@ export default function NavBar() {
 
 		gate: (
 			<li className="nav-element resp">
-				<Link className="nav-link hvr-wobble-bottom" to="/Katia/gate">
+				<Link className="nav-link hvr-wobble-bottom" to="/gate">
 					Portail
 				</Link>
 			</li>
@@ -79,7 +79,7 @@ export default function NavBar() {
 				<li className="nav-element nav-element-customer-instance">
 					<Link
 						className="hvr-wobble-bottom nav-link nav-link-customer-instance"
-						to="/Katia/customer"
+						to="/customer"
 					>
 						Espace Client
 					</Link>
@@ -106,7 +106,7 @@ export default function NavBar() {
 			<li className="nav-element resp">
 				<Link
 					className="nav-link spe hvr-wobble-bottom"
-					to="/Katia/cart"
+					to="/cart"
 				>
 					Panier
 				</Link>

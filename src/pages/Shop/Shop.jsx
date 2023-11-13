@@ -65,7 +65,7 @@ export default function Shop() {
 		}, 800);
 
 		if (!clientId) {
-			window.location.href = "/Katia/gate";
+			window.location.href = "/Katia/#/gate";
 		} else {
 			const toSend = JSON.stringify({
 				token_c: localStorage.getItem("katiacm"),

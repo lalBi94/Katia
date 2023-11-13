@@ -230,7 +230,7 @@ export default function Cart() {
 					<Link
 						id="codeQR-redirection"
 						className="hvr-shrink"
-						to="/Katia/customer"
+						to="/customer"
 					>
 						Aller sur votre <b>Espace Client</b>
 					</Link>

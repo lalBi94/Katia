@@ -13,15 +13,15 @@ export default function Footer() {
                 <div id="footer-socials-msg">Get connected with us on social networks</div>
                 
                 <div id="footer-socials-logos">
-                    <Link to="/" className="footer-socials-logo hvr-shrink">
+                    <Link to="/home" className="footer-socials-logo hvr-shrink">
                         <img src="https://icons.iconarchive.com/icons/fa-team/fontawesome-brands/512/FontAwesome-Brands-Facebook-icon.png" alt="logo de facebook" />
                     </Link>
 
-                    <Link to="/" className="footer-socials-logo hvr-shrink">
+                    <Link to="/home" className="footer-socials-logo hvr-shrink">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Font_Awesome_5_brands_instagram.svg/1200px-Font_Awesome_5_brands_instagram.svg.png" alt="logo d'instagram" />
                     </Link>
 
-                    <Link to="/" className="footer-socials-logo hvr-shrink">
+                    <Link to="/home" className="footer-socials-logo hvr-shrink">
                         <img src="https://www.veryicon.com/download/png/miscellaneous/font-awesome-2/snapchat-ghost-3?s=256" alt="logo de snapchat" />
                     </Link>
                 </div>

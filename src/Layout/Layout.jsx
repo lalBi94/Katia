@@ -29,7 +29,7 @@ export default function Layout({ children }) {
 				}
 
 				case 1: {
-					window.location.href = "/Katia/gate";
+					window.location.href = "/Katia/#/gate";
 					localStorage.removeItem("katiacm");
 					break;
 				}

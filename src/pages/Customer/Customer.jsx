@@ -51,7 +51,7 @@ export default function Customer() {
 		const token = localStorage.getItem("katiacm");
 
 		if (!token) {
-			window.location.href = "/Katia/home";
+			window.location.href = "/Katia/#/home";
 		}
 
 		cipherRequest(
