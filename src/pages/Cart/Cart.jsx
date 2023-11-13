@@ -3,6 +3,8 @@ import Layout from "../../Layout/Layout";
 import { cipherRequest } from "../../services/KTSec/KTSec";
 import "./Cart.scss";
 import { Puff } from "react-loader-spinner";
+import { Link } from "react-router-dom";
+import "hover.css"
 
 /**
  * Panier du client
@@ -13,7 +15,7 @@ export default function Cart() {
 	const [total, setTotal] = useState(0);
 	const [lockdown, setLockdown] = useState(false);
 	const [loader, setLoader] = useState(true);
-	const [codeQR, setCodeQR] = useState(null)
+	const [codeQR, setCodeQR] = useState(null);
 
 	/**
 	 * Envoyer le panier dans les reservations
@@ -22,55 +24,70 @@ export default function Cart() {
 	const buy = () => {
 		const toSend = JSON.stringify({
 			token: localStorage.getItem("katiacm"),
-			items_list: data
-		})
+			items_list: data,
+			total: total,
+		});
 
-		cipherRequest(toSend, "https://katia-api.osc-fr1.scalingo.io/reservation/addReservation").then((res) => {
-			setCodeQR({codeqr: res.codeqr, text: res.codetxt})
-			setLockdown(false)
-			setData(null)
-			setTotal(0)
-		})
-	}
+		setLoader(true);
+
+		cipherRequest(
+			toSend,
+			"https://katia-api.osc-fr1.scalingo.io/reservation/addReservation"
+		).then((res) => {
+			setCodeQR({
+				codeqr: res.codeqr,
+				text: res.codetxt,
+				total: res.total,
+			});
+			setLockdown(false);
+			setData(null);
+			setTotal(0);
+			console.log(res);
+			setLoader(false);
+		});
+	};
 
 	/**
 	 * Supprimer un produit du panier
 	 * @param {string} item_id Identifiant du produit
 	 * @param {number} id Index du produit dans la liste
-	 * @return {void}
+	 * @return {Promise<void>}
 	 */
 	const removeItem = (item_id, id) => {
-		const toSend = JSON.stringify({
-			token: localStorage.getItem("katiacm"),
-			item_id: item_id,
-		});
+		return new Promise((_, __) => {
+			const toSend = JSON.stringify({
+				token: localStorage.getItem("katiacm"),
+				item_id: item_id,
+			});
 
-		cipherRequest(
-			toSend,
-			"https://katia-api.osc-fr1.scalingo.io/order/removeItem"
-		).then((res) => {
-			console.log(res);
-			const cpy = [...data];
-			cpy.splice(id, 1);
-			setData(cpy);
-			calculTotal(cpy);
+			cipherRequest(
+				toSend,
+				"https://katia-api.osc-fr1.scalingo.io/order/removeItem"
+			).then((res) => {
+				console.log(res);
+				const cpy = [...data];
+				cpy.splice(id, 1);
 
-			setLockdown(false);
+				setData(data.length > 1 ? cpy : null);
+				calculTotal(cpy);
+
+				setLockdown(false);
+			});
 		});
 	};
 
 	/**
 	 * Supprimer l'integralite du panier
-	 * @return void
+	 * @return {Promise<>}
 	 */
-	const clearCart = () => {
+	const clearCart = async () => {
 		try {
 			for (let i = 0; i <= data.length - 1; ++i) {
-				removeItem(data[i]._id, i);
+				await removeItem(data[i]._id, i);
 			}
 
-			window.location.reload()
-		} catch(donothing) {}
+			setData(null);
+		} catch (donothing) {}
 	};
 
 	/**
@@ -118,7 +135,7 @@ export default function Cart() {
 
 	/**
 	 * Calculer le total du panier
-	 * @param {Array<{}>} data 
+	 * @param {Array<{}>} data
 	 */
 	const calculTotal = (data) => {
 		const parsedData = data.map((item) => {
@@ -170,12 +187,42 @@ export default function Cart() {
 
 	return (
 		<Layout>
-			{codeQR ? 
-				<div id="codeQR-container">
-					<img src={codeQR.codeqr} alt={`Code QR contenant le texte : ${codeQR.text}`} />
-					<span>{codeQR.text}</span>
+			{codeQR ? (
+				<div id="codeQR-big-container">
+					<table id="codeQR-container">
+						<thead id="codeQR-headers">
+							<tr id="codeQR-headers-line">
+								<th className="codeQR-header">Code QR</th>
+								<th className="codeQR-header">
+									Code de reservation
+								</th>
+								<th className="codeQR-header">Montant</th>
+							</tr>
+						</thead>
+
+						<tbody id="codeQR-datas">
+							<tr id="codeQR-datas-line">
+								<td className="codeQR-data">
+									<img
+										src={codeQR.codeqr}
+										alt={`Code QR contenant le texte : ${codeQR.text}`}
+									/>
+								</td>
+
+								<td className="codeQR-data res">
+									<span>{codeQR.text}</span>
+								</td>
+
+								<td className="codeQR-data">
+									<span>{codeQR.total}€</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<Link id="codeQR-redirection" className="hvr-shrink" to="/Katia/customer">Aller sur votre <b>Espace Client</b></Link>
 				</div>
-			: null}
+			) : null}
 
 			{loader ? (
 				<div className="loader">
@@ -192,120 +239,127 @@ export default function Cart() {
 				</div>
 			) : null}
 
-			{data ? (
-				<div id="cart-container">
-					<table id="cart-items-container">
-						<thead id="cart-item-thead">
-							<th className="cart-items-titles">
-								Nom du produit
-							</th>
-							<th className="cart-items-titles">Quantité</th>
-							<th className="cart-items-titles">Prix</th>
-							<th className="cart-items-titles">Actions</th>
-						</thead>
-
-						<tbody id="cart-item-tbody">
-							{Object.keys(data).map((v, k) => (
-								<tr className="cart-items" key={k}>
-									<td className="cart-item-name">
-										{data[v].name}
-										<span className="cart-item-price">
-											{data[v].price}€/u
-										</span>
-									</td>
-									<td className="cart-item-qte">
-										x{data[v].qte}
-									</td>
-									<td className="cart-item-final-price">
-										{data[v].price * data[v].qte}€
-									</td>
-									<td className="cart-item-actions">
-										<button
-											disabled={lockdown}
-											className="cart-item-btn btn"
-											onClick={() => {
-												setLockdown(true);
-												addOrRemoveOneToItemOrder(
-													data[v]._id,
-													"-",
-													data[v].qte,
-													v
-												);
-											}}
-										>
-											-
-										</button>
-
-										<button
-											disabled={lockdown}
-											className="cart-item-btn btn"
-											onClick={() => {
-												setLockdown(true);
-												addOrRemoveOneToItemOrder(
-													data[v]._id,
-													"+",
-													data[v].qte,
-													v
-												);
-											}}
-										>
-											+
-										</button>
-
-										<button
-											disabled={lockdown}
-											className="cart-item-btn btn"
-											onClick={() => {
-												setLockdown(true);
-												removeItem(data[v]._id, v);
-											}}
-										>
-											×
-										</button>
-									</td>
+			{
+				data ? (
+					<div id="cart-container">
+						<table id="cart-items-container">
+							<thead id="cart-item-thead">
+								<tr>
+									<th className="cart-items-titles">
+										Nom du produit
+									</th>
+									<th className="cart-items-titles">
+										Quantité
+									</th>
+									<th className="cart-items-titles">Prix</th>
+									<th className="cart-items-titles">
+										Actions
+									</th>
 								</tr>
-							))}
-						</tbody>
-					</table>
+							</thead>
 
-					<div id="cart-total-container">
-						<div id="cart-total-btns">
-							<button
-								className="cart-total-btn btn"
-								disabled={lockdown}
-								onClick={() => {
-									setLockdown(true);
-									buy()
-								}}
-							>
-								Réserver ({total}€ TTC)
-							</button>
+							<tbody id="cart-item-tbody">
+								{Object.keys(data).map((v, k) => (
+									<tr className="cart-items" key={k}>
+										<td className="cart-item-name">
+											{data[v].name}
+											<span className="cart-item-price">
+												{data[v].price}€/u
+											</span>
+										</td>
+										<td className="cart-item-qte">
+											x{data[v].qte}
+										</td>
+										<td className="cart-item-final-price">
+											{data[v].price * data[v].qte}€
+										</td>
+										<td className="cart-item-actions">
+											<button
+												disabled={lockdown}
+												className="cart-item-btn btn"
+												onClick={() => {
+													setLockdown(true);
+													addOrRemoveOneToItemOrder(
+														data[v]._id,
+														"-",
+														data[v].qte,
+														v
+													);
+												}}
+											>
+												-
+											</button>
 
-							<button
-								className="cart-total-btn btn"
-								onClick={() => {
-									setLockdown(true);
-									clearCart();
-								}}
-								disabled={lockdown}
-							>
-								Vider le panier
-							</button>
+											<button
+												disabled={lockdown}
+												className="cart-item-btn btn"
+												onClick={() => {
+													setLockdown(true);
+													addOrRemoveOneToItemOrder(
+														data[v]._id,
+														"+",
+														data[v].qte,
+														v
+													);
+												}}
+											>
+												+
+											</button>
 
-							<button
-								className="cart-total-btn btn"
-								disabled={lockdown}
-								onClick={() => {
-									setLockdown(true);
-								}}
-							>
-								Retourner à la boutique
-							</button>
+											<button
+												disabled={lockdown}
+												className="cart-item-btn btn"
+												onClick={() => {
+													setLockdown(true);
+													removeItem(data[v]._id, v);
+												}}
+											>
+												×
+											</button>
+										</td>
+									</tr>
+								))}
+							</tbody>
+						</table>
+
+						<div id="cart-total-container">
+							<div id="cart-total-btns">
+								<button
+									className="cart-total-btn btn"
+									disabled={lockdown}
+									onClick={() => {
+										setLockdown(true);
+										buy();
+									}}
+								>
+									Réserver ({total}€ TTC)
+								</button>
+
+								<button
+									className="cart-total-btn btn"
+									onClick={() => {
+										setLockdown(true);
+										clearCart();
+									}}
+									disabled={lockdown}
+								>
+									Vider le panier
+								</button>
+
+								<button
+									className="cart-total-btn btn"
+									disabled={lockdown}
+									onClick={() => {
+										setLockdown(true);
+									}}
+								>
+									Retourner à la boutique
+								</button>
+							</div>
 						</div>
 					</div>
-				</div>
-			) :
-				<div>Vous n'avez pas d'article dans votre panier</div>}
+				) : null /*<div>Vous n'avez pas d'article dans votre panier</div>*/
+			}
 		</Layout>
 	);
 }

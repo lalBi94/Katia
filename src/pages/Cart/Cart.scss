@@ -1,5 +1,63 @@
 @import "../../main.scss";
 
+
+#codeQR-big-container {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	
+	#codeQR-redirection {
+		text-decoration: none;
+		color: white;
+		font-size: larger;
+		padding: 5px;
+		border-radius: 3px;
+		text-align: center;
+		background: $red;
+	}
+
+	#codeQR-container {
+		width: 32%;
+		#codeQR-headers {
+			#codeQR-headers-line {
+				.codeQR-header {
+					padding: 20px;
+					text-align: center;
+				}
+			}
+		}
+	
+		#codeQR-datas {
+			#codeQR-datas-line {
+				.codeQR-data {
+					text-align: center;
+				}
+
+				.res {
+					font-weight: bold;
+					letter-spacing: 4px;
+
+					span::selection {
+						background: transparent;
+					}
+
+					span {
+						font-size: larger;
+						font-family: 'Courier New', Courier, serif;
+						background: lightgray;
+						border-radius: 10px;
+						border: 1.3px solid gray;
+						padding: 10px;
+					}
+				}
+			}
+		}
+	}
+}
+
 #cart-container {
 	display: flex;
 	flex-direction: column;
