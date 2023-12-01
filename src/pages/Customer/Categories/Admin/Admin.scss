@@ -12,12 +12,17 @@
 	#admin-solde {
 		display: flex;
 		flex-direction: row;
+		flex-wrap: wrap;
 		gap: 25px;
 
-		#admin-solde-AV, #admin-solde-CA {
+		#admin-solde-AV, #admin-solde-CA, #admin-solde-O {
 			padding: 10px;
 			color: white;
 			font-weight: bold;
+		}
+
+		#admin-solde-O {
+			background: #4a5bcb;
 		}
 
 		#admin-solde-CA {
@@ -51,6 +56,20 @@
 		.admin-category-title {
 			text-align: left;
 			border-bottom: 3px solid $red;
+			display: flex;
+			justify-content: left;
+			align-items: center;
+			gap: 5px;
+
+			.spe-btn {
+				width: 5px;
+				height: 5px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border-radius: 100%;
+				margin-bottom: 2px;
+			}
 		}
 
 		.admin-category-btns {

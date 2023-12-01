@@ -49,26 +49,24 @@ export default function Customer() {
 	};
 
 	useEffect(() => {
-		const token = localStorage.getItem("katiacm");
+		if(!localStorage.getItem("katiacm")) window.location.href = "/Katia/#/gate";
 
-		if (!token) {
-			window.location.href = "/Katia/#/home";
-		}
+		const toSend = JSON.stringify({
+			token: localStorage.getItem("katiacm") 
+		})
 
 		cipherRequest(
-			token,
+			toSend,
 			`${config.api}/customer/getInfo`
 		).then((res) => {
-			switch (res.status) {
-				case 0: {
-					setUserData(res.data);
-					handleMyAccount(res.data);
-					break;
-				}
+			if(!res.data) {
+				localStorage.removeItem("katiacm")
+				window.location.href = "/Katia/#/gate";
+			}
 
-				case 1: {
-					break;
-				}
+			if(res.status === 0 && res.data) {
+				setUserData(res.data);
+				handleMyAccount(res.data);
 			}
 		});
 	}, []);
@@ -103,7 +101,7 @@ export default function Customer() {
 							</div>
 
 							<div className="customer-category-link">
-								Mon historique d'achats
+								Mon historique
 							</div>
 
 							{userData.type === "admin" ? (

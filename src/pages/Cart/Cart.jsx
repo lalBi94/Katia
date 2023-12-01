@@ -155,16 +155,26 @@ export default function Cart() {
 	};
 
 	useEffect(() => {
+		if(!localStorage.getItem("katiacm")) window.location.href = "/Katia/#/gate";
+
 		const toSend = JSON.stringify({
 			token: localStorage.getItem("katiacm"),
 		});
 
 		cipherRequest(
 			toSend,
+			`${config.api}/customer/getInfo`
+		).then((res) => {
+			if(!res.data) {
+				localStorage.removeItem("katiacm")
+				window.location.href = "/Katia/#/gate";
+			}
+		})
+
+		cipherRequest(
+			toSend,
 			`${config.api}/order/getOrdersOf`
 		).then((res) => {
-			console.log(res);
-
 			switch (res.status) {
 				case 0: {
 					if (res.data.length === 0) {
@@ -372,7 +382,7 @@ export default function Cart() {
 							</div>
 						</div>
 					</div>
-				) : null /*<div>Vous n'avez pas d'article dans votre panier</div>*/
+				) : null
 			}
 		</Layout>
 	);

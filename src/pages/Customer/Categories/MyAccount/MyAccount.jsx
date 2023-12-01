@@ -274,7 +274,6 @@ export default function MyAccount({ data }) {
 
 			<div className="data-container">
 				<span id="identifier">N° Client {data.createdAt}</span>
-				<span>&nbsp;</span>
 			</div>
 		</div>
 	);

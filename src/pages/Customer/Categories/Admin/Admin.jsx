@@ -6,7 +6,9 @@ import ModifyItem from "./Forms/Items/ModifyItem";
 import ShowReservation from "./Forms/Customers/ShowReservations";
 import CheckCode from "./Forms/Caisse/CheckCode";
 import { cipherRequest } from "../../../../services/KTSec/KTSec";
-import config from "../../../../global.json"
+import config from "../../../../global.json";
+import axios from "axios";
+import "hover.css";
 
 /**
  * [ADMIN FEATURES] Administration du site
@@ -14,7 +16,9 @@ import config from "../../../../global.json"
  */
 export default function Admin() {
 	const [form, setForm] = useState(null);
-	const [solde, setSolde] = useState({av: "██████", ca: "██████"})
+	const [solde, setSolde] = useState({ av: "██████", ca: "██████" });
+	const [nbItems, setNbItems] = useState("██████");
+	const [nbCustomer, setNbCustomer] = useState("██████");
 
 	/**
 	 * Ouvrir/Fermer le formulaire
@@ -24,9 +28,31 @@ export default function Admin() {
 		setForm(null);
 	};
 
+	const handleGetStats = () => {
+		const toSend = JSON.stringify({
+			token: localStorage.getItem("katiacm"),
+		});
+
+		cipherRequest(toSend, `${config.api}/reservation/getSolde`).then(
+			(res) => {
+				setSolde({ av: res.av.toFixed(2), ca: res.ca.toFixed(2) });
+			}
+		);
+
+		axios.post(`${config.api}/item/getItemsLength`).then((res) => {
+			console.log(res.data.n);
+			setNbItems(parseInt(res.data.n));
+		});
+
+		axios.post(`${config.api}/customer/getCustomersLength`).then((res) => {
+			console.log(res.data.n);
+			setNbCustomer(parseInt(res.data.n));
+		});
+	};
+
 	/**
 	 * Faire poper un formulaire
-	 * @param {string} what 
+	 * @param {string} what
 	 */
 	const handleForm = (what) => {
 		switch (what) {
@@ -46,40 +72,29 @@ export default function Admin() {
 			}
 
 			case "show_reservation": {
-				setForm(<ShowReservation handleClose={handleCloseForm} />)
+				setForm(<ShowReservation handleClose={handleCloseForm} />);
 				break;
 			}
 
 			case "check_code": {
-				setForm(<CheckCode handleClose={handleCloseForm}/>)
+				setForm(<CheckCode handleClose={handleCloseForm} />);
 				break;
 			}
 		}
 	};
 
 	useEffect(() => {
-		const toSend = JSON.stringify({
-			token: localStorage.getItem("katiacm")
-		})
-
-		cipherRequest(toSend, `${config.api}/reservation/getSolde`).then((res) => {
-			setSolde({av: (res.av).toFixed(2), ca: (res.ca).toFixed(2)})
-		})
-	}, [])
+		handleGetStats();
+	}, []);
 
 	return (
 		<div id="admin-container">
 			{form ? <div id="admin-form-popup">{form}</div> : null}
 
-			<div id="admin-solde">
-				<span id="admin-solde-CA">C.A Du site: {solde.ca} €</span>
-				<span id="admin-solde-AV">A Venir: {solde.av} €</span>
-			</div>
-
 			<div className="admin-category">
-				<h3 className="admin-category-title">Caisse</h3>
+				<h3 className="admin-category-title">En Caisse</h3>
 				<div className="admin-category-btns">
-					<button 
+					<button
 						onClick={() => {
 							handleForm("check_code");
 						}}
@@ -87,6 +102,28 @@ export default function Admin() {
 					>
 						Entrer un code
 					</button>
+				</div>
+
+				<h3 className="admin-category-title">
+					Données utiles
+					<button className="spe-btn btn" onClick={handleGetStats}>
+						↺
+					</button>
+				</h3>
+
+				<div id="admin-solde">
+					<span id="admin-solde-CA">
+						Recette <br /> <nobr>[ {solde.ca} € ]</nobr>
+					</span>
+					<span id="admin-solde-AV">
+						A Venir <br /> <nobr>[ {solde.av} € ]</nobr>
+					</span>
+					<span id="admin-solde-O">
+						Nombre d'inscrits <br /> <nobr>[ {nbCustomer} ]</nobr>
+					</span>
+					<span id="admin-solde-O">
+						Nombre de produits <br /> <nobr>[ {nbItems} ]</nobr>
+					</span>
 				</div>
 
 				<h3 className="admin-category-title">Produits</h3>
@@ -124,9 +161,12 @@ export default function Admin() {
 				<h3 className="admin-category-title">Clients</h3>
 
 				<div className="admin-category-btns">
-					<button className="admin-category-btn" onClick={() => {
-						handleForm("show_reservation");
-					}}>
+					<button
+						className="admin-category-btn"
+						onClick={() => {
+							handleForm("show_reservation");
+						}}
+					>
 						Voir les reservations
 					</button>
 				</div>

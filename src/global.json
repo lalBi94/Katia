@@ -1,3 +1,5 @@
 {
-    "api": "https://katia-api.osc-fr1.scalingo.io"
+    "api": "https://katia-api.osc-fr1.scalingo.io",
+    "local": "http://127.0.0.1:3333",
+    "pub": "https://katia-api.osc-fr1.scalingo.io"
 }

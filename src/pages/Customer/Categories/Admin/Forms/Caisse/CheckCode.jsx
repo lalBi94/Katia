@@ -105,16 +105,12 @@ export default function CheckCode({ handleClose }) {
 										reservationInfo.items_list
 									).map((vv, kk) => (
 										<span key={kk}>
-											-{" "}
-											{
-												reservationInfo
-													.items_list[vv].name
-											}
+											{`- (x${reservationInfo.items_list[vv].qte}) ${reservationInfo.items_list[vv].name}`}
 										</span>
 									))}
 								</td>
 								<td>{reservationInfo.total} €</td>
-								<td>
+								<td className="btn-grp">
 									<button
 										onClick={() => {
 											handleActivateReservation(

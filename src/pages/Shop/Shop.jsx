@@ -59,12 +59,7 @@ export default function Shop() {
 	const addToCart = (itemId, qte, element) => {
 		const e = element.target;
 		e.style.background = "#349734";
-		e.innerText = "Ajouté au panier !";
-
-		setTimeout(() => {
-			e.style.background = "#cb4a4a";
-			e.innerText = "+ Ajouter au panier";
-		}, 800);
+		e.innerText = "Ajout en cours ...";
 
 		if (!clientId) {
 			window.location.href = "/Katia/#/gate";
@@ -79,7 +74,8 @@ export default function Shop() {
 				toSend,
 				`${config.api}/order/addToCart`
 			).then((res) => {
-				console.log(res);
+				e.style.background = "#cb4a4a";
+				e.innerText = "+ Ajouter au panier";
 				setLockdown(false);
 			});
 		}

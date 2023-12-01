@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { cipherRequest } from "../../../../../../services/KTSec/KTSec";
 import "../popup.scss"
 import config from "../../../../../../global.json"
+import RCode from "../../../../../../components/RCode/RCode"
 
 export default function ShowReservation({ handleClose }) {
     const [users, setUsers] = useState({})
@@ -110,20 +111,22 @@ export default function ShowReservation({ handleClose }) {
                             { Object.keys(selectedUser.reservations).map((v, k) => (
                                 <tr key={k} className={`popup-reservations-rows ${selectedUser.reservations[v].status ? "available" : "notavailable"}`}>
                                     <td><img className="popup-modify-img" src={selectedUser.reservations[v].qrcode} alt="" /></td>
-                                    <td><span>{selectedUser.reservations[v].qrtxt}</span></td>
+                                    <td style={{color: "black"}}><RCode code={selectedUser.reservations[v].qrtxt}/></td>
                                     <td className="list">
                                         { Object.keys(selectedUser.reservations[v].items_list).map((vv, kk) => (
-                                            <span key={kk}>- {selectedUser.reservations[v].items_list[vv].name}</span>
+                                            <span key={kk}>{`- (x${selectedUser.reservations[v].items_list[vv].qte}) ${selectedUser.reservations[v].items_list[vv].name}`}</span>
                                         ))}
                                     </td>
                                     <td>{selectedUser.reservations[v].total} €</td>
                                     <td>
-                                        <button onClick={() => {
-                                            handleActivateReservation(selectedUser.reservations[v]._id)
-                                        }}>Activer</button>
-                                        <button onClick={() => {
-                                            handleDesactivateReservation(selectedUser.reservations[v]._id)
-                                        }}>Desactiver</button>
+                                        <div className="btn-grp">
+                                            <button onClick={() => {
+                                                handleActivateReservation(selectedUser.reservations[v]._id)
+                                            }}>Activer</button>
+                                            <button onClick={() => {
+                                                handleDesactivateReservation(selectedUser.reservations[v]._id)
+                                            }}>Desactiver</button>
+                                        </div>
                                     </td>
                                 </tr>
                             ))}

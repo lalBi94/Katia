@@ -11,34 +11,6 @@ import config from "../global.json"
  * @return {HTMLElement}
  */
 export default function Layout({ children }) {
-	useEffect(() => {
-		const token = localStorage.getItem("katiacm");
-
-		if (!token) {
-			return;
-		}
-
-		const toSend = JSON.stringify({ token: token });
-
-		cipherRequest(
-			toSend,
-			`${config.api}/customer/verifyTokenValidity`
-		).then((res) => {
-			console.log(res)
-			switch (res.status) {
-				case 0: {
-					break;
-				}
-
-				case 1: {
-					window.location.href = "/Katia/#/gate";
-					localStorage.removeItem("katiacm");
-					break;
-				}
-			}
-		});
-	}, []);
-
 	return (
 		<div id="layout-container">
 			<NavBar />

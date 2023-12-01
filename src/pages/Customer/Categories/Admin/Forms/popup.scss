@@ -21,8 +21,26 @@
 		overflow-y: scroll;
 		gap: 20px;
 		border: 5px dashed $red;
-		width: 60%;
-		height: 40%;
+
+		.list {
+			display: flex;
+			justify-content: center;
+			align-items: left;
+			flex-direction: column;
+			overflow: auto;
+			font-size: smaller;
+			height: 100%;
+		}
+
+		.btn-grp {
+			display: flex;
+			flex-direction: row;
+			gap: 10px;
+			justify-content: center;
+			align-items: center;
+			height: 100%;
+			flex-wrap: wrap;
+		}
 
 		.notavailable {
 			background: $red;
@@ -41,16 +59,6 @@
 		.popup-modify-img {
 			width: 100px;
 			height: 100px;
-		}
-
-		.list {
-			display: flex;
-			justify-content: center;
-			align-items: left;
-			flex-direction: column;
-			height: 100px;
-			overflow-y: scroll;
-			font-size: smaller;
 		}
 	}
 
