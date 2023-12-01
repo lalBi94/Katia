@@ -10,20 +10,47 @@
 	gap: 20px;
 	padding: 20px;
 
+	.popup-list-data-lower {
+		font-size: smaller;
+	}
+
 	.popup-modify {
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
 		align-items: center;
+		overflow-y: scroll;
 		gap: 20px;
+		border: 5px dashed $red;
+		width: 60%;
+		height: 40%;
+
+		.notavailable {
+			background: $red;
+			color: white;
+		}
+
+		.available {
+			background: $green;
+			color: white;
+		}
 
 		.ipt {
-			width: 100%;
+			width: 80%;
 		}
 
 		.popup-modify-img {
 			width: 100px;
 			height: 100px;
+		}
+
+		.list {
+			display: flex;
+			justify-content: center;
+			align-items: left;
+			flex-direction: column;
+			height: 100px;
+			overflow-y: scroll;
+			font-size: smaller;
 		}
 	}
 

@@ -1,8 +1,12 @@
 import "./Admin.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CreateItem from "./Forms/Items/CreateItem";
 import DeleteItem from "./Forms/Items/DeleteItem";
 import ModifyItem from "./Forms/Items/ModifyItem";
+import ShowReservation from "./Forms/Customers/ShowReservations";
+import CheckCode from "./Forms/Caisse/CheckCode";
+import { cipherRequest } from "../../../../services/KTSec/KTSec";
+import config from "../../../../global.json"
 
 /**
  * [ADMIN FEATURES] Administration du site
@@ -10,6 +14,7 @@ import ModifyItem from "./Forms/Items/ModifyItem";
  */
 export default function Admin() {
 	const [form, setForm] = useState(null);
+	const [solde, setSolde] = useState({av: "██████", ca: "██████"})
 
 	/**
 	 * Ouvrir/Fermer le formulaire
@@ -37,17 +42,54 @@ export default function Admin() {
 
 			case "modify_item": {
 				setForm(<ModifyItem handleClose={handleCloseForm} />);
+				break;
+			}
+
+			case "show_reservation": {
+				setForm(<ShowReservation handleClose={handleCloseForm} />)
+				break;
+			}
+
+			case "check_code": {
+				setForm(<CheckCode handleClose={handleCloseForm}/>)
+				break;
 			}
 		}
 	};
+
+	useEffect(() => {
+		const toSend = JSON.stringify({
+			token: localStorage.getItem("katiacm")
+		})
+
+		cipherRequest(toSend, `${config.api}/reservation/getSolde`).then((res) => {
+			setSolde({av: (res.av).toFixed(2), ca: (res.ca).toFixed(2)})
+		})
+	}, [])
 
 	return (
 		<div id="admin-container">
 			{form ? <div id="admin-form-popup">{form}</div> : null}
 
-			<div className="admin-category">
-				<h3 className="admin-category-title">Produits</h3>
+			<div id="admin-solde">
+				<span id="admin-solde-CA">C.A Du site: {solde.ca} €</span>
+				<span id="admin-solde-AV">A Venir: {solde.av} €</span>
+			</div>
 
+			<div className="admin-category">
+				<h3 className="admin-category-title">Caisse</h3>
+				<div className="admin-category-btns">
+					<button 
+						onClick={() => {
+							handleForm("check_code");
+						}}
+						className="admin-category-btn"
+					>
+						Entrer un code
+					</button>
+				</div>
+
+				<h3 className="admin-category-title">Produits</h3>
 				<div className="admin-category-btns">
 					<button
 						onClick={() => {
@@ -82,23 +124,10 @@ export default function Admin() {
 				<h3 className="admin-category-title">Clients</h3>
 
 				<div className="admin-category-btns">
-					<button className="admin-category-btn">
+					<button className="admin-category-btn" onClick={() => {
+						handleForm("show_reservation");
+					}}>
 						Voir les reservations
-					</button>
-					<button className="admin-category-btn">
-						Voir l'historique d'achat
-					</button>
-					<button className="admin-category-btn">
-						Créer un client
-					</button>
-					<button className="admin-category-btn">
-						Supprimer un client
-					</button>
-					<button className="admin-category-btn">
-						Modifier un client
-					</button>
-					<button className="admin-category-btn">
-						Modifier les permissions d'un client
 					</button>
 				</div>
 			</div>

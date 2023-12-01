@@ -3,6 +3,7 @@ import NavBar from "../components/NavBar/NavBar";
 import { cipherRequest } from "../services/KTSec/KTSec";
 import Footer from "../components/Footer/Footer";
 import "./Layout.scss"
+import config from "../global.json"
 
 /**
  * Layout de toutes les pages
@@ -21,9 +22,10 @@ export default function Layout({ children }) {
 
 		cipherRequest(
 			toSend,
-			"https://katia-api.osc-fr1.scalingo.io/customer/verifyTokenValidity"
-		).then((status) => {
-			switch (status.status) {
+			`${config.api}/customer/verifyTokenValidity`
+		).then((res) => {
+			console.log(res)
+			switch (res.status) {
 				case 0: {
 					break;
 				}

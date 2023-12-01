@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "../popup.scss";
 import axios from "axios";
 import { cipherRequest } from "../../../../../../services/KTSec/KTSec";
+import config from "../../../../../../global.json"
 
 /**
  * [ADMIN FEATURES] Supprimer un produit
@@ -16,7 +17,7 @@ export default function DeleteItem({ handleClose }) {
 
 	useEffect(() => {
 		axios
-			.post("https://katia-api.osc-fr1.scalingo.io/item/getAllItems")
+			.post(`${config.api}/item/getAllItems`)
 			.then((res) => {
 				setItems(res.data);
 				setShowedItems(res.data);
@@ -48,7 +49,7 @@ export default function DeleteItem({ handleClose }) {
 			data: selectedItems,
 		});
 
-		cipherRequest(toSend, "https://katia-api.osc-fr1.scalingo.io/item/deleteItems").then(
+		cipherRequest(toSend, `${config.api}/item/deleteItems`).then(
 			(res) => {
 				setStatus(res.status);
 			}

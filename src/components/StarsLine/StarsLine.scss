@@ -1,0 +1,19 @@
+@import "../../main.scss";
+
+.stars-line-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+
+    .stars {
+        font-size: smaller;
+    }
+
+    .complete-star { 
+        color: rgb(255, 225, 0);
+    }
+
+    .not-complete-star { 
+        color: lightgray;
+    }
+}

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import config from "../../../../../../global.json"
 
 /**
  * [ADMIN FEATURES] Modifier un produit
@@ -81,7 +82,7 @@ export default function ModifyItem({ handleClose }) {
 		const id = selectedItem._id;
 
 		axios
-			.post("https://katia-api.osc-fr1.scalingo.io/item/modifyItem", {
+			.post(`${config.api}/item/modifyItem`, {
 				id: id,
 				name: name,
 				price: price,
@@ -95,7 +96,7 @@ export default function ModifyItem({ handleClose }) {
 	};
 
 	useEffect(() => {
-		axios.post("https://katia-api.osc-fr1.scalingo.io/item/getAllItems").then((res) => {
+		axios.post(`${config.api}/item/getAllItems`).then((res) => {
 			setShowedItems(res.data);
 		});
 	}, []);
@@ -133,7 +134,7 @@ export default function ModifyItem({ handleClose }) {
 									{showedItems[v].name} ({showedItems[v].price}€)
 								</span>
 							</div>
-					  ))
+					))
 					: null}
 			</div>
 

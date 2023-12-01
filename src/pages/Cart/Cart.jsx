@@ -6,6 +6,7 @@ import { Puff } from "react-loader-spinner";
 import { Link } from "react-router-dom";
 import "hover.css";
 import RCode from "../../components/RCode/RCode";
+import config from "../../global.json"
 
 /**
  * Panier du client
@@ -33,7 +34,7 @@ export default function Cart() {
 
 		cipherRequest(
 			toSend,
-			"https://katia-api.osc-fr1.scalingo.io/reservation/addReservation"
+			`${config.api}/reservation/addReservation`
 		).then((res) => {
 			setCodeQR({
 				codeqr: res.codeqr,
@@ -63,7 +64,7 @@ export default function Cart() {
 
 			cipherRequest(
 				toSend,
-				"https://katia-api.osc-fr1.scalingo.io/order/removeItem"
+				`${config.api}/order/removeItem`
 			).then((res) => {
 				console.log(res);
 				const cpy = [...data];
@@ -112,7 +113,7 @@ export default function Cart() {
 
 		cipherRequest(
 			toSend,
-			"https://katia-api.osc-fr1.scalingo.io/order/addOrRemoveOneToItemOrder"
+			`${config.api}/order/addOrRemoveOneToItemOrder`
 		).then((res) => {
 			switch (res.status) {
 				case 0: {
@@ -160,7 +161,7 @@ export default function Cart() {
 
 		cipherRequest(
 			toSend,
-			"https://katia-api.osc-fr1.scalingo.io/order/getOrdersOf"
+			`${config.api}/order/getOrdersOf`
 		).then((res) => {
 			console.log(res);
 

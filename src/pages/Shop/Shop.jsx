@@ -6,6 +6,8 @@ import "hover.css";
 import { Puff } from "react-loader-spinner";
 import { motion } from "framer-motion";
 import { cipherRequest } from "../../services/KTSec/KTSec";
+import config from "../../global.json"
+import StarsLine from "../../components/StarsLine/StarsLine";
 
 /**
  * Page de la boutique
@@ -75,7 +77,7 @@ export default function Shop() {
 
 			cipherRequest(
 				toSend,
-				"https://katia-api.osc-fr1.scalingo.io/order/addToCart"
+				`${config.api}/order/addToCart`
 			).then((res) => {
 				console.log(res);
 				setLockdown(false);
@@ -85,7 +87,7 @@ export default function Shop() {
 
 	useEffect(() => {
 		axios
-			.post("https://katia-api.osc-fr1.scalingo.io/item/getAllItems")
+			.post(`${config.api}/item/getAllItems`)
 			.then((res) => {
 				const newRes = chunks(res.data, 8);
 				setChunked(newRes);
@@ -94,7 +96,7 @@ export default function Shop() {
 		if (localStorage.getItem("katiacm")) {
 			cipherRequest(
 				localStorage.getItem("katiacm"),
-				"https://katia-api.osc-fr1.scalingo.io/customer/getUserId"
+				`${config.api}/customer/getUserId`
 			).then((res) => {
 				setClientId(res);
 			});
@@ -198,6 +200,7 @@ export default function Shop() {
 											</span>
 										) : null}
 									</div>
+									<StarsLine rate={3} limit={5} count_feedback={0} />
 								</div>
 							</motion.div>
 						))

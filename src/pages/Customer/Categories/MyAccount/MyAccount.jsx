@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./MyAccount.scss";
 import "hover.css";
 import { cipherRequest } from "../../../../services/KTSec/KTSec";
+import config from "../../../../global.json"
 
 /**
  * Visualiser les informations du client
@@ -63,7 +64,7 @@ export default function MyAccount({ data }) {
 				});
 				cipherRequest(
 					toSend,
-					"https://katia-api.osc-fr1.scalingo.io/customer/changeFirstname"
+					`${config.api}/customer/changeFirstname`
 				).then((status) => {
 					switch (status.data.status) {
 						case 0: {
@@ -90,7 +91,7 @@ export default function MyAccount({ data }) {
 				});
 				cipherRequest(
 					toSend,
-					"https://katia-api.osc-fr1.scalingo.io/customer/changeLastname"
+					`${config.api}/customer/changeLastname`
 				).then((status) => {
 					switch (status.data.status) {
 						case 0: {
@@ -117,7 +118,7 @@ export default function MyAccount({ data }) {
 				});
 				cipherRequest(
 					toSend,
-					"https://katia-api.osc-fr1.scalingo.io/customer/changeEmail"
+					`${config.api}/customer/changeEmail`
 				).then((status) => {
 					switch (status.data.status) {
 						case 0: {

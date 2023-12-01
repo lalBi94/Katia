@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import "../popup.scss";
 import { cipherRequest } from "../../../../../../services/KTSec/KTSec";
 import "hover.css";
+import config from "../../../../../../global.json"
 
 /**
  * [ADMIN FEATURES] Creer un produit
@@ -75,7 +76,7 @@ export default function CreateItem({ handleClose }) {
 			imgRef: imgRef,
 		});
 
-		cipherRequest(toSend, "https://katia-api.osc-fr1.scalingo.io/item/setItem").then(
+		cipherRequest(toSend, `${config.api}/item/setItem`).then(
 			(res) => {
 				setStatus(res.status);
 			}

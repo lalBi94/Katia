@@ -5,6 +5,7 @@ import MyAccount from "./Categories/MyAccount/MyAccount";
 import { cipherRequest } from "../../services/KTSec/KTSec";
 import Admin from "./Categories/Admin/Admin";
 import { Puff } from "react-loader-spinner";
+import config from "../../global.json"
 
 /**
  * Page cliente
@@ -56,7 +57,7 @@ export default function Customer() {
 
 		cipherRequest(
 			token,
-			"https://katia-api.osc-fr1.scalingo.io/customer/getInfo"
+			`${config.api}/customer/getInfo`
 		).then((res) => {
 			switch (res.status) {
 				case 0: {

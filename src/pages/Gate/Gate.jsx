@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { SHA512 } from "crypto-js";
 import "./Gate.scss";
 import Layout from "../../Layout/Layout";
+import config from "../../global.json"
 import { cipherRequest } from "../../services/KTSec/KTSec";
 
 /**
@@ -89,7 +90,7 @@ export default function Gate() {
 
 			cipherRequest(
 				toSend,
-				"https://katia-api.osc-fr1.scalingo.io/customer/register"
+				`${config.api}/customer/register`
 			).then((data) => {
 				switch (data.status) {
 					case 0: {
@@ -125,7 +126,7 @@ export default function Gate() {
 
 			cipherRequest(
 				toSend,
-				"https://katia-api.osc-fr1.scalingo.io/customer/login"
+				`${config.api}/customer/login`
 			).then((token) => {
 				if (token) {
 					localStorage.setItem("katiacm", token);

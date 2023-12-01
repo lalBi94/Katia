@@ -3,11 +3,31 @@
 #admin-container {
 	display: flex;
 	flex-direction: column;
+	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
-	flex-wrap: wrap;
 	gap: 20px;
 	width: 100%;
+
+	#admin-solde {
+		display: flex;
+		flex-direction: row;
+		gap: 25px;
+
+		#admin-solde-AV, #admin-solde-CA {
+			padding: 10px;
+			color: white;
+			font-weight: bold;
+		}
+
+		#admin-solde-CA {
+			background: $green;
+		}
+
+		#admin-solde-AV {
+			background: $orange;
+		}
+	}
 
 	#admin-form-popup {
 		display: flex;
@@ -25,17 +45,18 @@
 	.admin-category {
 		display: flex;
 		flex-direction: column;
+		justify-content: center;
+		width: 80%;
 
 		.admin-category-title {
-			text-align: center;
+			text-align: left;
+			border-bottom: 3px solid $red;
 		}
 
 		.admin-category-btns {
 			display: flex;
 			flex-direction: row;
 			flex-wrap: wrap;
-			justify-content: center;
-			align-items: center;
 			gap: 10px;
 
 			.admin-category-btn {
