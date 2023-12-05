@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { SHA512 } from "crypto-js";
 import "./Gate.scss";
 import Layout from "../../Layout/Layout";
-import config from "../../global.json"
+import config from "../../global.json";
 import { cipherRequest } from "../../services/KTSec/KTSec";
+import { Vortex } from "react-loader-spinner";
 
 /**
  * Portal de connexion/inscription
@@ -16,6 +17,7 @@ export default function Gate() {
 	const [password, setPassword] = useState("");
 	const [isLogin, setIsLogin] = useState(true);
 	const [lockDown, setLockDown] = useState(false);
+	const [loader, setLoader] = useState(false);
 
 	useEffect(() => {
 		if (localStorage.getItem("katiacm"))
@@ -24,7 +26,7 @@ export default function Gate() {
 
 	/**
 	 * Nom de famille du futur client
-	 * @param {Event} e 
+	 * @param {Event} e
 	 */
 	const handleFirstname = (e) => {
 		setFirstname(e.target.value);
@@ -32,7 +34,7 @@ export default function Gate() {
 
 	/**
 	 * Prenom du futur client
-	 * @param {Event} e 
+	 * @param {Event} e
 	 */
 	const handleLastname = (e) => {
 		setLastname(e.target.value);
@@ -40,7 +42,7 @@ export default function Gate() {
 
 	/**
 	 * Email du futur client
-	 * @param {Event} e 
+	 * @param {Event} e
 	 */
 	const handleEmail = (e) => {
 		setEmail(e.target.value);
@@ -48,7 +50,7 @@ export default function Gate() {
 
 	/**
 	 * Mot de passe du futur client
-	 * @param {Event} e 
+	 * @param {Event} e
 	 */
 	const handlePassword = (e) => {
 		setPassword(e.target.value);
@@ -74,6 +76,7 @@ export default function Gate() {
 	 */
 	const handleRegisterSubmit = () => {
 		setLockDown(true);
+		setLoader(true);
 
 		if (
 			firstname.length > 0 &&
@@ -88,28 +91,28 @@ export default function Gate() {
 				password: hash,
 			});
 
-			cipherRequest(
-				toSend,
-				`${config.api}/customer/register`
-			).then((data) => {
-				switch (data.status) {
-					case 0: {
-						localStorage.setItem("katiacm", data.token);
-						window.location.href = "/Katia/#/customer";
-						break;
+			cipherRequest(toSend, `${config.api}/customer/register`).then(
+				(data) => {
+					switch (data.status) {
+						case 0: {
+							localStorage.setItem("katiacm", data.token);
+							window.location.href = "/Katia/#/customer";
+							break;
+						}
+
+						case 1: {
+							break;
+						}
+
+						case 2: {
+							break;
+						}
 					}
 
-					case 1: {
-						break;
-					}
-
-					case 2: {
-						break;
-					}
+					setLoader(false);
+					setLockDown(false);
 				}
-
-				setLockDown(false);
-			});
+			);
 		}
 	};
 
@@ -119,22 +122,23 @@ export default function Gate() {
 	 */
 	const handleLoginSubmit = () => {
 		setLockDown(true);
+		setLoader(true);
 
 		if (email.length > 0 && password.length > 0) {
 			const hash = SHA512(password).toString();
 			const toSend = JSON.stringify({ email: email, password: hash });
 
-			cipherRequest(
-				toSend,
-				`${config.api}/customer/login`
-			).then((token) => {
-				if (token) {
-					localStorage.setItem("katiacm", token);
-					window.location.href = "/Katia/#/customer"
-				}
+			cipherRequest(toSend, `${config.api}/customer/login`).then(
+				(token) => {
+					if (token) {
+						localStorage.setItem("katiacm", token);
+						window.location.href = "/Katia/#/customer";
+					}
 
-				setLockDown(false);
-			});
+					setLoader(false);
+					setLockDown(false);
+				}
+			);
 		}
 	};
 
@@ -160,6 +164,7 @@ export default function Gate() {
 							onChange={handleEmail}
 							disabled={lockDown}
 						/>
+
 						<input
 							className="login-input ipt"
 							type="password"
@@ -167,6 +172,27 @@ export default function Gate() {
 							onChange={handlePassword}
 							disabled={lockDown}
 						/>
+
+						{loader ? (
+							<Vortex
+								visible={true}
+								height="100"
+								width="100"
+								radius={1}
+								ariaLabel="vortex-loading"
+								wrapperStyle={{}}
+								wrapperClass="vortex-wrapper"
+								colors={[
+									"#cedbfe",
+									"#fecfef",
+									"#d5ffcf",
+									"#cbfff3",
+									"#cedbfe",
+									"#d5ffcf",
+								]}
+							/>
+						) : null}
+
 						<button
 							className="login-btn btn"
 							onClick={handleLoginSubmit}
@@ -206,6 +232,27 @@ export default function Gate() {
 							onChange={handlePassword}
 							disabled={lockDown}
 						/>
+
+						{loader ? (
+							<Vortex
+								visible={true}
+								height="100"
+								width="100"
+								radius={1}
+								ariaLabel="vortex-loading"
+								wrapperStyle={{}}
+								wrapperClass="vortex-wrapper"
+								colors={[
+									"#cedbfe",
+									"#fecfef",
+									"#d5ffcf",
+									"#cbfff3",
+									"#cedbfe",
+									"#d5ffcf",
+								]}
+							/>
+						) : null}
+
 						<button
 							className="register-btn btn"
 							onClick={handleRegisterSubmit}

@@ -9,7 +9,7 @@
 		top: 0;
 		left: 0;
 		width: 100%;
-        z-index: 999;
+		z-index: 999;
 		height: 100%;
 		display: flex;
 		flex-direction: column;
@@ -91,6 +91,78 @@
 		width: 100%;
 		padding: 0;
 
+		.home {
+		}
+
+		.shop {
+			background: rgb(255, 136, 94);
+			background: -moz-linear-gradient(
+				124deg,
+				rgba(255, 136, 94, 1) 0%,
+				rgba(253, 235, 121, 1) 86%
+			);
+			background: -webkit-linear-gradient(
+				124deg,
+				rgba(255, 136, 94, 1) 0%,
+				rgba(253, 235, 121, 1) 86%
+			);
+			background: linear-gradient(
+				124deg,
+				rgba(255, 136, 94, 1) 0%,
+				rgba(253, 235, 121, 1) 86%
+			);
+			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff885e",endColorstr="#fdeb79",GradientType=1);
+		}
+
+		.cart {
+			background: rgb(206, 219, 254);
+			background: -moz-linear-gradient(
+				124deg,
+				rgba(206, 219, 254, 1) 14%,
+				rgba(254, 207, 239, 1) 89%
+			);
+			background: -webkit-linear-gradient(
+				124deg,
+				rgba(206, 219, 254, 1) 14%,
+				rgba(254, 207, 239, 1) 89%
+			);
+			background: linear-gradient(
+				124deg,
+				rgba(206, 219, 254, 1) 14%,
+				rgba(254, 207, 239, 1) 89%
+			);
+			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#cedbfe",endColorstr="#fecfef",GradientType=1);
+		}
+
+		.customer,
+		.gate {
+			background: rgb(203, 255, 243);
+			background: -moz-linear-gradient(
+				124deg,
+				rgba(203, 255, 243, 1) 14%,
+				rgba(213, 255, 207, 1) 68%
+			);
+			background: -webkit-linear-gradient(
+				124deg,
+				rgba(203, 255, 243, 1) 14%,
+				rgba(213, 255, 207, 1) 68%
+			);
+			background: linear-gradient(
+				124deg,
+				rgba(203, 255, 243, 1) 14%,
+				rgba(213, 255, 207, 1) 68%
+			);
+			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#cbfff3",endColorstr="#d5ffcf",GradientType=1);
+		}
+
+		#nav-elements-main {
+			display: flex;
+			justify-content: space-around;
+			width: 70%;
+			height: 70px;
+			border-radius: 50px;
+		}
+
 		#burger {
 			display: none;
 			cursor: pointer;
@@ -119,8 +191,7 @@
 			align-items: center;
 
 			.img {
-				width: 100px;
-				height: 100px;
+				width: 180px;
 				cursor: pointer;
 			}
 
@@ -150,12 +221,9 @@
 		}
 
 		@media (max-width: $responsive) {
-			.resp {
+			.resp,
+			#nav-elements-main {
 				display: none;
-			}
-
-			.burger-cart-len {
-				background-color: blue;
 			}
 
 			#burger {

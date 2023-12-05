@@ -1,0 +1,47 @@
+@import "../../main.scss";
+
+.notif-container {
+    position: fixed;
+    top: 10px;
+    bottom: 0;
+    z-index: 9999;
+    background: $pastel_lime;
+    max-height: 10%;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: left;
+    padding: 20px;
+    gap: 5px;
+    border-radius: 10px;
+    border: 1px solid $black;
+
+    .notif-close {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        border: 0;
+        background: transparent;
+        color: $black;
+        font-size: larger;
+        cursor: pointer;
+
+        &:hover {
+            background: lightgray;
+            border-radius: 100%;
+        }
+    }
+
+    .notif-title {
+        color: $black;
+        padding-bottom: 2px;
+        border-bottom: 2px solid white;
+    }
+
+    .notif-text {
+        color: $black;
+        font-weight: bold;
+
+    }
+}

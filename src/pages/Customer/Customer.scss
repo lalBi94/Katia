@@ -8,9 +8,13 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		gap: 10px;
+		gap: 15px;
 		margin-bottom: 30px;
 		font-size: 0.8em;
+
+		.btn { 
+			font-size: larger;
+		}
 
 		#customer-title,
 		#customer-subtitle {

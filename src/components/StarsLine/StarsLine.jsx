@@ -21,8 +21,6 @@ export default function StarsLine({rate, limit, count_feedback}) {
             )
         }
 
-        console.log(stock)
-
         setStarsList(stock)
     }, [])
     

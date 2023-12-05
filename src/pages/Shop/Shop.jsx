@@ -3,11 +3,12 @@ import Layout from "../../Layout/Layout";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "hover.css";
-import { Puff } from "react-loader-spinner";
+import { Vortex } from "react-loader-spinner";
 import { motion } from "framer-motion";
 import { cipherRequest } from "../../services/KTSec/KTSec";
-import config from "../../global.json"
+import config from "../../global.json";
 import StarsLine from "../../components/StarsLine/StarsLine";
+import KNotif from "../../components/KNotif/KNotif";
 
 /**
  * Page de la boutique
@@ -18,12 +19,13 @@ export default function Shop() {
 	const [current, setCurrent] = useState(0);
 	const [clientId, setClientId] = useState(null);
 	const [lockdown, setLockdown] = useState(false);
+	const [combo, setCombo] = useState(1);
 
 	/**
 	 * Devisier le tableau en plusieurs chunks
 	 * @param {*} r Liste d'objets
 	 * @param {*} j Par combien diviser la liste
-	 * @returns 
+	 * @returns
 	 */
 	const chunks = (r, j) =>
 		r.reduce(
@@ -49,6 +51,25 @@ export default function Shop() {
 		setLockdown(false);
 	};
 
+	const [notif, setNotif] = useState(null);
+
+	const closeNotif = () => {
+		setCombo(1);
+		setNotif(null);
+	};
+
+	const openNotif = (title, message, status) => {
+		setCombo(combo + 1);
+
+		setNotif(
+			<KNotif
+				message={`${message} (x${combo})`}
+				close={closeNotif}
+				status={status}
+			/>
+		);
+	};
+
 	/**
 	 * Ajouter un produit au panier
 	 * @param {*} itemId Identifiant du produit
@@ -58,7 +79,7 @@ export default function Shop() {
 	 */
 	const addToCart = (itemId, qte, element) => {
 		const e = element.target;
-		e.style.background = "#349734";
+		e.style.background = "#d5ffcf";
 		e.innerText = "Ajout en cours ...";
 
 		if (!clientId) {
@@ -70,38 +91,55 @@ export default function Shop() {
 				qte: qte,
 			});
 
-			cipherRequest(
-				toSend,
-				`${config.api}/order/addToCart`
-			).then((res) => {
-				e.style.background = "#cb4a4a";
-				e.innerText = "+ Ajouter au panier";
-				setLockdown(false);
-			});
+			cipherRequest(toSend, `${config.api}/order/addToCart`).then(
+				(res) => {
+					if (res.status === 0) {
+						e.style.background = "#fdeb79";
+						e.innerText = "+ Ajouter au panier";
+						openNotif(
+							"A la Carte",
+							"Votre article a été deplacé dans le panier !",
+							0
+						);
+					} else if (res.status === 1) {
+						openNotif("A la Carte", "Une erreur est survenue !", 1);
+					}
+
+					setLockdown(false);
+				}
+			);
 		}
 	};
 
+	const handleBuy = () => {
+		setLockdown(false);
+		window.location.href = "/Katia/#/cart";
+	};
+
 	useEffect(() => {
-		axios
-			.post(`${config.api}/item/getAllItems`)
-			.then((res) => {
-				const newRes = chunks(res.data, 8);
-				setChunked(newRes);
-			});
+		axios.post(`${config.api}/item/getAllItems`).then((res) => {
+			const newRes = chunks(res.data, 8);
+			setChunked(newRes);
+		});
 
 		if (localStorage.getItem("katiacm")) {
-			cipherRequest(
-				localStorage.getItem("katiacm"),
-				`${config.api}/customer/getUserId`
-			).then((res) => {
-				setClientId(res);
+			const toSend = JSON.stringify({
+				token: localStorage.getItem("katiacm"),
 			});
+
+			cipherRequest(toSend, `${config.api}/customer/getUserId`).then(
+				(res) => {
+					setClientId(res);
+				}
+			);
 		}
 	}, []);
 
 	return (
 		<Layout>
 			<div id="shop-container">
+				{notif ? notif : null}
+
 				<div id="shop-data-container">
 					{chunked[current].length > 0 ? (
 						Object.keys(chunked[current]).map((v, k) => (
@@ -119,8 +157,14 @@ export default function Shop() {
 										alt={`Image de ${chunked[current][v].name}`}
 									/>
 
-									<span className="item-hover-actions">
+									<motion.span
+										initial={{ opacity: 0 }}
+										animate={{ opacity: 1 }}
+										className="item-hover-actions"
+									>
 										<div className="item-hover-actions-blur"></div>
+
+										<span className="text">{chunked[current][v].name}</span>
 										<button
 											disabled={lockdown}
 											onClick={(e) => {
@@ -132,21 +176,29 @@ export default function Shop() {
 													e
 												);
 											}}
-											className="item-hover-actions-items btn"
+											className="item-hover-actions-btn cart hvr-shrink"
 										>
 											+ Ajouter au panier
 										</button>
 
 										<button
 											disabled={lockdown}
-											onClick={() => {
-												setLockdown(false);
+											onClick={(e) => {
+												setLockdown(true);
+
+												addToCart(
+													chunked[current][v]._id,
+													1,
+													e
+												);
+
+												handleBuy();
 											}}
-											className="item-hover-actions-items btn"
+											className="item-hover-actions-btn now"
 										>
-											Acheter
+											Acheter ({chunked[current][v].price}€)
 										</button>
-									</span>
+									</motion.span>
 
 									<span className="item-title">
 										{chunked[current][v].name}
@@ -167,7 +219,7 @@ export default function Shop() {
 													: "item-price"
 											}
 										>
-											{chunked[current][v].price}€ (HT)
+											{chunked[current][v].price}€ (TTC)
 										</span>
 
 										{chunked[current][v].promotion > 0 ? (
@@ -196,21 +248,32 @@ export default function Shop() {
 											</span>
 										) : null}
 									</div>
-									<StarsLine rate={3} limit={5} count_feedback={0} />
+									<StarsLine
+										rate={3}
+										limit={5}
+										count_feedback={0}
+									/>
 								</div>
 							</motion.div>
 						))
 					) : (
 						<div className="loader">
-							<Puff
-								height="80"
-								width="80"
-								radius={1}
-								color="#cb4a4a"
-								ariaLabel="puff-loading"
-								wrapperStyle={{}}
-								wrapperClass=""
+							<Vortex
 								visible={true}
+								height="100"
+								width="100"
+								radius={1}
+								ariaLabel="vortex-loading"
+								wrapperStyle={{}}
+								wrapperClass="vortex-wrapper"
+								colors={[
+									"#fdeb79",
+									"#ff885e",
+									"#fdeb79",
+									"#ff885e",
+									"#fdeb79",
+									"#ff885e",
+								]}
 							/>
 						</div>
 					)}
@@ -225,7 +288,7 @@ export default function Shop() {
 							handleBefore();
 						}}
 					>
-						Precedent
+						&lt;
 					</button>
 
 					<button
@@ -236,7 +299,7 @@ export default function Shop() {
 							handleAfter();
 						}}
 					>
-						Suivant
+						&gt;
 					</button>
 				</div>
 			</div>

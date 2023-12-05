@@ -11,8 +11,34 @@ import "hover.css";
 export default function NavBar() {
 	const [isLogged, setIsLogged] = useState(false);
 	const [inBurger, setInBurger] = useState(false);
+	const [theme, setTheme] = useState("")
 
 	useEffect(() => {
+		const page = location.href.split("/").pop();
+
+		switch (page) {
+			case "home": {
+				setTheme("home")
+				break;
+			}
+			case "shop": {
+				setTheme("shop")
+				break;
+			}
+			case "cart": {
+				setTheme("cart")
+				break;
+			}
+			case "gate": {
+				setTheme("gate")
+				break;
+			}
+			case "customer": {
+				setTheme("customer")
+				break;
+			}
+		}
+
 		setIsLogged(localStorage.getItem("katiacm") ? true : false);
 	}, []);
 
@@ -24,20 +50,12 @@ export default function NavBar() {
 	};
 
 	/**
-	 * Retourner a la page d'accueil 
+	 * Retourner a la page d'accueil
 	 */
 	const goToHome = () => {
 		window.location.href = "/Katia/#/home";
 	};
 
-	/**
-	 * Supprimer le token + retourner a l'ecran d'accueil
-	 */
-	const revokeToken = () => {
-		localStorage.removeItem("katiacm");
-		goToHome();
-	};
-	
 	const [links, _] = useState({
 		logo: (
 			<li className="nav-element">
@@ -61,7 +79,7 @@ export default function NavBar() {
 		shop: (
 			<li className="nav-element resp">
 				<Link className="nav-link hvr-wobble-bottom" to="/shop">
-					Boutique
+					À la carte
 				</Link>
 			</li>
 		),
@@ -75,25 +93,11 @@ export default function NavBar() {
 		),
 
 		instance_client: (
-			<div className="nav-customer-instance-container resp">
-				<li className="nav-element nav-element-customer-instance">
-					<Link
-						className="hvr-wobble-bottom nav-link nav-link-customer-instance"
-						to="/customer"
-					>
-						Espace Client
-					</Link>
-				</li>
-
-				<li className="nav-element nav-element-customer-instance resp">
-					<button
-						className="hvr-buzz-out nav-link-customer-instance btn-deco btn"
-						onClick={revokeToken}
-					>
-						Deconnexion
-					</button>
-				</li>
-			</div>
+			<li className="nav-element resp">
+				<Link className="nav-link hvr-wobble-bottom" to="/customer">
+					Espace Client
+				</Link>
+			</li>
 		),
 
 		burger: (
@@ -104,10 +108,7 @@ export default function NavBar() {
 
 		cart: (
 			<li className="nav-element resp">
-				<Link
-					className="nav-link spe hvr-wobble-bottom"
-					to="/cart"
-				>
+				<Link className="nav-link spe hvr-wobble-bottom" to="/cart">
 					Panier
 				</Link>
 			</li>
@@ -118,12 +119,17 @@ export default function NavBar() {
 		<nav id="nav-container">
 			<ul id="nav-elements-container">
 				{links.logo}
-				{links.home}
-				{links.shop}
-				{isLogged ? (
-					links.cart
-				) : null}
-				{!isLogged ? links.gate : links.instance_client}
+
+				<div id="nav-elements-main" className={theme}>
+					{links.home}
+					{links.shop}
+
+					{isLogged ? links.cart : null}
+
+					{!isLogged ? links.gate : null}
+
+					{isLogged ? links.instance_client : null}
+				</div>
 
 				{links.burger}
 			</ul>
@@ -136,9 +142,7 @@ export default function NavBar() {
 
 					{links.home}
 					{links.shop}
-					{isLogged ? (
-						links.cart
-					) : null}
+					{isLogged ? links.cart : null}
 
 					{!isLogged ? links.gate : links.instance_client}
 				</div>

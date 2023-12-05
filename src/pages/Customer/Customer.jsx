@@ -33,6 +33,14 @@ export default function Customer() {
 	};
 
 	/**
+	 * Supprimer le token + retourner a l'ecran d'accueil
+	 */
+	const revokeToken = () => {
+		localStorage.removeItem("katiacm");
+		window.location.href = "/Katia/#/home";
+	};
+
+	/**
 	 * Ouvrir la liste des reservations en cours
 	 * @return {void}
 	 */
@@ -59,7 +67,8 @@ export default function Customer() {
 			toSend,
 			`${config.api}/customer/getInfo`
 		).then((res) => {
-			if(!res.data) {
+			console.log(res)
+			if(!res) {
 				localStorage.removeItem("katiacm")
 				window.location.href = "/Katia/#/gate";
 			}
@@ -83,6 +92,8 @@ export default function Customer() {
 							Sur cette page, trouvez toutes les infos de votre
 							compte client
 						</h4>
+
+						<button className="btn" onClick={revokeToken}>Deconnexion</button>
 					</div>
 
 					<div id="customer-informations-container">
@@ -115,7 +126,9 @@ export default function Customer() {
 						</div>
 					</div>
 
-					<div id="customer-information">{selectedComponent}</div>
+					<div id="customer-information">
+						{selectedComponent}
+					</div>
 				</div>
 			) : (
 				<div class="loader">

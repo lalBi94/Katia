@@ -81,6 +81,8 @@ export default function Admin() {
 				break;
 			}
 		}
+
+		window.scrollTo(0, 0)
 	};
 
 	useEffect(() => {

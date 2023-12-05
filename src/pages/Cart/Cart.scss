@@ -49,9 +49,9 @@
 	flex-direction: column;
 	gap: 25px;
 	color: $black;
-	width: 100%;
 	align-items: center;
 	justify-content: center;
+	overflow-x: auto;
 
 	#cart-items-container {
 		#cart-item-thead {
@@ -166,7 +166,27 @@
 			align-items: center;
 
 			.cart-total-btn {
-				padding: 10px;
+				background: rgb(206, 219, 254);
+				background: -moz-linear-gradient(
+					124deg,
+					rgba(206, 219, 254, 1) 14%,
+					rgba(254, 207, 239, 1) 89%
+				);
+				background: -webkit-linear-gradient(
+					124deg,
+					rgba(206, 219, 254, 1) 14%,
+					rgba(254, 207, 239, 1) 89%
+				);
+				background: linear-gradient(
+					124deg,
+					rgba(206, 219, 254, 1) 14%,
+					rgba(254, 207, 239, 1) 89%
+				);
+				filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#cedbfe",endColorstr="#fecfef",GradientType=1);
+				border: 1px solid $black;
+				color: $black;
+				border-radius: 50px;
+				padding: 15px;
 				font-size: 0.9em;
 			}
 		}

@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import Layout from "../../Layout/Layout";
 import { cipherRequest } from "../../services/KTSec/KTSec";
 import "./Cart.scss";
-import { Puff } from "react-loader-spinner";
+import { Vortex } from "react-loader-spinner";
 import { Link } from "react-router-dom";
 import "hover.css";
 import RCode from "../../components/RCode/RCode";
-import config from "../../global.json"
+import config from "../../global.json";
 
 /**
  * Panier du client
@@ -15,7 +15,7 @@ import config from "../../global.json"
 export default function Cart() {
 	const [data, setData] = useState([]);
 	const [total, setTotal] = useState(0);
-	const [lockdown, setLockdown] = useState(false);
+	const [lockdown, setLockdown] = useState(true);
 	const [loader, setLoader] = useState(true);
 	const [codeQR, setCodeQR] = useState(null);
 
@@ -32,21 +32,20 @@ export default function Cart() {
 
 		setLoader(true);
 
-		cipherRequest(
-			toSend,
-			`${config.api}/reservation/addReservation`
-		).then((res) => {
-			setCodeQR({
-				codeqr: res.codeqr,
-				text: res.codetxt,
-				total: res.total,
-			});
-			setLockdown(false);
-			setData(null);
-			setTotal(0);
-			console.log(res);
-			setLoader(false);
-		});
+		cipherRequest(toSend, `${config.api}/reservation/addReservation`).then(
+			(res) => {
+				setCodeQR({
+					codeqr: res.codeqr,
+					text: res.codetxt,
+					total: res.total,
+				});
+				setLockdown(false);
+				setData(null);
+				setTotal(0);
+				console.log(res);
+				setLoader(false);
+			}
+		);
 	};
 
 	/**
@@ -62,19 +61,18 @@ export default function Cart() {
 				item_id: item_id,
 			});
 
-			cipherRequest(
-				toSend,
-				`${config.api}/order/removeItem`
-			).then((res) => {
-				console.log(res);
-				const cpy = [...data];
-				cpy.splice(id, 1);
+			cipherRequest(toSend, `${config.api}/order/removeItem`).then(
+				(res) => {
+					console.log(res);
+					const cpy = [...data];
+					cpy.splice(id, 1);
 
-				setData(data.length > 1 ? cpy : null);
-				calculTotal(cpy);
+					setData(data.length > 1 ? cpy : null);
+					calculTotal(cpy);
 
-				setLockdown(false);
-			});
+					setLockdown(false);
+				}
+			);
 		});
 	};
 
@@ -82,14 +80,12 @@ export default function Cart() {
 	 * Supprimer l'integralite du panier
 	 * @return {Promise<void>}
 	 */
-	const clearCart = async () => {
-		try {
-			for (let i = 0; i <= data.length - 1; ++i) {
-				await removeItem(data[i]._id, i);
-			}
+	const clearCart = () => {
+		for (let i = 0; i <= data.length - 1; ++i) {
+			removeItem(data[i]._id, i);
+		}
 
-			setData(null);
-		} catch (donothing) {}
+		location.reload()
 	};
 
 	/**
@@ -155,26 +151,21 @@ export default function Cart() {
 	};
 
 	useEffect(() => {
-		if(!localStorage.getItem("katiacm")) window.location.href = "/Katia/#/gate";
+		if (!localStorage.getItem("katiacm"))
+			window.location.href = "/Katia/#/gate";
 
 		const toSend = JSON.stringify({
 			token: localStorage.getItem("katiacm"),
 		});
 
-		cipherRequest(
-			toSend,
-			`${config.api}/customer/getInfo`
-		).then((res) => {
-			if(!res.data) {
-				localStorage.removeItem("katiacm")
+		cipherRequest(toSend, `${config.api}/customer/getInfo`).then((res) => {
+			if (!res) {
+				localStorage.removeItem("katiacm");
 				window.location.href = "/Katia/#/gate";
 			}
-		})
+		});
 
-		cipherRequest(
-			toSend,
-			`${config.api}/order/getOrdersOf`
-		).then((res) => {
+		cipherRequest(toSend, `${config.api}/order/getOrdersOf`).then((res) => {
 			switch (res.status) {
 				case 0: {
 					if (res.data.length === 0) {
@@ -185,10 +176,13 @@ export default function Cart() {
 
 					setData(res.data);
 					calculTotal(res.data);
+					setLockdown(false);
 					break;
 				}
 
 				case 1: {
+					localStorage.removeItem("katiacm");
+					window.location.href = "/Katia/#/gate";
 					break;
 				}
 			}
@@ -228,7 +222,7 @@ export default function Cart() {
 								</td>
 
 								<td className="codeQR-data res">
-									<RCode code={codeQR.text}/>
+									<RCode code={codeQR.text} />
 								</td>
 
 								<td className="codeQR-data">
@@ -250,140 +244,141 @@ export default function Cart() {
 
 			{loader ? (
 				<div className="loader">
-					<Puff
-						height="80"
-						width="80"
-						radius={1}
-						color="#cb4a4a"
-						ariaLabel="puff-loading"
-						wrapperStyle={{}}
-						wrapperClass=""
+					<Vortex
 						visible={true}
+						height="100"
+						width="100"
+						radius={1}
+						ariaLabel="vortex-loading"
+						wrapperStyle={{}}
+						wrapperClass="vortex-wrapper"
+						colors={[
+							"#cedbfe",
+							"#fecfef",
+							"#cedbfe",
+							"#fecfef",
+							"#cedbfe",
+							"#fecfef",
+						]}
 					/>
 				</div>
 			) : null}
 
-			{
-				data ? (
-					<div id="cart-container">
-						<table id="cart-items-container">
-							<thead id="cart-item-thead">
-								<tr>
-									<th className="cart-items-titles">
-										Nom du produit
-									</th>
-									<th className="cart-items-titles">
-										Quantité
-									</th>
-									<th className="cart-items-titles">Prix</th>
-									<th className="cart-items-titles">
-										Actions
-									</th>
+			{data ? (
+				<div id="cart-container">
+					<table id="cart-items-container">
+						<thead id="cart-item-thead">
+							<tr>
+								<th className="cart-items-titles">
+									Nom du produit
+								</th>
+								<th className="cart-items-titles">Quantité</th>
+								<th className="cart-items-titles">Prix</th>
+								<th className="cart-items-titles">Actions</th>
+							</tr>
+						</thead>
+
+						<tbody id="cart-item-tbody">
+							{Object.keys(data).map((v, k) => (
+								<tr className="cart-items" key={k}>
+									<td className="cart-item-name">
+										{data[v].name}
+										<span className="cart-item-price">
+											{data[v].price}€/u
+										</span>
+									</td>
+									<td className="cart-item-qte">
+										x{data[v].qte}
+									</td>
+									<td className="cart-item-final-price">
+										{data[v].price * data[v].qte}€
+									</td>
+									<td className="cart-item-actions">
+										<button
+											disabled={lockdown}
+											className="cart-item-btn minus hvr-shrink"
+											onClick={() => {
+												setLockdown(true);
+												addOrRemoveOneToItemOrder(
+													data[v]._id,
+													"-",
+													data[v].qte,
+													v
+												);
+											}}
+										>
+											-
+										</button>
+
+										<button
+											disabled={lockdown}
+											className="cart-item-btn plus hvr-shrink"
+											onClick={() => {
+												setLockdown(true);
+												addOrRemoveOneToItemOrder(
+													data[v]._id,
+													"+",
+													data[v].qte,
+													v
+												);
+											}}
+										>
+											+
+										</button>
+
+										<button
+											disabled={lockdown}
+											className="cart-item-btn remove hvr-shrink"
+											onClick={() => {
+												setLockdown(true);
+												removeItem(data[v]._id, v);
+											}}
+										>
+											×
+										</button>
+									</td>
 								</tr>
-							</thead>
+							))}
+						</tbody>
+					</table>
 
-							<tbody id="cart-item-tbody">
-								{Object.keys(data).map((v, k) => (
-									<tr className="cart-items" key={k}>
-										<td className="cart-item-name">
-											{data[v].name}
-											<span className="cart-item-price">
-												{data[v].price}€/u
-											</span>
-										</td>
-										<td className="cart-item-qte">
-											x{data[v].qte}
-										</td>
-										<td className="cart-item-final-price">
-											{data[v].price * data[v].qte}€
-										</td>
-										<td className="cart-item-actions">
-											<button
-												disabled={lockdown}
-												className="cart-item-btn minus hvr-shrink"
-												onClick={() => {
-													setLockdown(true);
-													addOrRemoveOneToItemOrder(
-														data[v]._id,
-														"-",
-														data[v].qte,
-														v
-													);
-												}}
-											>
-												-
-											</button>
+					<div id="cart-total-container">
+						<div id="cart-total-btns">
+							<button
+								className="cart-total-btn btn hvr-shrink"
+								disabled={lockdown}
+								onClick={() => {
+									setLockdown(true);
+									buy();
+								}}
+							>
+								Réserver ({total}€ TTC)
+							</button>
 
-											<button
-												disabled={lockdown}
-												className="cart-item-btn plus hvr-shrink"
-												onClick={() => {
-													setLockdown(true);
-													addOrRemoveOneToItemOrder(
-														data[v]._id,
-														"+",
-														data[v].qte,
-														v
-													);
-												}}
-											>
-												+
-											</button>
+							<button
+								className="cart-total-btn btn hvr-shrink"
+								onClick={() => {
+									setLockdown(true);
+									clearCart();
+								}}
+								disabled={lockdown}
+							>
+								Vider le panier
+							</button>
 
-											<button
-												disabled={lockdown}
-												className="cart-item-btn remove hvr-shrink"
-												onClick={() => {
-													setLockdown(true);
-													removeItem(data[v]._id, v);
-												}}
-											>
-												×
-											</button>
-										</td>
-									</tr>
-								))}
-							</tbody>
-						</table>
-
-						<div id="cart-total-container">
-							<div id="cart-total-btns">
-								<button
-									className="cart-total-btn btn"
-									disabled={lockdown}
-									onClick={() => {
-										setLockdown(true);
-										buy();
-									}}
-								>
-									Réserver ({total}€ TTC)
-								</button>
-
-								<button
-									className="cart-total-btn btn"
-									onClick={() => {
-										setLockdown(true);
-										clearCart();
-									}}
-									disabled={lockdown}
-								>
-									Vider le panier
-								</button>
-
-								<button
-									className="cart-total-btn btn"
-									disabled={lockdown}
-									onClick={() => {
-										setLockdown(true);
-									}}
-								>
-									Retourner à la boutique
-								</button>
-							</div>
+							<button
+								className="cart-total-btn btn hvr-shrink"
+								disabled={lockdown}
+								onClick={() => {
+									setLockdown(true);
+								}}
+							>
+								Retourner à la boutique
+							</button>
 						</div>
 					</div>
-				) : null
-			}
+				</div>
+			) : null}
 		</Layout>
 	);
 }
