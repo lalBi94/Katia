@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import "hover.css";
 import RCode from "../../components/RCode/RCode";
 import config from "../../global.json";
+import KNotif from "../../components/KNotif/KNotif";
 
 /**
  * Panier du client
@@ -18,6 +19,17 @@ export default function Cart() {
 	const [lockdown, setLockdown] = useState(true);
 	const [loader, setLoader] = useState(true);
 	const [codeQR, setCodeQR] = useState(null);
+	const [notif, setNotif] = useState(null);
+
+	const closeNotif = () => {
+		setNotif(null);
+	};
+
+	const openNotif = (title, message, status) => {
+		setNotif(
+			<KNotif message={`${message}`} close={closeNotif} status={status} />
+		);
+	};
 
 	/**
 	 * Envoyer le panier dans les reservations
@@ -32,20 +44,45 @@ export default function Cart() {
 
 		setLoader(true);
 
-		cipherRequest(toSend, `${config.api}/reservation/addReservation`).then(
-			(res) => {
-				setCodeQR({
-					codeqr: res.codeqr,
-					text: res.codetxt,
-					total: res.total,
-				});
+		cipherRequest(toSend, `${config.api}/reservation/addReservation`)
+			.then((res) => {
+				switch (res.status) {
+					case 0: {
+						setCodeQR({
+							codeqr: res.codeqr,
+							text: res.codetxt,
+							total: res.total,
+						});
+
+						openNotif(
+							"Panier",
+							"Votre réservation a bien été pris en compte ! Il ne vous reste plus qu'a présenter ce code au marché et le tour est joué !",
+							0
+						);
+
+						setData(null);
+						setTotal(0);
+						break;
+					}
+
+					case 2: {
+						openNotif(
+							"Panier",
+							"Vous avez depassé le quota autorisé ! (max. 3 réservations)",
+							1
+						);
+						break;
+					}
+				}
+
 				setLockdown(false);
-				setData(null);
-				setTotal(0);
-				console.log(res);
 				setLoader(false);
-			}
-		);
+			})
+			.catch((err) => {
+				openNotif("Panier", "Veuillez ressayer dans 30 minutes.", 1);
+				setLockdown(false);
+				setLoader(false);
+			});
 	};
 
 	/**
@@ -85,7 +122,7 @@ export default function Cart() {
 			removeItem(data[i]._id, i);
 		}
 
-		location.reload()
+		location.reload();
 	};
 
 	/**
@@ -193,6 +230,8 @@ export default function Cart() {
 
 	return (
 		<Layout>
+			{notif ? notif : null}
+
 			{codeQR ? (
 				<div id="codeQR-big-container">
 					<h2>

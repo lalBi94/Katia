@@ -1,11 +1,25 @@
 @import "../../main.scss";
 
+.notif-error {
+    background: $red;
+    color: white;
+}
+
+.notif-success {
+    background: $pastel_lime;
+    color: $black;
+}
+
+.notif-info {
+    background: $pastel_violet;
+    color: $black;
+}
+
 .notif-container {
     position: fixed;
     top: 10px;
     bottom: 0;
     z-index: 9999;
-    background: $pastel_lime;
     max-height: 10%;
     width: 300px;
     display: flex;
@@ -34,14 +48,11 @@
     }
 
     .notif-title {
-        color: $black;
         padding-bottom: 2px;
         border-bottom: 2px solid white;
     }
 
     .notif-text {
-        color: $black;
         font-weight: bold;
-
     }
 }

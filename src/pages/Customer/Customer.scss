@@ -13,6 +13,7 @@
 		font-size: 0.8em;
 
 		.btn { 
+			border-radius: 50px;
 			font-size: larger;
 		}
 
@@ -39,19 +40,36 @@
 			display: flex;
 			flex-direction: row;
 			list-style-type: none;
-			color: white;
-			font-weight: bold;
-			background: $red;
+			color: $black;
+			font-size: large;
+			background: rgb(203, 255, 243);
+			background: -moz-linear-gradient(
+				124deg,
+				rgba(203, 255, 243, 1) 14%,
+				rgba(213, 255, 207, 1) 68%
+			);
+			background: -webkit-linear-gradient(
+				124deg,
+				rgba(203, 255, 243, 1) 14%,
+				rgba(213, 255, 207, 1) 68%
+			);
+			background: linear-gradient(
+				124deg,
+				rgba(203, 255, 243, 1) 14%,
+				rgba(213, 255, 207, 1) 68%
+			);
+			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#cbfff3",endColorstr="#d5ffcf",GradientType=1);
 			align-items: center;
 			justify-content: space-around;
 			text-align: center;
+			border: 0.1px solid $black;
 
 			.customer-category-link {
 				cursor: pointer;
 				padding: 20px;
 
 				&:hover {
-					background: $dark_red;
+					opacity: 0.7;
 				}
 			}
 

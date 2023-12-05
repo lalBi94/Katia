@@ -60,7 +60,7 @@ export default function NavBar() {
 		logo: (
 			<li className="nav-element">
 				<img
-					className="nav-link img hvr-wobble-bottom"
+					className="nav-link img hvr-pulse-grow"
 					src={logo}
 					alt="Logo des delices de Katia"
 					onClick={goToHome}

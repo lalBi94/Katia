@@ -51,10 +51,27 @@
 
 		#identifier {
 			font-size: 0.8em;
-			color: white;
-			background: $red;
+			background: rgb(203, 255, 243);
+			background: -moz-linear-gradient(
+				124deg,
+				rgba(203, 255, 243, 1) 14%,
+				rgba(213, 255, 207, 1) 68%
+			);
+			background: -webkit-linear-gradient(
+				124deg,
+				rgba(203, 255, 243, 1) 14%,
+				rgba(213, 255, 207, 1) 68%
+			);
+			background: linear-gradient(
+				124deg,
+				rgba(203, 255, 243, 1) 14%,
+				rgba(213, 255, 207, 1) 68%
+			);
+			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#cbfff3",endColorstr="#d5ffcf",GradientType=1);
+			color: $black;
 			padding: 5px;
 			font-weight: bold;
+			border: 1px solid $black
 		}
 
 		.data-modifier {

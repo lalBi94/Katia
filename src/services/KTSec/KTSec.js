@@ -60,7 +60,9 @@ const cipherRequest = (data, where) => {
 			}).then((res) => {
 				const serverdcr = KSDecrypt(res.data);
 				resolve(JSON.parse(serverdcr));
-			});
+			}).catch((err) => {
+				reject(null)
+			})
 		} catch (err) {
 			reject(null);
 		}

@@ -1,7 +1,7 @@
 import "./KNotif.scss";
 import { motion } from "framer-motion";
 
-export default function KNotif({ title = null, message, close, status, addons = null }) {
+export default function KNotif({ title = null, message, close, status = 0, addons = null }) {
 	return (
 		<motion.div
             initial={{ opacity: 0, scale: 0.5, x: 0 }}
@@ -12,7 +12,7 @@ export default function KNotif({ title = null, message, close, status, addons = 
                 ease: [0, 0.71, 0.2, 1.01]
             }}
 			className={`notif-container ${
-				status === 0 ? "success" : status === 1 ? "error" : "info"
+				status === 0 ? "notif-success" : status === 1 ? "notif-error" : "notif-info"
 			}`}
 		>
 			<button onClick={close} className="notif-close">
