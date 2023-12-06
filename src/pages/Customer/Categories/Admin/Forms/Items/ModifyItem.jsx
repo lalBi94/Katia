@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import config from "../../../../../../global.json"
+import config from "../../../../../../global.json";
 
 /**
  * [ADMIN FEATURES] Modifier un produit
@@ -28,7 +28,7 @@ export default function ModifyItem({ handleClose }) {
 	/**
 	 * Url de l'image du produit
 	 * @param {Event} e
-	 */	
+	 */
 	const handleModifyImgRef = (e) => {
 		setStatus(null);
 		setModifyImgRef(e.target.value);
@@ -46,7 +46,7 @@ export default function ModifyItem({ handleClose }) {
 	/**
 	 * Promotion du produit
 	 * @param {Event} e
-	 */	
+	 */
 	const handleModifyPromotion = (e) => {
 		setStatus(null);
 		setModifyPromotion(e.target.value);
@@ -54,7 +54,7 @@ export default function ModifyItem({ handleClose }) {
 
 	/**
 	 * Selectionner un produit
-	 * @param {*} item Produit selectionne 
+	 * @param {*} item Produit selectionne
 	 */
 	const handleSelect = (item) => {
 		setStatus(null);
@@ -83,11 +83,11 @@ export default function ModifyItem({ handleClose }) {
 
 		axios
 			.post(`${config.api}/item/modifyItem`, {
-				id: id,
-				name: name,
-				price: price,
-				promotion: promotion,
-				imgRef: imgRef,
+				id,
+				name,
+				price,
+				promotion,
+				imgRef,
 				token: localStorage.getItem("katiacm"),
 			})
 			.then((res) => {
@@ -131,10 +131,11 @@ export default function ModifyItem({ handleClose }) {
 									alt={`Image de ${showedItems[v].name}`}
 								/>
 								<span className="popup-list-data-name">
-									{showedItems[v].name} ({showedItems[v].price}€)
+									{showedItems[v].name} (
+									{showedItems[v].price}€)
 								</span>
 							</div>
-					))
+					  ))
 					: null}
 			</div>
 

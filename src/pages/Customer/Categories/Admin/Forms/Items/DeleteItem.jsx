@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "../popup.scss";
 import axios from "axios";
 import { cipherRequest } from "../../../../../../services/KTSec/KTSec";
-import config from "../../../../../../global.json"
+import config from "../../../../../../global.json";
 
 /**
  * [ADMIN FEATURES] Supprimer un produit
@@ -16,17 +16,15 @@ export default function DeleteItem({ handleClose }) {
 	const [status, setStatus] = useState(null);
 
 	useEffect(() => {
-		axios
-			.post(`${config.api}/item/getAllItems`)
-			.then((res) => {
-				setItems(res.data);
-				setShowedItems(res.data);
-			});
+		axios.post(`${config.api}/item/getAllItems`).then((res) => {
+			setItems(res.data);
+			setShowedItems(res.data);
+		});
 	}, []);
 
 	/**
 	 * Ajouter les produits selectionnes dans selectedItems
-	 * @param {number} id Identifiant du produit dans la liste 
+	 * @param {number} id Identifiant du produit dans la liste
 	 */
 	const handleSelect = (id) => {
 		if (selectedItems.indexOf(id) >= 0) {
@@ -49,11 +47,9 @@ export default function DeleteItem({ handleClose }) {
 			data: selectedItems,
 		});
 
-		cipherRequest(toSend, `${config.api}/item/deleteItems`).then(
-			(res) => {
-				setStatus(res.status);
-			}
-		);
+		cipherRequest(toSend, `${config.api}/item/deleteItems`).then((res) => {
+			setStatus(res.status);
+		});
 	};
 
 	return (

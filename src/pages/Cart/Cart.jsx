@@ -94,7 +94,7 @@ export default function Cart() {
 		return new Promise((_, __) => {
 			const toSend = JSON.stringify({
 				token: localStorage.getItem("katiacm"),
-				item_id: item_id,
+				item_id,
 			});
 
 			cipherRequest(toSend, `${config.api}/order/removeItem`).then(
@@ -139,7 +139,7 @@ export default function Cart() {
 
 		const toSend = JSON.stringify({
 			token: localStorage.getItem("katiacm"),
-			item_id: item_id,
+			item_id,
 			sign: action,
 		});
 
@@ -176,14 +176,17 @@ export default function Cart() {
 			return {
 				price: parseFloat(item.price),
 				qte: parseInt(item.qte),
-				promotion: parseInt(item.promotion)
+				promotion: parseInt(item.promotion),
 			};
 		});
 
 		const total = parsedData.reduce((acc, item) => {
 			return (
 				acc +
-				(item.promotion > 0 ? item.price - (item.price * item.promotion) / 100 : item.price) * item.qte
+				(item.promotion > 0
+					? item.price - (item.price * item.promotion) / 100
+					: item.price) *
+					item.qte
 			);
 		}, 0);
 
@@ -191,8 +194,9 @@ export default function Cart() {
 	};
 
 	useEffect(() => {
-		if (!localStorage.getItem("katiacm"))
+		if (!localStorage.getItem("katiacm")) {
 			window.location.href = "/Katia/#/gate";
+		}
 
 		const toSend = JSON.stringify({
 			token: localStorage.getItem("katiacm"),
@@ -233,7 +237,7 @@ export default function Cart() {
 
 	return (
 		<Layout>
-			{notif ? notif : null}
+			{notif || null}
 
 			{codeQR ? (
 				<div id="codeQR-big-container">

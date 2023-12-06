@@ -82,16 +82,16 @@ export default function Shop() {
 			const e = element.target;
 			e.style.background = "#d5ffcf";
 			e.innerText = "Ajout en cours ...";
-	
+
 			if (!clientId) {
 				window.location.href = "/Katia/#/gate";
 			} else {
 				const toSend = JSON.stringify({
 					token_c: localStorage.getItem("katiacm"),
-					itemId: itemId,
-					qte: qte,
+					itemId,
+					qte,
 				});
-	
+
 				cipherRequest(toSend, `${config.api}/order/addToCart`).then(
 					(res) => {
 						if (res.status === 0) {
@@ -103,24 +103,28 @@ export default function Shop() {
 								0
 							);
 
-							resolve(true)
+							resolve(true);
 						} else if (res.status === 1) {
-							openNotif("A la Carte", "Une erreur est survenue !", 1);
-							reject(false)
+							openNotif(
+								"A la Carte",
+								"Une erreur est survenue !",
+								1
+							);
+							reject(false);
 						}
-	
+
 						setLockdown(false);
 					}
 				);
 			}
-		})
+		});
 	};
 
 	const handleBuy = (itemId, qte, element) => {
 		addToCart(itemId, qte, element).then((res) => {
-			if(res) window.location.href = "/Katia/#/cart";
-		})
-		
+			if (res) window.location.href = "/Katia/#/cart";
+		});
+
 		setLockdown(false);
 	};
 
@@ -146,7 +150,7 @@ export default function Shop() {
 	return (
 		<Layout>
 			<div id="shop-container">
-				{notif ? notif : null}
+				{notif || null}
 
 				<div id="shop-data-container">
 					{chunked[current].length > 0 ? (
@@ -172,7 +176,9 @@ export default function Shop() {
 									>
 										<div className="item-hover-actions-blur"></div>
 
-										<span className="text">{chunked[current][v].name}</span>
+										<span className="text">
+											{chunked[current][v].name}
+										</span>
 										<button
 											disabled={lockdown}
 											onClick={(e) => {
@@ -193,11 +199,16 @@ export default function Shop() {
 											disabled={lockdown}
 											onClick={(e) => {
 												setLockdown(true);
-												handleBuy(chunked[current][v]._id, 1, e);
+												handleBuy(
+													chunked[current][v]._id,
+													1,
+													e
+												);
 											}}
 											className="item-hover-actions-btn now"
 										>
-											Acheter ({chunked[current][v].price}€)
+											Acheter ({chunked[current][v].price}
+											€)
 										</button>
 									</motion.span>
 
@@ -235,7 +246,8 @@ export default function Shop() {
 															chunked[current][v]
 																.promotion) /
 															100
-													).toFixed(2)}€
+													).toFixed(2)}
+													€
 												</span>
 
 												<span className="item-promotion">

@@ -42,18 +42,12 @@ export default function ShowReservationsActive({ handleClose }) {
 								<td>
 									<img
 										className="popup-modify-img"
-										src={
-											reservations[v].qrcode
-										}
+										src={reservations[v].qrcode}
 										alt=""
 									/>
 								</td>
 								<td style={{ color: "black" }}>
-									<RCode
-										code={
-											reservations[v].qrtxt
-										}
-									/>
+									<RCode code={reservations[v].qrtxt} />
 								</td>
 								<td className="list">
 									{Object.keys(
@@ -68,22 +62,22 @@ export default function ShowReservationsActive({ handleClose }) {
 								<td>
 									<div className="btn-grp">
 										<button
-											// onClick={() => {
-											// 	handleActivateReservation(
-											// 		selectedUser.reservations[v]
-											// 			._id
-											// 	);
-											// }}
+										// onClick={() => {
+										// 	handleActivateReservation(
+										// 		selectedUser.reservations[v]
+										// 			._id
+										// 	);
+										// }}
 										>
 											Activer
 										</button>
 										<button
-											// onClick={() => {
-											// 	handleDesactivateReservation(
-											// 		selectedUser.reservations[v]
-											// 			._id
-											// 	);
-											// }}
+										// onClick={() => {
+										// 	handleDesactivateReservation(
+										// 		selectedUser.reservations[v]
+										// 			._id
+										// 	);
+										// }}
 										>
 											Desactiver
 										</button>

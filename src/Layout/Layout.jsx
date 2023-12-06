@@ -1,5 +1,5 @@
 import NavBar from "../components/NavBar/NavBar";
-import "./Layout.scss"
+import "./Layout.scss";
 
 /**
  * Layout de toutes les pages

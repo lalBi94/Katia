@@ -11,35 +11,35 @@ import "hover.css";
 export default function NavBar() {
 	const [isLogged, setIsLogged] = useState(false);
 	const [inBurger, setInBurger] = useState(false);
-	const [theme, setTheme] = useState("")
+	const [theme, setTheme] = useState("");
 
 	useEffect(() => {
 		const page = location.href.split("/").pop();
 
 		switch (page) {
 			case "home": {
-				setTheme("home")
+				setTheme("home");
 				break;
 			}
 			case "shop": {
-				setTheme("shop")
+				setTheme("shop");
 				break;
 			}
 			case "cart": {
-				setTheme("cart")
+				setTheme("cart");
 				break;
 			}
 			case "gate": {
-				setTheme("gate")
+				setTheme("gate");
 				break;
 			}
 			case "customer": {
-				setTheme("customer")
+				setTheme("customer");
 				break;
 			}
 		}
 
-		setIsLogged(localStorage.getItem("katiacm") ? true : false);
+		setIsLogged(!!localStorage.getItem("katiacm"));
 	}, []);
 
 	/**

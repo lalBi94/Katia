@@ -29,7 +29,7 @@ export default function ShowReservation({ handleClose }) {
 
 			cipherRequest(toSend, `${config.api}/reservation/getReservationsOf`)
 				.then((res) => {
-					let cpy2 = { ...user };
+					const cpy2 = { ...user };
 					cpy2.reservations = res.data;
 					return cpy2;
 				})

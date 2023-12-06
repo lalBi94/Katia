@@ -82,7 +82,7 @@ export default function CreateItem({ handleClose }) {
 				return;
 			}
 
-			console.log(fileExtension)
+			console.log(fileExtension);
 
 			setImgRef(reader.result);
 		};
@@ -122,7 +122,7 @@ export default function CreateItem({ handleClose }) {
 	 * @return {void}
 	 */
 	const handleClear = () => {
-		for (let e in refs) {
+		for (const e in refs) {
 			refs[e].current.value = "";
 		}
 	};

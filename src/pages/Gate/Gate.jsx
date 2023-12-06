@@ -20,8 +20,9 @@ export default function Gate() {
 	const [loader, setLoader] = useState(false);
 
 	useEffect(() => {
-		if (localStorage.getItem("katiacm"))
+		if (localStorage.getItem("katiacm")) {
 			window.location.href = "/Katia/#/customer";
+		}
 	}, []);
 
 	/**
@@ -85,9 +86,9 @@ export default function Gate() {
 		) {
 			const hash = SHA512(password).toString();
 			const toSend = JSON.stringify({
-				firstname: firstname,
-				lastname: lastname,
-				email: email,
+				firstname,
+				lastname,
+				email,
 				password: hash,
 			});
 
@@ -126,7 +127,7 @@ export default function Gate() {
 
 		if (email.length > 0 && password.length > 0) {
 			const hash = SHA512(password).toString();
-			const toSend = JSON.stringify({ email: email, password: hash });
+			const toSend = JSON.stringify({ email, password: hash });
 
 			cipherRequest(toSend, `${config.api}/customer/login`).then(
 				(token) => {

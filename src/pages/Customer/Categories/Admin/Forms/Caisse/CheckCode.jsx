@@ -17,42 +17,48 @@ export default function CheckCode({ handleClose }) {
 		setReservationInfo({ found: false });
 	};
 
-    const handleDesactivateReservation = (id) => {
-        const toSend = JSON.stringify({
-            token: localStorage.getItem("katiacm"),
-            reservation_id: id
-        })
+	const handleDesactivateReservation = (id) => {
+		const toSend = JSON.stringify({
+			token: localStorage.getItem("katiacm"),
+			reservation_id: id,
+		});
 
-        cipherRequest(toSend, `${config.api}/reservation/desactivateReservations`).then((res) => {
-            if(res.status === 0) {
-                const cpy = {...reservationInfo}
-                cpy.status = false
-                setReservationInfo(cpy)
-            }
-        })
-    }
+		cipherRequest(
+			toSend,
+			`${config.api}/reservation/desactivateReservations`
+		).then((res) => {
+			if (res.status === 0) {
+				const cpy = { ...reservationInfo };
+				cpy.status = false;
+				setReservationInfo(cpy);
+			}
+		});
+	};
 
-    const handleActivateReservation = (id) => {
-        const toSend = JSON.stringify({
-            token: localStorage.getItem("katiacm"),
-            reservation_id: id
-        })
+	const handleActivateReservation = (id) => {
+		const toSend = JSON.stringify({
+			token: localStorage.getItem("katiacm"),
+			reservation_id: id,
+		});
 
-        cipherRequest(toSend, `${config.api}/reservation/activateReservations`).then((res) => {
-            if(res.status === 0) {
-                const cpy = {...reservationInfo}
-                cpy.status = true
-                setReservationInfo(cpy)
-            }
-        })
-    }
+		cipherRequest(
+			toSend,
+			`${config.api}/reservation/activateReservations`
+		).then((res) => {
+			if (res.status === 0) {
+				const cpy = { ...reservationInfo };
+				cpy.status = true;
+				setReservationInfo(cpy);
+			}
+		});
+	};
 
 	const handleSearch = () => {
 		if (code.length <= 5) return;
 
 		const toSend = JSON.stringify({
 			token: localStorage.getItem("katiacm"),
-			code: code,
+			code,
 		});
 
 		cipherRequest(toSend, `${config.api}/reservation/getRFromCode`).then(
@@ -79,58 +85,54 @@ export default function CheckCode({ handleClose }) {
 			{reservationInfo._id ? (
 				<table className="popup-modify">
 					<tbody>
-							<tr
-								className={`popup-reservations-rows ${
-									reservationInfo.status
-										? "available"
-										: "notavailable"
-								}`}
-							>
-								<td>
-									<img
-										className="popup-modify-img"
-										src={
-											reservationInfo.qrcode
-										}
-										alt=""
-									/>
-								</td>
-								<td>
-									<span>
-										{reservationInfo.qrtxt}
-									</span>
-								</td>
-								<td className="list">
-									{Object.keys(
-										reservationInfo.items_list
-									).map((vv, kk) => (
+						<tr
+							className={`popup-reservations-rows ${
+								reservationInfo.status
+									? "available"
+									: "notavailable"
+							}`}
+						>
+							<td>
+								<img
+									className="popup-modify-img"
+									src={reservationInfo.qrcode}
+									alt=""
+								/>
+							</td>
+							<td>
+								<span>{reservationInfo.qrtxt}</span>
+							</td>
+							<td className="list">
+								{Object.keys(reservationInfo.items_list).map(
+									(vv, kk) => (
 										<span key={kk}>
 											{`- (x${reservationInfo.items_list[vv].qte}) ${reservationInfo.items_list[vv].name}`}
 										</span>
-									))}
-								</td>
-								<td>{reservationInfo.total} €</td>
-								<td className="btn-grp">
-									<button
-										onClick={() => {
-											handleActivateReservation(
-												reservationInfo._id
-											);
-										}}
-									>
-										Activer
-									</button>
-									<button
-										onClick={() => {
-											handleDesactivateReservation(
-												reservationInfo._id
-											);
-										}}
-									>
-										Desactiver
-									</button>
-								</td>
-							</tr>
+									)
+								)}
+							</td>
+							<td>{reservationInfo.total} €</td>
+							<td className="btn-grp">
+								<button
+									onClick={() => {
+										handleActivateReservation(
+											reservationInfo._id
+										);
+									}}
+								>
+									Activer
+								</button>
+								<button
+									onClick={() => {
+										handleDesactivateReservation(
+											reservationInfo._id
+										);
+									}}
+								>
+									Desactiver
+								</button>
+							</td>
+						</tr>
 					</tbody>
 				</table>
 			) : null}

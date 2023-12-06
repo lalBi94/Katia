@@ -83,7 +83,9 @@ export default function Admin() {
 			}
 
 			case "show_reservations_active": {
-				setForm(<ShowReservationsActive handleClose={handleCloseForm} />)
+				setForm(
+					<ShowReservationsActive handleClose={handleCloseForm} />
+				);
 			}
 		}
 

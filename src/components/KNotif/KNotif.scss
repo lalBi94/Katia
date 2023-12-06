@@ -1,58 +1,58 @@
 @import "../../main.scss";
 
 .notif-error {
-    background: $red;
-    color: white;
+	background: $red;
+	color: white;
 }
 
 .notif-success {
-    background: $pastel_lime;
-    color: $black;
+	background: $pastel_lime;
+	color: $black;
 }
 
 .notif-info {
-    background: $pastel_violet;
-    color: $black;
+	background: $pastel_violet;
+	color: $black;
 }
 
 .notif-container {
-    position: fixed;
-    top: 10px;
-    bottom: 0;
-    z-index: 9999;
-    max-height: 10%;
-    width: 300px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: left;
-    padding: 20px;
-    gap: 5px;
-    border-radius: 10px;
-    border: 1px solid $black;
+	position: fixed;
+	top: 10px;
+	bottom: 0;
+	z-index: 9999;
+	max-height: 10%;
+	width: 300px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: left;
+	padding: 20px;
+	gap: 5px;
+	border-radius: 10px;
+	border: 1px solid $black;
 
-    .notif-close {
-        position: absolute;
-        right: 10px;
-        top: 10px;
-        border: 0;
-        background: transparent;
-        color: $black;
-        font-size: larger;
-        cursor: pointer;
+	.notif-close {
+		position: absolute;
+		right: 10px;
+		top: 10px;
+		border: 0;
+		background: transparent;
+		color: $black;
+		font-size: larger;
+		cursor: pointer;
 
-        &:hover {
-            background: lightgray;
-            border-radius: 100%;
-        }
-    }
+		&:hover {
+			background: lightgray;
+			border-radius: 100%;
+		}
+	}
 
-    .notif-title {
-        padding-bottom: 2px;
-        border-bottom: 2px solid white;
-    }
+	.notif-title {
+		padding-bottom: 2px;
+		border-bottom: 2px solid white;
+	}
 
-    .notif-text {
-        font-weight: bold;
-    }
+	.notif-text {
+		font-weight: bold;
+	}
 }

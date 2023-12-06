@@ -1,4 +1,4 @@
-/** 
+/**
 	$-------------------------------------------$
 	|            Frontend du client 	        |
 	| @name katia-client 					    |
@@ -11,7 +11,7 @@
 	$-------------------------------------------$
 */
 
-import React from "react";
+import React, { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import { createHashRouter, RouterProvider } from "react-router-dom";
 import Gate from "./pages/Gate/Gate";
@@ -20,7 +20,6 @@ import "./main.scss";
 import Customer from "./pages/Customer/Customer";
 import Shop from "./pages/Shop/Shop";
 import Cart from "./pages/Cart/Cart";
-import { StrictMode } from 'react';
 
 const router = createHashRouter([
 	{ path: "/", element: <Home /> },

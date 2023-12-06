@@ -19,8 +19,7 @@ export default function Home() {
 					}}
 					modules={[Pagination, Autoplay]}
 					className="the-swiper"
-				>
-				</Swiper>
+				></Swiper>
 			</div>
 		</Layout>
 	);

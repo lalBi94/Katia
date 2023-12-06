@@ -2,18 +2,18 @@ import { useState } from "react";
 import "./MyAccount.scss";
 import "hover.css";
 import { cipherRequest } from "../../../../services/KTSec/KTSec";
-import config from "../../../../global.json"
+import config from "../../../../global.json";
 
 /**
  * Visualiser les informations du client
- * @param {{data: {}}} param0 
+ * @param {{data: {}}} param0
  * @return {HTMLElement}
  */
 export default function MyAccount({ data }) {
 	const [firstNameM, setFirstNameM] = useState("");
 	const [lastNameM, setLastNameM] = useState("");
 	const [emailM, setEmailM] = useState("");
-	//const [passwordM, setPasswordM] = useState("");
+	// const [passwordM, setPasswordM] = useState("");
 	const [isErr, setIsErr] = useState({ flag: false, status: -1 });
 	const [isModify, setIsModify] = useState({
 		firstname: false,
@@ -29,7 +29,7 @@ export default function MyAccount({ data }) {
 
 	/**
 	 * Email du client
-	 * @param {Event} e 
+	 * @param {Event} e
 	 */
 	const handleEmail = (e) => {
 		setEmailM(e.target.value);
@@ -37,7 +37,7 @@ export default function MyAccount({ data }) {
 
 	/**
 	 * Prenom du client
-	 * @param {Event} e 
+	 * @param {Event} e
 	 */
 	const handleFirstname = (e) => {
 		setFirstNameM(e.target.value);
@@ -45,7 +45,7 @@ export default function MyAccount({ data }) {
 
 	/**
 	 * Nom de famille du client
-	 * @param {Event} e 
+	 * @param {Event} e
 	 */
 	const handleLastname = (e) => {
 		setLastNameM(e.target.value);
@@ -148,15 +148,11 @@ export default function MyAccount({ data }) {
 	return (
 		<div id="myaccount-container">
 			{!isErr.flag && isErr.status === 1 ? (
-				<p id="error">
-					Une erreur est survenue !
-				</p>
+				<p id="error">Une erreur est survenue !</p>
 			) : null}
 
 			{!isErr.flag && isErr.status === 2 ? (
-				<p id="error">
-					Cet email n'est pas disponible !
-					</p>
+				<p id="error">Cet email n'est pas disponible !</p>
 			) : null}
 
 			{isErr.flag && isErr.status === 0 ? (

@@ -5,7 +5,7 @@ import MyAccount from "./Categories/MyAccount/MyAccount";
 import { cipherRequest } from "../../services/KTSec/KTSec";
 import Admin from "./Categories/Admin/Admin";
 import { Puff } from "react-loader-spinner";
-import config from "../../global.json"
+import config from "../../global.json";
 
 /**
  * Page cliente
@@ -57,23 +57,21 @@ export default function Customer() {
 	};
 
 	useEffect(() => {
-		if(!localStorage.getItem("katiacm")) window.location.href = "/Katia/#/gate";
+		if (!localStorage.getItem("katiacm"))
+			window.location.href = "/Katia/#/gate";
 
 		const toSend = JSON.stringify({
-			token: localStorage.getItem("katiacm") 
-		})
+			token: localStorage.getItem("katiacm"),
+		});
 
-		cipherRequest(
-			toSend,
-			`${config.api}/customer/getInfo`
-		).then((res) => {
-			console.log(res)
-			if(!res) {
-				localStorage.removeItem("katiacm")
+		cipherRequest(toSend, `${config.api}/customer/getInfo`).then((res) => {
+			console.log(res);
+			if (!res) {
+				localStorage.removeItem("katiacm");
 				window.location.href = "/Katia/#/gate";
 			}
 
-			if(res.status === 0 && res.data) {
+			if (res.status === 0 && res.data) {
 				setUserData(res.data);
 				handleMyAccount(res.data);
 			}
@@ -93,7 +91,9 @@ export default function Customer() {
 							compte client
 						</h4>
 
-						<button className="btn" onClick={revokeToken}>Deconnexion</button>
+						<button className="btn" onClick={revokeToken}>
+							Deconnexion
+						</button>
 					</div>
 
 					<div id="customer-informations-container">
@@ -126,12 +126,10 @@ export default function Customer() {
 						</div>
 					</div>
 
-					<div id="customer-information">
-						{selectedComponent}
-					</div>
+					<div id="customer-information">{selectedComponent}</div>
 				</div>
 			) : (
-				<div class="loader">
+				<div className="loader">
 					<Puff
 						height="80"
 						width="80"
@@ -143,8 +141,7 @@ export default function Customer() {
 						visible={true}
 					/>
 				</div>
-			)
-			}
+			)}
 		</Layout>
 	);
 }

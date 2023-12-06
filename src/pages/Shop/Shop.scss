@@ -12,11 +12,23 @@
 
 		.before,
 		.after {
-			background: rgb(255,136,94);
-			background: -moz-linear-gradient(124deg, rgba(255,136,94,1) 0%, rgba(253,235,121,1) 86%);
-			background: -webkit-linear-gradient(124deg, rgba(255,136,94,1) 0%, rgba(253,235,121,1) 86%);
-			background: linear-gradient(124deg, rgba(255,136,94,1) 0%, rgba(253,235,121,1) 86%);
-			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff885e",endColorstr="#fdeb79",GradientType=1);			
+			background: rgb(255, 136, 94);
+			background: -moz-linear-gradient(
+				124deg,
+				rgba(255, 136, 94, 1) 0%,
+				rgba(253, 235, 121, 1) 86%
+			);
+			background: -webkit-linear-gradient(
+				124deg,
+				rgba(255, 136, 94, 1) 0%,
+				rgba(253, 235, 121, 1) 86%
+			);
+			background: linear-gradient(
+				124deg,
+				rgba(255, 136, 94, 1) 0%,
+				rgba(253, 235, 121, 1) 86%
+			);
+			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff885e",endColorstr="#fdeb79",GradientType=1);
 			border: 1.1px solid $black;
 			width: 35px;
 			height: 35px;
@@ -87,11 +99,23 @@
 				}
 
 				.item-hover-actions-blur {
-					background: rgb(255,136,94);
-					background: -moz-linear-gradient(124deg, rgba(255,136,94,1) 0%, rgba(253,235,121,1) 86%);
-					background: -webkit-linear-gradient(124deg, rgba(255,136,94,1) 0%, rgba(253,235,121,1) 86%);
-					background: linear-gradient(124deg, rgba(255,136,94,1) 0%, rgba(253,235,121,1) 86%);
-					filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff885e",endColorstr="#fdeb79",GradientType=1);		
+					background: rgb(255, 136, 94);
+					background: -moz-linear-gradient(
+						124deg,
+						rgba(255, 136, 94, 1) 0%,
+						rgba(253, 235, 121, 1) 86%
+					);
+					background: -webkit-linear-gradient(
+						124deg,
+						rgba(255, 136, 94, 1) 0%,
+						rgba(253, 235, 121, 1) 86%
+					);
+					background: linear-gradient(
+						124deg,
+						rgba(255, 136, 94, 1) 0%,
+						rgba(253, 235, 121, 1) 86%
+					);
+					filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff885e",endColorstr="#fdeb79",GradientType=1);
 					position: absolute;
 					color: white;
 					width: 100%;
