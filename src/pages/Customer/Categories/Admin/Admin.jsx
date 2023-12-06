@@ -5,6 +5,7 @@ import DeleteItem from "./Forms/Items/DeleteItem";
 import ModifyItem from "./Forms/Items/ModifyItem";
 import ShowReservation from "./Forms/Customers/ShowReservations";
 import CheckCode from "./Forms/Caisse/CheckCode";
+import ShowReservationsActive from "./Forms/Caisse/ShowReservationsActive";
 import { cipherRequest } from "../../../../services/KTSec/KTSec";
 import config from "../../../../global.json";
 import axios from "axios";
@@ -80,9 +81,13 @@ export default function Admin() {
 				setForm(<CheckCode handleClose={handleCloseForm} />);
 				break;
 			}
+
+			case "show_reservations_active": {
+				setForm(<ShowReservationsActive handleClose={handleCloseForm} />)
+			}
 		}
 
-		window.scrollTo(0, 0)
+		window.scrollTo(0, 0);
 	};
 
 	useEffect(() => {
@@ -103,6 +108,15 @@ export default function Admin() {
 						className="admin-category-btn"
 					>
 						Entrer un code
+					</button>
+
+					<button
+						className="admin-category-btn"
+						onClick={() => {
+							handleForm("show_reservations_active");
+						}}
+					>
+						Voir les reservations a venir (non fonctionnel)
 					</button>
 				</div>
 
@@ -179,10 +193,10 @@ export default function Admin() {
 
 				<div className="admin-category-btns">
 					<button className="admin-category-btn">
-						Voir les tickets
+						Voir les tickets (non fonctionnel)
 					</button>
 					<button className="admin-category-btn">
-						Modifier les coordonnees
+						Modifier les coordonnees (non fonctionnel)
 					</button>
 				</div>
 			</div>

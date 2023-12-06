@@ -75,45 +75,53 @@ export default function Shop() {
 	 * @param {*} itemId Identifiant du produit
 	 * @param {*} qte Quantite du produit
 	 * @param {HTMLElement} element Tag du bouton selectionne
-	 * @return {void}
+	 * @return {Promise<boolean>}
 	 */
 	const addToCart = (itemId, qte, element) => {
-		const e = element.target;
-		e.style.background = "#d5ffcf";
-		e.innerText = "Ajout en cours ...";
+		return new Promise((resolve, reject) => {
+			const e = element.target;
+			e.style.background = "#d5ffcf";
+			e.innerText = "Ajout en cours ...";
+	
+			if (!clientId) {
+				window.location.href = "/Katia/#/gate";
+			} else {
+				const toSend = JSON.stringify({
+					token_c: localStorage.getItem("katiacm"),
+					itemId: itemId,
+					qte: qte,
+				});
+	
+				cipherRequest(toSend, `${config.api}/order/addToCart`).then(
+					(res) => {
+						if (res.status === 0) {
+							e.style.background = "#fdeb79";
+							e.innerText = "+ Ajouter au panier";
+							openNotif(
+								"A la Carte",
+								"Votre article a été deplacé dans le panier !",
+								0
+							);
 
-		if (!clientId) {
-			window.location.href = "/Katia/#/gate";
-		} else {
-			const toSend = JSON.stringify({
-				token_c: localStorage.getItem("katiacm"),
-				itemId: itemId,
-				qte: qte,
-			});
-
-			cipherRequest(toSend, `${config.api}/order/addToCart`).then(
-				(res) => {
-					if (res.status === 0) {
-						e.style.background = "#fdeb79";
-						e.innerText = "+ Ajouter au panier";
-						openNotif(
-							"A la Carte",
-							"Votre article a été deplacé dans le panier !",
-							0
-						);
-					} else if (res.status === 1) {
-						openNotif("A la Carte", "Une erreur est survenue !", 1);
+							resolve(true)
+						} else if (res.status === 1) {
+							openNotif("A la Carte", "Une erreur est survenue !", 1);
+							reject(false)
+						}
+	
+						setLockdown(false);
 					}
-
-					setLockdown(false);
-				}
-			);
-		}
+				);
+			}
+		})
 	};
 
-	const handleBuy = () => {
+	const handleBuy = (itemId, qte, element) => {
+		addToCart(itemId, qte, element).then((res) => {
+			if(res) window.location.href = "/Katia/#/cart";
+		})
+		
 		setLockdown(false);
-		window.location.href = "/Katia/#/cart";
 	};
 
 	useEffect(() => {
@@ -185,14 +193,7 @@ export default function Shop() {
 											disabled={lockdown}
 											onClick={(e) => {
 												setLockdown(true);
-
-												addToCart(
-													chunked[current][v]._id,
-													1,
-													e
-												);
-
-												handleBuy();
+												handleBuy(chunked[current][v]._id, 1, e);
 											}}
 											className="item-hover-actions-btn now"
 										>
@@ -234,8 +235,7 @@ export default function Shop() {
 															chunked[current][v]
 																.promotion) /
 															100
-													).toFixed(2)}
-													€ (HT)
+													).toFixed(2)}€
 												</span>
 
 												<span className="item-promotion">

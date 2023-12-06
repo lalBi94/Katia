@@ -5,7 +5,7 @@ export default function KNotif({ title = null, message, close, status = 0, addon
 	return (
 		<motion.div
             initial={{ opacity: 0, scale: 0.5, x: 0 }}
-            animate={{ opacity: 1, scale: 1, position: "fixed", left: 30, top: 30 }}
+            animate={{ opacity: 1, scale: 1, position: "fixed", left: "5px", top: "5px" }}
             transition={{
                 duration: 0.8,
                 delay: 0.5,

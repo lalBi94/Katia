@@ -39,7 +39,6 @@ export default function Cart() {
 		const toSend = JSON.stringify({
 			token: localStorage.getItem("katiacm"),
 			items_list: data,
-			total: total,
 		});
 
 		setLoader(true);
@@ -177,11 +176,15 @@ export default function Cart() {
 			return {
 				price: parseFloat(item.price),
 				qte: parseInt(item.qte),
+				promotion: parseInt(item.promotion)
 			};
 		});
 
 		const total = parsedData.reduce((acc, item) => {
-			return acc + item.price * item.qte;
+			return (
+				acc +
+				(item.promotion > 0 ? item.price - (item.price * item.promotion) / 100 : item.price) * item.qte
+			);
 		}, 0);
 
 		setTotal(total.toFixed(2));
@@ -322,15 +325,40 @@ export default function Cart() {
 								<tr className="cart-items" key={k}>
 									<td className="cart-item-name">
 										{data[v].name}
-										<span className="cart-item-price">
-											{data[v].price}€/u
-										</span>
+
+										{parseInt(data[v].promotion) > 0 ? (
+											<span className="cart-item-promo">
+												{data[v].promotion}%
+											</span>
+										) : null}
+
+										{parseInt(data[v].promotion) > 0 ? (
+											<span className="cart-item-price-promo">
+												{(
+													data[v].price -
+													(data[v].price *
+														data[v].promotion) /
+														100
+												).toFixed(2)}
+												€ (TCC)
+											</span>
+										) : (
+											<span className="cart-item-price">
+												{data[v].price}€/u
+											</span>
+										)}
 									</td>
 									<td className="cart-item-qte">
 										x{data[v].qte}
 									</td>
 									<td className="cart-item-final-price">
-										{data[v].price * data[v].qte}€
+										{parseFloat(
+											data[v].price -
+												(data[v].price *
+													data[v].promotion) /
+													100
+										).toFixed(2) * data[v].qte}
+										€
 									</td>
 									<td className="cart-item-actions">
 										<button
