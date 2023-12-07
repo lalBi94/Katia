@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { cipherRequest } from "../../../../../../services/KTSec/KTSec";
 import "../popup.scss";
 import config from "../../../../../../global.json";
+import { MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
 import RCode from "../../../../../../components/RCode/RCode";
 
 export default function ShowReservation({ handleClose }) {
 	const [users, setUsers] = useState({});
 	const [selectedUser, setSelectedUser] = useState({});
+	const [reservations, setReservations] = useState([]);
 
 	useEffect(() => {
 		const toSend = JSON.stringify({
@@ -34,7 +36,76 @@ export default function ShowReservation({ handleClose }) {
 					return cpy2;
 				})
 				.then((res2) => {
-					console.log(res2);
+					const tab_columns = [
+						{
+							label: "Status",
+							field: "status",
+						},
+						{
+							label: "Code",
+							field: "rcode",
+						},
+						{
+							label: "Total",
+							field: "total",
+						},
+						{
+							label: "Action",
+							field: "action",
+						},
+					];
+
+					const tab_rows = [];
+
+					for (let i = 0; i <= res2.reservations.length - 1; ++i) {
+						tab_rows.push({
+							status: (
+								<span
+									className={`tab-status ${
+										res2.reservations[i].status
+											? "actif-res"
+											: "inactif-res"
+									}`}
+								>
+									{res2.reservations[i].status
+										? "Actif"
+										: "Non-Actif"}
+								</span>
+							),
+							rcode: <RCode code={res2.reservations[i].qrtxt} />,
+							total: (
+								<span className="tab-total">
+									{res2.reservations[i].total}€
+								</span>
+							),
+							action: (
+								<div className="tab-actions">
+									<button
+										className="tab-btn"
+										onClick={() => {
+											handleActivate(
+												res2.reservations[i]._id
+											);
+										}}
+									>
+										Activer
+									</button>
+									<button
+										className="tab-btn"
+										onClick={() => {
+											handleDesactivate(
+												res2.reservations[i]._id
+											);
+										}}
+									>
+										Desactiver
+									</button>
+								</div>
+							),
+						});
+					}
+					
+					setReservations({columns: tab_columns, rows: tab_rows})
 					setSelectedUser(res2);
 				});
 		}
@@ -122,76 +193,17 @@ export default function ShowReservation({ handleClose }) {
 									{users[v].createdAt}
 								</span>
 							</div>
-					  ))
+					))
 					: null}
 			</div>
 
 			{selectedUser._id ? (
-				<table className="popup-modify">
-					<tbody>
-						{Object.keys(selectedUser.reservations).map((v, k) => (
-							<tr
-								key={k}
-								className={`popup-reservations-rows ${
-									selectedUser.reservations[v].status
-										? "available"
-										: "notavailable"
-								}`}
-							>
-								<td>
-									<img
-										className="popup-modify-img"
-										src={
-											selectedUser.reservations[v].qrcode
-										}
-										alt=""
-									/>
-								</td>
-								<td style={{ color: "black" }}>
-									<RCode
-										code={
-											selectedUser.reservations[v].qrtxt
-										}
-									/>
-								</td>
-								<td className="list">
-									{Object.keys(
-										selectedUser.reservations[v].items_list
-									).map((vv, kk) => (
-										<span
-											key={kk}
-										>{`- (x${selectedUser.reservations[v].items_list[vv].qte}) ${selectedUser.reservations[v].items_list[vv].name}`}</span>
-									))}
-								</td>
-								<td>{selectedUser.reservations[v].total} €</td>
-								<td>
-									<div className="btn-grp">
-										<button
-											onClick={() => {
-												handleActivateReservation(
-													selectedUser.reservations[v]
-														._id
-												);
-											}}
-										>
-											Activer
-										</button>
-										<button
-											onClick={() => {
-												handleDesactivateReservation(
-													selectedUser.reservations[v]
-														._id
-												);
-											}}
-										>
-											Desactiver
-										</button>
-									</div>
-								</td>
-							</tr>
-						))}
-					</tbody>
-				</table>
+				<div id="popup-table-container">
+					<MDBTable responsive={true}>
+						<MDBTableHead columns={reservations.columns} />
+						<MDBTableBody rows={reservations.rows} />
+					</MDBTable>
+				</div>
 			) : null}
 
 			<div className="popup-btn-container">

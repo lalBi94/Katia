@@ -201,6 +201,7 @@
 				color: $black;
 				border-radius: 50px;
 				font-size: smaller;
+				padding: 15px;
 			}
 		}
 	}
@@ -234,6 +235,14 @@
 		td {
 			padding: 10px;
 			font-size: 0.8em;
+		}
+	}
+
+	#cart-total-container {
+		#cart-total-btns {
+			.cart-total-btn {
+				padding: 5px;
+			}
 		}
 	}
 }

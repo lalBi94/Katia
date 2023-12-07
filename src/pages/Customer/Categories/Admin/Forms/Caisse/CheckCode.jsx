@@ -2,6 +2,8 @@ import "../popup.scss";
 import { useState } from "react";
 import { cipherRequest } from "../../../../../../services/KTSec/KTSec";
 import config from "../../../../../../global.json";
+import { MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
+import RCode from "../../../../../../components/RCode/RCode";
 
 export default function CheckCode({ handleClose }) {
 	const [reservationInfo, setReservationInfo] = useState({ found: false });
@@ -17,42 +19,6 @@ export default function CheckCode({ handleClose }) {
 		setReservationInfo({ found: false });
 	};
 
-	const handleDesactivateReservation = (id) => {
-		const toSend = JSON.stringify({
-			token: localStorage.getItem("katiacm"),
-			reservation_id: id,
-		});
-
-		cipherRequest(
-			toSend,
-			`${config.api}/reservation/desactivateReservations`
-		).then((res) => {
-			if (res.status === 0) {
-				const cpy = { ...reservationInfo };
-				cpy.status = false;
-				setReservationInfo(cpy);
-			}
-		});
-	};
-
-	const handleActivateReservation = (id) => {
-		const toSend = JSON.stringify({
-			token: localStorage.getItem("katiacm"),
-			reservation_id: id,
-		});
-
-		cipherRequest(
-			toSend,
-			`${config.api}/reservation/activateReservations`
-		).then((res) => {
-			if (res.status === 0) {
-				const cpy = { ...reservationInfo };
-				cpy.status = true;
-				setReservationInfo(cpy);
-			}
-		});
-	};
-
 	const handleSearch = () => {
 		if (code.length <= 5) return;
 
@@ -64,11 +30,99 @@ export default function CheckCode({ handleClose }) {
 		cipherRequest(toSend, `${config.api}/reservation/getRFromCode`).then(
 			(res) => {
 				res.info.found = true;
-				setReservationInfo(res.info);
-				console.log(res.info);
+
+				const tab_columns = [
+					{
+						label: "Status",
+						field: "status",
+					},
+					{
+						label: "Code",
+						field: "rcode",
+					},
+					{
+						label: "Total",
+						field: "total",
+					},
+					{
+						label: "Action",
+						field: "action",
+					},
+				];
+
+				const tab_rows = [
+					{
+						status: (
+							<span
+								className={`tab-status ${
+									res.info.status
+										? "actif-res"
+										: "inactif-res"
+								}`}
+							>
+								{res.info.status ? "Actif" : "Non-Actif"}
+							</span>
+						),
+						rcode: <RCode code={res.info.qrtxt} />,
+						total: (
+							<span className="tab-total">{res.info.total}€</span>
+						),
+						action: (
+							<div className="tab-actions">
+								<button
+									className="tab-btn"
+									onClick={() => {
+										handleActivate(res.info._id);
+									}}
+								>
+									Activer
+								</button>
+								<button
+									className="tab-btn"
+									onClick={() => {
+										handleDesactivate(res.info._id);
+									}}
+								>
+									Desactiver
+								</button>
+							</div>
+						),
+					},
+				];
+
+				setReservationInfo({
+					columns: tab_columns,
+					rows: tab_rows,
+				});
 			}
 		);
 	};
+
+	const handleActivate = (id) => {
+		const toSend = JSON.stringify({
+			token: localStorage.getItem("katiacm"),
+			reservation_id: id,
+		});
+
+		cipherRequest(toSend, `${config.api}/reservation/activateReservations`).then((res) => {
+			if(res.status === 0) {
+				handleSearch()
+			}
+		})
+	}
+
+	const handleDesactivate = (id) => {
+		const toSend = JSON.stringify({
+			token: localStorage.getItem("katiacm"),
+			reservation_id: id,
+		});
+
+		cipherRequest(toSend, `${config.api}/reservation/desactivateReservations`).then((res) => {
+			if(res.status === 0) {
+				handleSearch()
+			}
+		})
+	}
 
 	return (
 		<div className="popup-container">
@@ -82,59 +136,11 @@ export default function CheckCode({ handleClose }) {
 				/>
 			) : null}
 
-			{reservationInfo._id ? (
-				<table className="popup-modify">
-					<tbody>
-						<tr
-							className={`popup-reservations-rows ${
-								reservationInfo.status
-									? "available"
-									: "notavailable"
-							}`}
-						>
-							<td>
-								<img
-									className="popup-modify-img"
-									src={reservationInfo.qrcode}
-									alt=""
-								/>
-							</td>
-							<td>
-								<span>{reservationInfo.qrtxt}</span>
-							</td>
-							<td className="list">
-								{Object.keys(reservationInfo.items_list).map(
-									(vv, kk) => (
-										<span key={kk}>
-											{`- (x${reservationInfo.items_list[vv].qte}) ${reservationInfo.items_list[vv].name}`}
-										</span>
-									)
-								)}
-							</td>
-							<td>{reservationInfo.total} €</td>
-							<td className="btn-grp">
-								<button
-									onClick={() => {
-										handleActivateReservation(
-											reservationInfo._id
-										);
-									}}
-								>
-									Activer
-								</button>
-								<button
-									onClick={() => {
-										handleDesactivateReservation(
-											reservationInfo._id
-										);
-									}}
-								>
-									Desactiver
-								</button>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+			{reservationInfo.columns ? (
+				<MDBTable responsive={true}>
+					<MDBTableHead columns={reservationInfo.columns} />
+					<MDBTableBody rows={reservationInfo.rows} color="#ff0000" />
+				</MDBTable>
 			) : null}
 
 			<div className="popup-btn-container">

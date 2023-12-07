@@ -6,9 +6,9 @@
 	justify-content: center;
 	align-items: center;
 	width: 100%;
-	height: 80vh;
+	max-height: 80vh;
 	gap: 20px;
-	padding: 20px;
+	overflow: auto;
 
 	.popup-custom-2-entity {
 		display: flex;
@@ -34,6 +34,59 @@
 
 	.ipt {
 		height: 50px;
+	}
+
+	#popup-table-container {
+		height: 500px;
+		width: 100%;
+		overflow: auto;
+
+		table {
+			background: white;
+			width: 100%;
+			
+			thead {
+				tr {
+					th {
+						padding: 10px;
+					}
+				}
+			}
+	
+			tbody {
+				overflow-y: auto;
+				tr {
+					td {
+						padding: 10px;
+	
+						.tab-status {
+							color: white;
+							padding: 5px;
+						}
+	
+						.actif-res {
+							background: $green;
+						}
+	
+						.inactif-res {
+							background: $red;
+						}
+	
+						.tab-total {
+						}
+	
+						.tab-actions {
+							display: flex;
+							flex-direction: column;
+							gap: 5px;
+	
+							.tab-btn {
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 	.popup-modify {
@@ -113,6 +166,12 @@
 	}
 
 	@media (max-width: $responsive) {
+		#popup-table-container {
+			table {
+				border: 4px dashed $red;
+			}	
+			
+		}
 		.popup-list-data {
 			justify-content: none;
 			align-items: center;
@@ -144,5 +203,15 @@
 		align-items: center;
 		flex-wrap: wrap;
 		gap: 15px;
+	}
+}
+
+@media (max-width: $responsive) {
+	.popup-container {
+		align-items: normal;
+
+		#popup-table-container {
+			
+		}
 	}
 }
