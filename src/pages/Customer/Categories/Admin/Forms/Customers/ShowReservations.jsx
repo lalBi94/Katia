@@ -22,93 +22,123 @@ export default function ShowReservation({ handleClose }) {
 		);
 	}, []);
 
+	const handleActivate = (id) => {
+		const toSend = JSON.stringify({
+			token: localStorage.getItem("katiacm"),
+			reservation_id: id,
+		});
+
+		cipherRequest(
+			toSend,
+			`${config.api}/reservation/activateReservations`
+		).then((res) => {
+			if (res.status === 0) {
+				handleSelect(selectedUser);
+			}
+		});
+	};
+
+	const handleDesactivate = (id) => {
+		const toSend = JSON.stringify({
+			token: localStorage.getItem("katiacm"),
+			reservation_id: id,
+		});
+
+		cipherRequest(
+			toSend,
+			`${config.api}/reservation/desactivateReservations`
+		).then((res) => {
+			if (res.status === 0) {
+				handleSelect(selectedUser);
+			}
+		});
+	};
+
 	const handleSelect = (user) => {
-		if (selectedUser._id !== user._id) {
-			const toSend = JSON.stringify({
-				token: localStorage.getItem("katiacm"),
-				userId: user._id,
-			});
+		const toSend = JSON.stringify({
+			token: localStorage.getItem("katiacm"),
+			userId: user._id,
+		});
 
-			cipherRequest(toSend, `${config.api}/reservation/getReservationsOf`)
-				.then((res) => {
-					const cpy2 = { ...user };
-					cpy2.reservations = res.data;
-					return cpy2;
-				})
-				.then((res2) => {
-					const tab_columns = [
-						{
-							label: "Status",
-							field: "status",
-						},
-						{
-							label: "Code",
-							field: "rcode",
-						},
-						{
-							label: "Total",
-							field: "total",
-						},
-						{
-							label: "Action",
-							field: "action",
-						},
-					];
+		cipherRequest(toSend, `${config.api}/reservation/getReservationsOf`)
+			.then((res) => {
+				const cpy2 = { ...user };
+				cpy2.reservations = res.data;
+				return cpy2;
+			})
+			.then((res2) => {
+				const tab_columns = [
+					{
+						label: "Status",
+						field: "status",
+					},
+					{
+						label: "Code",
+						field: "rcode",
+					},
+					{
+						label: "Total",
+						field: "total",
+					},
+					{
+						label: "Action",
+						field: "action",
+					},
+				];
 
-					const tab_rows = [];
+				const tab_rows = [];
 
-					for (let i = 0; i <= res2.reservations.length - 1; ++i) {
-						tab_rows.push({
-							status: (
-								<span
-									className={`tab-status ${
-										res2.reservations[i].status
-											? "actif-res"
-											: "inactif-res"
-									}`}
+				for (let i = 0; i <= res2.reservations.length - 1; ++i) {
+					tab_rows.push({
+						status: (
+							<span
+								className={`tab-status ${
+									res2.reservations[i].status
+										? "actif-res"
+										: "inactif-res"
+								}`}
+							>
+								{res2.reservations[i].status
+									? "Actif"
+									: "Non-Actif"}
+							</span>
+						),
+						rcode: <RCode code={res2.reservations[i].qrtxt} />,
+						total: (
+							<span className="tab-total">
+								{res2.reservations[i].total}€
+							</span>
+						),
+						action: (
+							<div className="tab-actions">
+								<button
+									className="tab-btn"
+									onClick={() => {
+										handleActivate(
+											res2.reservations[i]._id
+										);
+									}}
 								>
-									{res2.reservations[i].status
-										? "Actif"
-										: "Non-Actif"}
-								</span>
-							),
-							rcode: <RCode code={res2.reservations[i].qrtxt} />,
-							total: (
-								<span className="tab-total">
-									{res2.reservations[i].total}€
-								</span>
-							),
-							action: (
-								<div className="tab-actions">
-									<button
-										className="tab-btn"
-										onClick={() => {
-											handleActivate(
-												res2.reservations[i]._id
-											);
-										}}
-									>
-										Activer
-									</button>
-									<button
-										className="tab-btn"
-										onClick={() => {
-											handleDesactivate(
-												res2.reservations[i]._id
-											);
-										}}
-									>
-										Desactiver
-									</button>
-								</div>
-							),
-						});
-					}
-					
-					setReservations({columns: tab_columns, rows: tab_rows})
-					setSelectedUser(res2);
-				});
-		}
+									Activer
+								</button>
+								<button
+									className="tab-btn"
+									onClick={() => {
+										handleDesactivate(
+											res2.reservations[i]._id
+										);
+									}}
+								>
+									Desactiver
+								</button>
+							</div>
+						),
+					});
+				}
+
+				setReservations({ columns: tab_columns, rows: tab_rows });
+				setSelectedUser(res2);
+			});
 	};
 
 	const handleDesactivateReservation = (id) => {
@@ -193,7 +223,7 @@ export default function ShowReservation({ handleClose }) {
 									{users[v].createdAt}
 								</span>
 							</div>
-					))
+					  ))
 					: null}
 			</div>
 

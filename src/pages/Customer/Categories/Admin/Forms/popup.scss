@@ -37,13 +37,14 @@
 	}
 
 	#popup-table-container {
-		height: 500px;
 		width: 100%;
 		overflow: auto;
+		max-height: 300px;
 
 		table {
 			background: white;
 			width: 100%;
+			border: 3px dashed $red;
 			
 			thead {
 				tr {

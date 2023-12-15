@@ -137,10 +137,12 @@ export default function CheckCode({ handleClose }) {
 			) : null}
 
 			{reservationInfo.columns ? (
-				<MDBTable responsive={true}>
-					<MDBTableHead columns={reservationInfo.columns} />
-					<MDBTableBody rows={reservationInfo.rows} color="#ff0000" />
-				</MDBTable>
+				<div id="popup-table-container">
+					<MDBTable responsive={true}>
+						<MDBTableHead columns={reservationInfo.columns} />
+						<MDBTableBody rows={reservationInfo.rows} color="#ff0000" />
+					</MDBTable>
+				</div>
 			) : null}
 
 			<div className="popup-btn-container">
