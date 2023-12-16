@@ -104,12 +104,15 @@ export default function CheckCode({ handleClose }) {
 			reservation_id: id,
 		});
 
-		cipherRequest(toSend, `${config.api}/reservation/activateReservations`).then((res) => {
-			if(res.status === 0) {
-				handleSearch()
+		cipherRequest(
+			toSend,
+			`${config.api}/reservation/activateReservations`
+		).then((res) => {
+			if (res.status === 0) {
+				handleSearch();
 			}
-		})
-	}
+		});
+	};
 
 	const handleDesactivate = (id) => {
 		const toSend = JSON.stringify({
@@ -117,12 +120,15 @@ export default function CheckCode({ handleClose }) {
 			reservation_id: id,
 		});
 
-		cipherRequest(toSend, `${config.api}/reservation/desactivateReservations`).then((res) => {
-			if(res.status === 0) {
-				handleSearch()
+		cipherRequest(
+			toSend,
+			`${config.api}/reservation/desactivateReservations`
+		).then((res) => {
+			if (res.status === 0) {
+				handleSearch();
 			}
-		})
-	}
+		});
+	};
 
 	return (
 		<div className="popup-container">
@@ -140,7 +146,10 @@ export default function CheckCode({ handleClose }) {
 				<div id="popup-table-container">
 					<MDBTable responsive={true}>
 						<MDBTableHead columns={reservationInfo.columns} />
-						<MDBTableBody rows={reservationInfo.rows} color="#ff0000" />
+						<MDBTableBody
+							rows={reservationInfo.rows}
+							color="#ff0000"
+						/>
 					</MDBTable>
 				</div>
 			) : null}

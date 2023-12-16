@@ -45,7 +45,7 @@
 			background: white;
 			width: 100%;
 			border: 3px dashed $red;
-			
+
 			thead {
 				tr {
 					th {
@@ -53,34 +53,34 @@
 					}
 				}
 			}
-	
+
 			tbody {
 				overflow-y: auto;
 				tr {
 					td {
 						padding: 10px;
-	
+
 						.tab-status {
 							color: white;
 							padding: 5px;
 						}
-	
+
 						.actif-res {
 							background: $green;
 						}
-	
+
 						.inactif-res {
 							background: $red;
 						}
-	
+
 						.tab-total {
 						}
-	
+
 						.tab-actions {
 							display: flex;
 							flex-direction: column;
 							gap: 5px;
-	
+
 							.tab-btn {
 							}
 						}
@@ -138,10 +138,9 @@
 	.popup-list-w-actions {
 		display: flex;
 		flex-direction: column;
-		height: 300px;
+		max-height: 300px;
 		overflow-y: scroll;
 		gap: 5px;
-		width: 70%;
 
 		.active {
 			background: $red;
@@ -170,8 +169,7 @@
 		#popup-table-container {
 			table {
 				border: 4px dashed $red;
-			}	
-			
+			}
 		}
 		.popup-list-data {
 			justify-content: none;
@@ -212,7 +210,6 @@
 		align-items: normal;
 
 		#popup-table-container {
-			
 		}
 	}
 }

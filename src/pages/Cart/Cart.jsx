@@ -8,23 +8,177 @@ import "hover.css";
 import RCode from "../../components/RCode/RCode";
 import config from "../../global.json";
 import KNotif from "../../components/KNotif/KNotif";
+import { MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
 
 /**
  * Panier du client
  * @return {HTMLElement}
  */
 export default function Cart() {
-	const [data, setData] = useState([]);
+	const [items, setItems] = useState([]);
 	const [total, setTotal] = useState(0);
-	const [lockdown, setLockdown] = useState(true);
-	const [loader, setLoader] = useState(true);
 	const [codeQR, setCodeQR] = useState(null);
 	const [notif, setNotif] = useState(null);
+	const [loader, setLoader] = useState(true);
+	const [toDisplay, setToDisplay] = useState(null);
 
+	/**
+	 * Retourner a la boutique
+	 */
+	const goShop = () => {
+		location.href = "/Katia/#/shop";
+	};
+
+	/**
+	 * Creation du tableau / fetching des items
+	 */
+	const display = () => {
+		const toSend = JSON.stringify({
+			token: localStorage.getItem("katiacm"),
+		});
+
+		cipherRequest(toSend, `${config.api}/order/getOrdersOf`).then((res) => {
+			switch (res.status) {
+				case 0: {
+					if (res.data.length === 0) {
+						setLoader(false);
+						return;
+					}
+
+					setItems(res.data);
+
+					const tab_columns = [
+						{
+							label: "Nom du produit",
+							field: "name",
+						},
+						{
+							label: "Quantité",
+							field: "qte",
+						},
+						{
+							label: "Prix",
+							field: "price",
+						},
+						{
+							label: "Action",
+							field: "action",
+						},
+					];
+
+					const tab_rows = [];
+
+					for (let i = 0; i <= res.data.length - 1; ++i) {
+						tab_rows.push({
+							name: (
+								<div className="name-container">
+									<span className="name">
+										{res.data[i].name}
+									</span>
+									{res.data[i].promotion > 0 ? (
+										<span className="promo">
+											{res.data[i].promotion}%
+										</span>
+									) : null}
+								</div>
+							),
+							qte: (
+								<span className="qte">x{res.data[i].qte}</span>
+							),
+							price: (
+								<span className="price">
+									{res.data[i].promotion > 0
+										? (
+												res.data[i].price -
+												(res.data[i].price *
+													res.data[i].promotion) /
+													100
+										  ).toFixed(2)
+										: (
+												res.data[i].price *
+												res.data[i].qte
+										  ).toFixed(2)}
+									€
+								</span>
+							),
+							action: (
+								<div className="tab-actions">
+									<button
+										className="tab-btn plus hvr-shrink"
+										onClick={() => {
+											addOrRemoveOneToItemOrder(
+												res.data[i]._id,
+												"+",
+												res.data[i].qte,
+												i
+											);
+										}}
+									>
+										+
+									</button>
+
+									<button
+										className="tab-btn minus hvr-shrink"
+										onClick={() => {
+											addOrRemoveOneToItemOrder(
+												res.data[i]._id,
+												"-",
+												res.data[i].qte,
+												i
+											);
+										}}
+									>
+										-
+									</button>
+
+									<button
+										className="tab-btn remove"
+										onClick={() => {
+											removeItem(res.data[i]._id, i);
+										}}
+									>
+										×
+									</button>
+								</div>
+							),
+						});
+					}
+
+					setToDisplay(
+						<MDBTable responsive={true}>
+							<MDBTableHead columns={tab_columns} />
+							<MDBTableBody rows={tab_rows} />
+						</MDBTable>
+					);
+
+					calculTotal(res.data);
+					break;
+				}
+
+				case 1: {
+					localStorage.removeItem("katiacm");
+					window.location.href = "/Katia/#/gate";
+					break;
+				}
+			}
+
+			setLoader(false);
+		});
+	};
+
+	/**
+	 * Fermer la KNotif
+	 */
 	const closeNotif = () => {
 		setNotif(null);
 	};
 
+	/**
+	 * Ouvrir la KNotif
+	 * @param {string} title Titre de la popup (non implemente encore)
+	 * @param {string} message Le contenu
+	 * @param {0|1} status 1: Erreur 0: Succes
+	 */
 	const openNotif = (title, message, status) => {
 		setNotif(
 			<KNotif message={`${message}`} close={closeNotif} status={status} />
@@ -36,12 +190,12 @@ export default function Cart() {
 	 * @return {void}
 	 */
 	const buy = () => {
+		setLoader(true);
+
 		const toSend = JSON.stringify({
 			token: localStorage.getItem("katiacm"),
-			items_list: data,
+			items_list: items,
 		});
-
-		setLoader(true);
 
 		cipherRequest(toSend, `${config.api}/reservation/addReservation`)
 			.then((res) => {
@@ -59,7 +213,7 @@ export default function Cart() {
 							0
 						);
 
-						setData(null);
+						setToDisplay(null);
 						setTotal(0);
 						break;
 					}
@@ -74,13 +228,10 @@ export default function Cart() {
 					}
 				}
 
-				setLockdown(false);
 				setLoader(false);
 			})
 			.catch((err) => {
 				openNotif("Panier", "Veuillez ressayer dans 30 minutes.", 1);
-				setLockdown(false);
-				setLoader(false);
 			});
 	};
 
@@ -88,27 +239,23 @@ export default function Cart() {
 	 * Supprimer un produit du panier
 	 * @param {string} item_id Identifiant du produit
 	 * @param {number} id Index du produit dans la liste
-	 * @return {Promise<void>}
+	 * @return {void}
 	 */
 	const removeItem = (item_id, id) => {
-		return new Promise((_, __) => {
-			const toSend = JSON.stringify({
-				token: localStorage.getItem("katiacm"),
-				item_id,
-			});
+		setLoader(true);
 
-			cipherRequest(toSend, `${config.api}/order/removeItem`).then(
-				(res) => {
-					console.log(res);
-					const cpy = [...data];
-					cpy.splice(id, 1);
+		const toSend = JSON.stringify({
+			token: localStorage.getItem("katiacm"),
+			item_id,
+		});
 
-					setData(data.length > 1 ? cpy : null);
-					calculTotal(cpy);
+		cipherRequest(toSend, `${config.api}/order/removeItem`).then((res) => {
+			if (res.status === 0) {
+				display();
+				calculTotal(items);
+			}
 
-					setLockdown(false);
-				}
-			);
+			setLoader(false);
 		});
 	};
 
@@ -117,11 +264,28 @@ export default function Cart() {
 	 * @return {Promise<void>}
 	 */
 	const clearCart = () => {
-		for (let i = 0; i <= data.length - 1; ++i) {
-			removeItem(data[i]._id, i);
-		}
+		setLoader(true);
 
-		location.reload();
+		const toSend = JSON.stringify({
+			token: localStorage.getItem("katiacm"),
+		});
+
+		cipherRequest(toSend, `${config.api}/order/removeAllOrdersOf`).then(
+			(res) => {
+				if (res.status === 0) {
+					openNotif(
+						"Panier",
+						"Votre panier a bien été supprimé !",
+						1
+					);
+					setToDisplay(null)
+					setItems(null)
+				}
+
+
+				setLoader(false);
+			}
+		);
 	};
 
 	/**
@@ -149,21 +313,10 @@ export default function Cart() {
 		).then((res) => {
 			switch (res.status) {
 				case 0: {
-					const cpy = [...data];
-
-					for (let i = 0; i <= cpy.length - 1; ++i) {
-						if (cpy[i]._id === item_id) {
-							action === "+" ? cpy[i].qte++ : cpy[i].qte--;
-							setData(cpy);
-							calculTotal(cpy);
-						}
-					}
-
+					display();
 					break;
 				}
 			}
-
-			setLockdown(false);
 		});
 	};
 
@@ -209,30 +362,7 @@ export default function Cart() {
 			}
 		});
 
-		cipherRequest(toSend, `${config.api}/order/getOrdersOf`).then((res) => {
-			switch (res.status) {
-				case 0: {
-					if (res.data.length === 0) {
-						setData(null);
-						setLoader(false);
-						return;
-					}
-
-					setData(res.data);
-					calculTotal(res.data);
-					setLockdown(false);
-					break;
-				}
-
-				case 1: {
-					localStorage.removeItem("katiacm");
-					window.location.href = "/Katia/#/gate";
-					break;
-				}
-			}
-
-			setLoader(false);
-		});
+		display();
 	}, []);
 
 	return (
@@ -310,116 +440,15 @@ export default function Cart() {
 				</div>
 			) : null}
 
-			{data ? (
-				<div id="cart-container">
-					<table id="cart-items-container">
-						<thead id="cart-item-thead">
-							<tr>
-								<th className="cart-items-titles">
-									Nom du produit
-								</th>
-								<th className="cart-items-titles">Quantité</th>
-								<th className="cart-items-titles">Prix</th>
-								<th className="cart-items-titles">Actions</th>
-							</tr>
-						</thead>
-
-						<tbody id="cart-item-tbody">
-							{Object.keys(data).map((v, k) => (
-								<tr className="cart-items" key={k}>
-									<td className="cart-item-name">
-										{data[v].name}
-
-										{parseInt(data[v].promotion) > 0 ? (
-											<span className="cart-item-promo">
-												{data[v].promotion}%
-											</span>
-										) : null}
-
-										{parseInt(data[v].promotion) > 0 ? (
-											<span className="cart-item-price-promo">
-												{(
-													data[v].price -
-													(data[v].price *
-														data[v].promotion) /
-														100
-												).toFixed(2)}
-												€ (TCC)
-											</span>
-										) : (
-											<span className="cart-item-price">
-												{data[v].price}€/u
-											</span>
-										)}
-									</td>
-									<td className="cart-item-qte">
-										x{data[v].qte}
-									</td>
-									<td className="cart-item-final-price">
-										{parseFloat(
-											data[v].price -
-												(data[v].price *
-													data[v].promotion) /
-													100
-										).toFixed(2) * data[v].qte}
-										€
-									</td>
-									<td className="cart-item-actions">
-										<button
-											disabled={lockdown}
-											className="cart-item-btn minus hvr-shrink"
-											onClick={() => {
-												setLockdown(true);
-												addOrRemoveOneToItemOrder(
-													data[v]._id,
-													"-",
-													data[v].qte,
-													v
-												);
-											}}
-										>
-											-
-										</button>
-
-										<button
-											disabled={lockdown}
-											className="cart-item-btn plus hvr-shrink"
-											onClick={() => {
-												setLockdown(true);
-												addOrRemoveOneToItemOrder(
-													data[v]._id,
-													"+",
-													data[v].qte,
-													v
-												);
-											}}
-										>
-											+
-										</button>
-
-										<button
-											disabled={lockdown}
-											className="cart-item-btn remove hvr-shrink"
-											onClick={() => {
-												setLockdown(true);
-												removeItem(data[v]._id, v);
-											}}
-										>
-											×
-										</button>
-									</td>
-								</tr>
-							))}
-						</tbody>
-					</table>
+			{toDisplay ? (
+				<div id="cart-table-container">
+					{toDisplay}
 
 					<div id="cart-total-container">
 						<div id="cart-total-btns">
 							<button
-								className="cart-total-btn btn hvr-shrink"
-								disabled={lockdown}
+								className="cart-total-btn hvr-shrink"
 								onClick={() => {
-									setLockdown(true);
 									buy();
 								}}
 							>
@@ -427,23 +456,13 @@ export default function Cart() {
 							</button>
 
 							<button
-								className="cart-total-btn btn hvr-shrink"
-								onClick={() => {
-									setLockdown(true);
-									clearCart();
-								}}
-								disabled={lockdown}
+								className="cart-total-btn hvr-shrink"
+								onClick={clearCart}
 							>
-								Vider le panier
+								Vider
 							</button>
 
-							<button
-								className="cart-total-btn btn hvr-shrink"
-								disabled={lockdown}
-								onClick={() => {
-									setLockdown(true);
-								}}
-							>
+							<button className="cart-total-btn" onClick={goShop}>
 								Retourner à la boutique
 							</button>
 						</div>

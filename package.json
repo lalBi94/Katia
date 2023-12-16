@@ -1,12 +1,35 @@
 {
-  "name": "katia-client",
   "private": true,
-  "version": "2.0",
+  "name": "katia-client",
+  "description": "Client side de Les Delices de Katia",
+  "version": "1.0",
+  "repository": {
+    "url": "https://github.com/lalBi94/Katia",
+    "type": "git"
+  },
+  "keywords": [
+    "api",
+    "lesdelicesdekatia",
+    "express",
+    "les délices de katia",
+    "traiteur",
+    "traiteur fontainebleau",
+    "fontainebleau",
+    "nourriture",
+    "marché",
+    "alimentation",
+    "marché de fontainebleau"
+  ],
   "type": "module",
+  "contributors": [
+    "Bilal Boudjemline",
+    "Ethan Brezeky",
+    "IUT Sénart-Fontainebleau (UPEC)"
+  ],
+  "license": "ISC",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {

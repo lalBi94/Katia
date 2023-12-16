@@ -20,6 +20,7 @@ export default function Shop() {
 	const [clientId, setClientId] = useState(null);
 	const [lockdown, setLockdown] = useState(false);
 	const [combo, setCombo] = useState(1);
+	const [notif, setNotif] = useState(null);
 
 	/**
 	 * Devisier le tableau en plusieurs chunks
@@ -50,8 +51,6 @@ export default function Shop() {
 		window.scrollTo(0, 0);
 		setLockdown(false);
 	};
-
-	const [notif, setNotif] = useState(null);
 
 	const closeNotif = () => {
 		setCombo(1);

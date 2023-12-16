@@ -55,8 +55,22 @@ export default function ShowReservationsActive({ handleClose }) {
 					),
 					action: (
 						<div className="tab-actions">
-							<button className="tab-btn" onClick={() => { handleActivate(res.data[i]._id) }}>Activer</button>
-							<button className="tab-btn" onClick={() => { handleDesactivate(res.data[i]._id) }}>Desactiver</button>
+							<button
+								className="tab-btn"
+								onClick={() => {
+									handleActivate(res.data[i]._id);
+								}}
+							>
+								Activer
+							</button>
+							<button
+								className="tab-btn"
+								onClick={() => {
+									handleDesactivate(res.data[i]._id);
+								}}
+							>
+								Desactiver
+							</button>
 						</div>
 					),
 				});
@@ -75,12 +89,15 @@ export default function ShowReservationsActive({ handleClose }) {
 			reservation_id: id,
 		});
 
-		cipherRequest(toSend, `${config.api}/reservation/activateReservations`).then((res) => {
-			if(res.status === 0) {
-				getActifReservations()
+		cipherRequest(
+			toSend,
+			`${config.api}/reservation/activateReservations`
+		).then((res) => {
+			if (res.status === 0) {
+				getActifReservations();
 			}
-		})
-	}
+		});
+	};
 
 	const handleDesactivate = (id) => {
 		const toSend = JSON.stringify({
@@ -88,12 +105,15 @@ export default function ShowReservationsActive({ handleClose }) {
 			reservation_id: id,
 		});
 
-		cipherRequest(toSend, `${config.api}/reservation/desactivateReservations`).then((res) => {
-			if(res.status === 0) {
-				getActifReservations()
+		cipherRequest(
+			toSend,
+			`${config.api}/reservation/desactivateReservations`
+		).then((res) => {
+			if (res.status === 0) {
+				getActifReservations();
 			}
-		})
-	}
+		});
+	};
 
 	useEffect(() => {
 		getActifReservations();
@@ -105,7 +125,10 @@ export default function ShowReservationsActive({ handleClose }) {
 				<div id="popup-table-container">
 					<MDBTable responsive={true}>
 						<MDBTableHead columns={reservations.columns} />
-						<MDBTableBody rows={reservations.rows} color="#ff0000" />
+						<MDBTableBody
+							rows={reservations.rows}
+							color="#ff0000"
+						/>
 					</MDBTable>
 				</div>
 			) : null}

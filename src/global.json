@@ -1,6 +1,6 @@
 {
     "api": "https://secret-plateau-64680-087c79c152f9.herokuapp.com",
-    "local": "http://127.0.0.1:3333",
+    "local": "http://127.0.0.1:1212",
     "pub": "https://katia-api.osc-fr1.scalingo.io",
     "pub2": "https://secret-plateau-64680-087c79c152f9.herokuapp.com"
 }

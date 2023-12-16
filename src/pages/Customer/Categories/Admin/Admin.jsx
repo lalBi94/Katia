@@ -41,12 +41,10 @@ export default function Admin() {
 		);
 
 		axios.post(`${config.api}/item/getItemsLength`).then((res) => {
-			console.log(res.data.n);
 			setNbItems(parseInt(res.data.n));
 		});
 
 		axios.post(`${config.api}/customer/getCustomersLength`).then((res) => {
-			console.log(res.data.n);
 			setNbCustomer(parseInt(res.data.n));
 		});
 	};
@@ -118,7 +116,7 @@ export default function Admin() {
 							handleForm("show_reservations_active");
 						}}
 					>
-						Voir les reservations a venir (non fonctionnel)
+						Voir les réservations courantes
 					</button>
 				</div>
 

@@ -48,12 +48,12 @@ export default function Home() {
 				},
 
 				{
-					label: "tgggfefsefseggggg"
+					label: "tgggfefsefseggggg",
 				},
 
 				{
-					label: "fseffesfsefsees"
-				}
+					label: "fseffesfsefsees",
+				},
 			],
 			rows: [
 				{
@@ -61,37 +61,37 @@ export default function Home() {
 					qrcode: "o",
 					cdr: "bonjour",
 					list: "-list",
-					total: 0
+					total: 0,
 				},
 				{
 					id: 1,
 					qrcode: "o",
 					cdr: "bonjour",
 					list: "-list",
-					total: 0
+					total: 0,
 				},
 				{
 					id: 1,
 					qrcode: "o",
 					cdr: "bonjour",
 					list: "-list",
-					total: 0
+					total: 0,
 				},
 				{
 					id: 1,
 					qrcode: "o",
 					cdr: "bonjour",
 					list: "-list",
-					total: 0
+					total: 0,
 				},
 				{
 					id: 1,
 					qrcode: "o",
 					cdr: "bonjour",
 					list: "-list",
-					total: 0
+					total: 0,
 				},
-			]
+			],
 		};
 
 		setTest(data);
@@ -100,14 +100,13 @@ export default function Home() {
 	return (
 		<Layout>
 			<div id="home-container">
+				{test.columns ? (
+					<MDBTable responsive>
+						<MDBTableHead columns={test.columns} />
+						<MDBTableBody rows={test.rows} />
+					</MDBTable>
+				) : null}
 
-			{test.columns ? 
-				<MDBTable responsive>
-					<MDBTableHead columns={test.columns} />
-					<MDBTableBody rows={test.rows} />
-				</MDBTable>
-			: null}
-			
 				<Swiper
 					pagination={{
 						dynamicBullets: true,

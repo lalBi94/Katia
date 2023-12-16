@@ -56,7 +56,8 @@ const cipherRequest = (data, where) => {
       axios.post(where, { data: clientcr }, {
         headers: {
           'Access-Control-Allow-Origin': '*'
-        }
+        },
+        mode: "cors"
       }).then((res) => {
         const serverdcr = KSDecrypt(res.data)
         resolve(JSON.parse(serverdcr))

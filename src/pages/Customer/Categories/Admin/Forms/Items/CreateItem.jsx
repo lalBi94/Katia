@@ -1,6 +1,5 @@
 import { useState, useRef } from "react";
 import "../popup.scss";
-import { cipherRequest } from "../../../../../../services/KTSec/KTSec";
 import "hover.css";
 import config from "../../../../../../global.json";
 import axios from "axios";
@@ -81,8 +80,6 @@ export default function CreateItem({ handleClose }) {
 				setStatus(4);
 				return;
 			}
-
-			console.log(fileExtension);
 
 			setImgRef(reader.result);
 		};
