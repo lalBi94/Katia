@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "katia-client",
-  "description": "Client side de Les Delices de Katia",
+  "description": "Frontend des Les Delices de Katia",
   "version": "1.0",
   "repository": {
     "url": "https://github.com/lalBi94/Katia",
@@ -28,7 +28,7 @@
   ],
   "license": "ISC",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "deploy": "gh-pages -d dist"
   },

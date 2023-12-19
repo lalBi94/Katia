@@ -367,9 +367,9 @@ export default function Cart() {
 
 	return (
 		<Layout>
-			{notif || null}
+			{ notif || null }
 
-			{codeQR ? (
+			{ codeQR ? (
 				<div id="codeQR-big-container">
 					<h2>
 						Votre commande a été validée.
@@ -416,9 +416,9 @@ export default function Cart() {
 						Aller sur votre <b>Espace Client</b>
 					</Link>
 				</div>
-			) : null}
+			) : null }
 
-			{loader ? (
+			{ loader ? (
 				<div className="loader">
 					<Vortex
 						visible={true}
@@ -438,9 +438,9 @@ export default function Cart() {
 						]}
 					/>
 				</div>
-			) : null}
+			) : null }
 
-			{toDisplay ? (
+			{ toDisplay ? (
 				<div id="cart-table-container">
 					{toDisplay}
 
@@ -468,7 +468,7 @@ export default function Cart() {
 						</div>
 					</div>
 				</div>
-			) : null}
+			) : null }
 		</Layout>
 	);
 }

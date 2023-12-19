@@ -55,7 +55,6 @@
 
 	.table-responsive {
 		table {
-			border-collapse: collapse;
 			background: white;
 			font-size: larger;
 
@@ -68,12 +67,9 @@
 			}
 
 			tbody {
-				border: 1px solid black;
-				overflow-y: auto;
 				tr {
-					border: 1px solid black;
 					td {
-						padding: 10px;
+						padding: 15px;
 
 						.name-container {
 							width: 100%;
@@ -82,6 +78,7 @@
 							justify-content: space-between;
 
 							.name {
+								
 							}
 
 							.promo {
