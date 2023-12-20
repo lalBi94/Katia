@@ -1,90 +1,90 @@
 @import "../../../../main.scss";
 
 #myaccount-container {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	gap: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
 
-	#error,
-	#succes {
-		color: white;
-		padding: 10px;
-		font-weight: bold;
-	}
+    #error,
+    #succes {
+        color: white;
+        padding: 10px;
+        font-weight: bold;
+    }
 
-	#error {
-		background: $red;
-	}
+    #error {
+        background: $red;
+    }
 
-	#succes {
-		background: $green;
-	}
+    #succes {
+        background: $green;
+    }
 
-	.data-container {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
-		width: 40%;
+    .data-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 40%;
 
-		.data-modif-btns {
-			display: flex;
-			flex-direction: row;
-			gap: 10px;
+        .data-modif-btns {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
 
-			.data-modif-btn {
-				color: white;
-				border: none;
-				padding: 5px;
-				font-size: 0.8em;
-				font-weight: bold;
-				background: $red;
-				cursor: pointer;
+            .data-modif-btn {
+                color: white;
+                border: none;
+                padding: 5px;
+                font-size: 0.8em;
+                font-weight: bold;
+                background: $red;
+                cursor: pointer;
 
-				&:hover {
-					background: $dark_red;
-				}
-			}
-		}
+                &:hover {
+                    background: $dark_red;
+                }
+            }
+        }
 
-		#identifier {
-			font-size: 0.8em;
-			background: rgb(203, 255, 243);
-			background: -moz-linear-gradient(
-				124deg,
-				rgba(203, 255, 243, 1) 14%,
-				rgba(213, 255, 207, 1) 68%
-			);
-			background: -webkit-linear-gradient(
-				124deg,
-				rgba(203, 255, 243, 1) 14%,
-				rgba(213, 255, 207, 1) 68%
-			);
-			background: linear-gradient(
-				124deg,
-				rgba(203, 255, 243, 1) 14%,
-				rgba(213, 255, 207, 1) 68%
-			);
-			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#cbfff3",endColorstr="#d5ffcf",GradientType=1);
-			color: $black;
-			padding: 5px;
-			font-weight: bold;
-			border: 1px solid $black;
-		}
+        #identifier {
+            font-size: 0.8em;
+            background: rgb(203, 255, 243);
+            background: -moz-linear-gradient(
+                124deg,
+                rgba(203, 255, 243, 1) 14%,
+                rgba(213, 255, 207, 1) 68%
+            );
+            background: -webkit-linear-gradient(
+                124deg,
+                rgba(203, 255, 243, 1) 14%,
+                rgba(213, 255, 207, 1) 68%
+            );
+            background: linear-gradient(
+                124deg,
+                rgba(203, 255, 243, 1) 14%,
+                rgba(213, 255, 207, 1) 68%
+            );
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#cbfff3",endColorstr="#d5ffcf",GradientType=1);
+            color: $black;
+            padding: 5px;
+            font-weight: bold;
+            border: 1px solid $black;
+        }
 
-		.data-modifier {
-			cursor: pointer;
-		}
+        .data-modifier {
+            cursor: pointer;
+        }
 
-		@media (max-width: $responsive) {
-			width: 80%;
-		}
-	}
+        @media (max-width: $responsive) {
+            width: 80%;
+        }
+    }
 
-	.data {
-		border-bottom: 1px solid $black;
-		padding-bottom: 5px;
-	}
+    .data {
+        border-bottom: 1px solid $black;
+        padding-bottom: 5px;
+    }
 }

@@ -1,221 +1,220 @@
 @import "../../main.scss";
 
 #codeQR-big-container {
-	display: flex;
-	flex-direction: column;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: center;
-	gap: 10px;
-	overflow-x: auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    overflow-x: auto;
 
-	#codeQR-thx {
-		font-size: smaller;
-		font-weight: 200;
-	}
+    #codeQR-thx {
+        font-size: smaller;
+        font-weight: 200;
+    }
 
-	#codeQR-redirection {
-		text-decoration: none;
-		color: white;
-		font-size: larger;
-		padding: 9px;
-		cursor: pointer;
-		text-align: center;
-		background: $red;
-	}
+    #codeQR-redirection {
+        text-decoration: none;
+        color: white;
+        font-size: larger;
+        padding: 9px;
+        cursor: pointer;
+        text-align: center;
+        background: $red;
+    }
 
-	#codeQR-container {
-		width: 50%;
-		#codeQR-headers {
-			#codeQR-headers-line {
-				.codeQR-header {
-					padding: 15px;
-					text-align: center;
-				}
-			}
-		}
+    #codeQR-container {
+        width: 50%;
+        #codeQR-headers {
+            #codeQR-headers-line {
+                .codeQR-header {
+                    padding: 15px;
+                    text-align: center;
+                }
+            }
+        }
 
-		#codeQR-datas {
-			#codeQR-datas-line {
-				.codeQR-data {
-					text-align: center;
-				}
-			}
-		}
-	}
+        #codeQR-datas {
+            #codeQR-datas-line {
+                .codeQR-data {
+                    text-align: center;
+                }
+            }
+        }
+    }
 }
 
 #cart-table-container {
-	gap: 20px;
-	overflow-y: auto;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+    gap: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-	.table-responsive {
-		table {
-			background: white;
-			font-size: larger;
+    .table-responsive {
+        table {
+            background: white;
+            font-size: larger;
 
-			thead {
-				tr {
-					th {
-						padding: 10px;
-					}
-				}
-			}
+            thead {
+                tr {
+                    th {
+                        padding: 10px;
+                    }
+                }
+            }
 
-			tbody {
-				tr {
-					td {
-						padding: 15px;
+            tbody {
+                tr {
+                    td {
+                        padding: 15px;
 
-						.name-container {
-							width: 100%;
-							display: flex;
-							flex-direction: row;
-							justify-content: space-between;
+                        .name-container {
+                            width: 100%;
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: space-between;
 
-							.name {
-								
-							}
+                            .name {
+                            }
 
-							.promo {
-								background: $red;
-								color: white;
-								padding: 2px;
-								font-size: small;
-							}
-						}
+                            .promo {
+                                background: $red;
+                                color: white;
+                                padding: 2px;
+                                font-size: small;
+                            }
+                        }
 
-						.price {
-							display: flex;
-							width: 100%;
-							justify-content: right;
-						}
+                        .price {
+                            display: flex;
+                            width: 100%;
+                            justify-content: right;
+                        }
 
-						.qte {
-							display: flex;
-							justify-content: right;
-						}
+                        .qte {
+                            display: flex;
+                            justify-content: right;
+                        }
 
-						.tab-actions {
-							display: flex;
-							flex-direction: row;
-							justify-content: center;
-							align-items: center;
-							gap: 5px;
+                        .tab-actions {
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: center;
+                            align-items: center;
+                            gap: 5px;
 
-							.tab-btn {
-								display: flex;
-								justify-content: center;
-								align-items: center;
-								width: 25px;
-								height: 25px;
-								border: none;
-								background: transparent;
-								text-align: center;
-								font-size: 0.9em;
-								cursor: pointer;
+                            .tab-btn {
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                width: 25px;
+                                height: 25px;
+                                border: none;
+                                background: transparent;
+                                text-align: center;
+                                font-size: 0.9em;
+                                cursor: pointer;
 
-								&:hover {
-									color: white;
-									text-align: center;
-									border-radius: 50%;
-								}
-							}
+                                &:hover {
+                                    color: white;
+                                    text-align: center;
+                                    border-radius: 50%;
+                                }
+                            }
 
-							.plus {
-								border-radius: 100%;
-								&:hover {
-									background: $green;
-								}
-							}
+                            .plus {
+                                border-radius: 100%;
+                                &:hover {
+                                    background: $green;
+                                }
+                            }
 
-							.minus {
-								border-radius: 100%;
-								&:hover {
-									background: $red;
-								}
-							}
+                            .minus {
+                                border-radius: 100%;
+                                &:hover {
+                                    background: $red;
+                                }
+                            }
 
-							.remove {
-								background: $red;
-								color: white;
-								width: 20px;
-								height: 20px;
+                            .remove {
+                                background: $red;
+                                color: white;
+                                width: 20px;
+                                height: 20px;
 
-								&:hover {
-									border-radius: 0px;
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+                                &:hover {
+                                    border-radius: 0px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-	#cart-total-container {
-		display: flex;
-		flex-wrap: wrap;
+    #cart-total-container {
+        display: flex;
+        flex-wrap: wrap;
 
-		#cart-total-btns {
-			display: flex;
-			gap: 10px;
-			width: 100%;
-			flex-wrap: wrap;
-			justify-content: center;
-			align-items: center;
+        #cart-total-btns {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
 
-			.cart-total-btn {
-				cursor: pointer;
-				background: rgb(206, 219, 254);
-				background: -moz-linear-gradient(
-					124deg,
-					rgba(206, 219, 254, 1) 14%,
-					rgba(254, 207, 239, 1) 89%
-				);
-				background: -webkit-linear-gradient(
-					124deg,
-					rgba(206, 219, 254, 1) 14%,
-					rgba(254, 207, 239, 1) 89%
-				);
-				background: linear-gradient(
-					124deg,
-					rgba(206, 219, 254, 1) 14%,
-					rgba(254, 207, 239, 1) 89%
-				);
-				filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#cedbfe",endColorstr="#fecfef",GradientType=1);
-				border: 1px solid $black;
-				color: $black;
-				border-radius: 50px;
-				font-size: smaller;
-				padding: 10px;
-			}
-		}
-	}
+            .cart-total-btn {
+                cursor: pointer;
+                background: rgb(206, 219, 254);
+                background: -moz-linear-gradient(
+                    124deg,
+                    rgba(206, 219, 254, 1) 14%,
+                    rgba(254, 207, 239, 1) 89%
+                );
+                background: -webkit-linear-gradient(
+                    124deg,
+                    rgba(206, 219, 254, 1) 14%,
+                    rgba(254, 207, 239, 1) 89%
+                );
+                background: linear-gradient(
+                    124deg,
+                    rgba(206, 219, 254, 1) 14%,
+                    rgba(254, 207, 239, 1) 89%
+                );
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#cedbfe",endColorstr="#fecfef",GradientType=1);
+                border: 1px solid $black;
+                color: $black;
+                border-radius: 50px;
+                font-size: smaller;
+                padding: 10px;
+            }
+        }
+    }
 }
 
 @media (max-width: $responsive) {
-	#cart-table-container {
-		padding: 10px;
-		display: flex;
+    #cart-table-container {
+        padding: 10px;
+        display: flex;
 
-		table {
-			width: 100%;
-		}
-	}
+        table {
+            width: 100%;
+        }
+    }
 
-	#codeQR-big-container {
-		width: 100%;
+    #codeQR-big-container {
+        width: 100%;
 
-		h2 {
-			font-size: 1.2em;
-		}
-		span {
-			font-size: 0.8em;
-		}
-	}
+        h2 {
+            font-size: 1.2em;
+        }
+        span {
+            font-size: 0.8em;
+        }
+    }
 }

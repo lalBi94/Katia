@@ -1,62 +1,62 @@
 @import "../../main.scss";
 
 #gate-container {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 
-	#selector {
-		display: flex;
-		flex-direction: row;
-		gap: 10px;
+    #selector {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
 
-		.selector-btn {
-			background: $red;
-			color: white;
-			border: none;
-			padding: 15px;
-			font-weight: bold;
-			font-size: 0.9em;
+        .selector-btn {
+            background: $red;
+            color: white;
+            border: none;
+            padding: 15px;
+            font-weight: bold;
+            font-size: 0.9em;
 
-			&:hover {
-				background: $dark_red;
-			}
-		}
-	}
+            &:hover {
+                background: $dark_red;
+            }
+        }
+    }
 
-	#register-container,
-	#login-container {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		flex-direction: column;
-		width: 80%;
-		gap: 20px;
+    #register-container,
+    #login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 80%;
+        gap: 20px;
 
-		.ipt {
-			height: 60px;
-			text-align: center;
-			font-size: 1.4em;
-			width: 60%;
+        .ipt {
+            height: 60px;
+            text-align: center;
+            font-size: 1.4em;
+            width: 60%;
 
-			@media (max-width: 720px) {
-				width: 90%;
-				font-size: 1.3em;
-			}
-		}
+            @media (max-width: 720px) {
+                width: 90%;
+                font-size: 1.3em;
+            }
+        }
 
-		.btn {
-			background: $red;
-			color: white;
-			font-weight: bold;
-			border: none;
-			padding: 15px;
-			font-size: 1.05em;
+        .btn {
+            background: $red;
+            color: white;
+            font-weight: bold;
+            border: none;
+            padding: 15px;
+            font-size: 1.05em;
 
-			&:hover {
-				background: $dark_red;
-			}
-		}
-	}
+            &:hover {
+                background: $dark_red;
+            }
+        }
+    }
 }

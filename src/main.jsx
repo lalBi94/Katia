@@ -22,14 +22,14 @@ import Shop from "./pages/Shop/Shop";
 import Cart from "./pages/Cart/Cart";
 
 const router = createHashRouter([
-	{ path: "/", element: <Home /> },
-	{ path: "/home", element: <Home /> },
-	{ path: "/gate", element: <Gate /> },
-	{ path: "/customer", element: <Customer /> },
-	{ path: "/shop", element: <Shop /> },
-	{ path: "/cart", element: <Cart /> },
+    { path: "/", element: <Home /> },
+    { path: "/home", element: <Home /> },
+    { path: "/gate", element: <Gate /> },
+    { path: "/customer", element: <Customer /> },
+    { path: "/shop", element: <Shop /> },
+    { path: "/cart", element: <Cart /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-	<RouterProvider router={router} />
+    <RouterProvider router={router} />
 );

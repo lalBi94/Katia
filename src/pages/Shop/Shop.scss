@@ -1,185 +1,185 @@
 @import "../../main.scss";
 
 #shop-container {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	overflow-x: clip;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow-x: clip;
 
-	.shop-navigation {
-		display: flex;
-		gap: 20px;
+    .shop-navigation {
+        display: flex;
+        gap: 20px;
 
-		.before,
-		.after {
-			background: rgb(255, 136, 94);
-			background: -moz-linear-gradient(
-				124deg,
-				rgba(255, 136, 94, 1) 0%,
-				rgba(253, 235, 121, 1) 86%
-			);
-			background: -webkit-linear-gradient(
-				124deg,
-				rgba(255, 136, 94, 1) 0%,
-				rgba(253, 235, 121, 1) 86%
-			);
-			background: linear-gradient(
-				124deg,
-				rgba(255, 136, 94, 1) 0%,
-				rgba(253, 235, 121, 1) 86%
-			);
-			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff885e",endColorstr="#fdeb79",GradientType=1);
-			border: 1.1px solid $black;
-			width: 35px;
-			height: 35px;
-			padding: 20px;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			color: $black;
-		}
-	}
+        .before,
+        .after {
+            background: rgb(255, 136, 94);
+            background: -moz-linear-gradient(
+                124deg,
+                rgba(255, 136, 94, 1) 0%,
+                rgba(253, 235, 121, 1) 86%
+            );
+            background: -webkit-linear-gradient(
+                124deg,
+                rgba(255, 136, 94, 1) 0%,
+                rgba(253, 235, 121, 1) 86%
+            );
+            background: linear-gradient(
+                124deg,
+                rgba(255, 136, 94, 1) 0%,
+                rgba(253, 235, 121, 1) 86%
+            );
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff885e",endColorstr="#fdeb79",GradientType=1);
+            border: 1.1px solid $black;
+            width: 35px;
+            height: 35px;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: $black;
+        }
+    }
 
-	#shop-data-container {
-		padding: 50px;
-		gap: 20px;
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		align-items: center;
-		flex-wrap: wrap;
+    #shop-data-container {
+        padding: 50px;
+        gap: 20px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
 
-		.item-container {
-			border-top: 3px solid $pastel_orange;
-			display: flex;
-			flex-direction: column;
-			width: 350px;
-			justify-content: space-between;
-			align-items: center;
-			padding: 20px;
-			gap: 10px;
+        .item-container {
+            border-top: 3px solid $pastel_orange;
+            display: flex;
+            flex-direction: column;
+            width: 350px;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            gap: 10px;
 
-			&:hover {
-				.item-hover-actions {
-					display: flex;
-				}
-			}
+            &:hover {
+                .item-hover-actions {
+                    display: flex;
+                }
+            }
 
-			.item-hover-actions {
-				position: absolute;
-				width: 100%;
-				height: 100%;
-				flex-direction: column;
-				justify-content: center;
-				align-items: center;
-				gap: 10px;
-				display: none;
+            .item-hover-actions {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+                display: none;
 
-				.text {
-					z-index: 99999;
-					font-size: larger;
-				}
+                .text {
+                    z-index: 99999;
+                    font-size: larger;
+                }
 
-				.item-hover-actions-btn {
-					z-index: 99999;
-					border: none;
-					padding: 15px;
-					font-size: 1.1em;
-					cursor: pointer;
-					border-radius: 50px;
-					border: 1.1px solid $black;
-				}
+                .item-hover-actions-btn {
+                    z-index: 99999;
+                    border: none;
+                    padding: 15px;
+                    font-size: 1.1em;
+                    cursor: pointer;
+                    border-radius: 50px;
+                    border: 1.1px solid $black;
+                }
 
-				.cart {
-					background: $pastel_yellow;
-				}
+                .cart {
+                    background: $pastel_yellow;
+                }
 
-				.now {
-					color: $black;
-				}
+                .now {
+                    color: $black;
+                }
 
-				.item-hover-actions-blur {
-					background: rgb(255, 136, 94);
-					background: -moz-linear-gradient(
-						124deg,
-						rgba(255, 136, 94, 1) 0%,
-						rgba(253, 235, 121, 1) 86%
-					);
-					background: -webkit-linear-gradient(
-						124deg,
-						rgba(255, 136, 94, 1) 0%,
-						rgba(253, 235, 121, 1) 86%
-					);
-					background: linear-gradient(
-						124deg,
-						rgba(255, 136, 94, 1) 0%,
-						rgba(253, 235, 121, 1) 86%
-					);
-					filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff885e",endColorstr="#fdeb79",GradientType=1);
-					position: absolute;
-					color: white;
-					width: 100%;
-					height: 100%;
-					left: 0;
-					z-index: 1;
-				}
+                .item-hover-actions-blur {
+                    background: rgb(255, 136, 94);
+                    background: -moz-linear-gradient(
+                        124deg,
+                        rgba(255, 136, 94, 1) 0%,
+                        rgba(253, 235, 121, 1) 86%
+                    );
+                    background: -webkit-linear-gradient(
+                        124deg,
+                        rgba(255, 136, 94, 1) 0%,
+                        rgba(253, 235, 121, 1) 86%
+                    );
+                    background: linear-gradient(
+                        124deg,
+                        rgba(255, 136, 94, 1) 0%,
+                        rgba(253, 235, 121, 1) 86%
+                    );
+                    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff885e",endColorstr="#fdeb79",GradientType=1);
+                    position: absolute;
+                    color: white;
+                    width: 100%;
+                    height: 100%;
+                    left: 0;
+                    z-index: 1;
+                }
 
-				.item-hover-actions-items {
-					opacity: 1;
-					z-index: 2;
+                .item-hover-actions-items {
+                    opacity: 1;
+                    z-index: 2;
 
-					&:hover {
-						opacity: 1;
-						background: $dark_red;
-					}
-				}
-			}
+                    &:hover {
+                        opacity: 1;
+                        background: $dark_red;
+                    }
+                }
+            }
 
-			.item-title {
-				font-weight: bold;
-				font-size: 1.1em;
-			}
+            .item-title {
+                font-weight: bold;
+                font-size: 1.1em;
+            }
 
-			.item-price-promo {
-				display: flex;
+            .item-price-promo {
+                display: flex;
 
-				.item-price-w-promo {
-					color: $red;
-					text-decoration: line-through;
-				}
+                .item-price-w-promo {
+                    color: $red;
+                    text-decoration: line-through;
+                }
 
-				.item-promotion-container {
-					display: flex;
-					flex-direction: row;
-					text-align: center;
-					gap: 10px;
+                .item-promotion-container {
+                    display: flex;
+                    flex-direction: row;
+                    text-align: center;
+                    gap: 10px;
 
-					.item-new-price {
-						color: $black;
-					}
+                    .item-new-price {
+                        color: $black;
+                    }
 
-					.item-promotion {
-						position: absolute;
-						top: -3px;
-						left: 0;
-						background: $red;
-						padding: 5px;
-						color: white;
-					}
-				}
-			}
+                    .item-promotion {
+                        position: absolute;
+                        top: -3px;
+                        left: 0;
+                        background: $red;
+                        padding: 5px;
+                        color: white;
+                    }
+                }
+            }
 
-			.item-imgRef {
-				width: 250px;
-				height: 250px;
-			}
-		}
+            .item-imgRef {
+                width: 250px;
+                height: 250px;
+            }
+        }
 
-		@media (max-width: $responsive) {
-			.item-container {
-				width: 80%;
-			}
-		}
-	}
+        @media (max-width: $responsive) {
+            .item-container {
+                width: 80%;
+            }
+        }
+    }
 }

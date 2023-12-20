@@ -14,47 +14,47 @@ $pastel_orange: #ff885e;
 $pastel_yellow: #fdeb79;
 
 html {
-	font-family: "Roboto", sans-serif;
-	margin: 0 auto;
-	padding: 0;
-	width: 100%;
-	color: $black;
-	height: 100%;
+    font-family: "Roboto", sans-serif;
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+    color: $black;
+    height: 100%;
 
-	body {
-		margin: 0 auto;
-		padding: 0;
-		height: 100%;
-		width: 100%;
+    body {
+        margin: 0 auto;
+        padding: 0;
+        height: 100%;
+        width: 100%;
 
-		.btn {
-			background: $red;
-			border: none;
-			color: white;
-			padding: 15px;
-			cursor: pointer;
-			font-weight: bold;
-			font-size: 1em;
+        .btn {
+            background: $red;
+            border: none;
+            color: white;
+            padding: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1em;
 
-			&:hover {
-				background: $dark_red;
-			}
-		}
+            &:hover {
+                background: $dark_red;
+            }
+        }
 
-		.loader {
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			justify-content: center;
-			width: 100%;
-		}
+        .loader {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
 
-		.ipt {
-			width: 55%;
-			height: 15%;
-			text-align: center;
-			padding: 5px;
-			font-size: 1.3em;
-		}
-	}
+        .ipt {
+            width: 55%;
+            height: 15%;
+            text-align: center;
+            padding: 5px;
+            font-size: 1.3em;
+        }
+    }
 }

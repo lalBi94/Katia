@@ -7,13 +7,13 @@ import "./Layout.scss";
  * @return {HTMLElement}
  */
 export default function Layout({ children }) {
-	return (
-		<div id="layout-container">
-			<NavBar />
+    return (
+        <div id="layout-container">
+            <NavBar />
 
-			<main>{children}</main>
+            <main>{children}</main>
 
-			{/* <Footer /> */}
-		</div>
-	);
+            {/* <Footer /> */}
+        </div>
+    );
 }

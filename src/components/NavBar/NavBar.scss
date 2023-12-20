@@ -1,235 +1,235 @@
 @import "../../main.scss";
 
 #nav-container {
-	#burger-container {
-		position: absolute;
-		margin: 0 auto;
-		padding: 0;
-		background: $red;
-		top: 0;
-		left: 0;
-		width: 100%;
-		z-index: 999;
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		gap: 20px;
-		align-items: center;
-		list-style-type: none;
+    #burger-container {
+        position: absolute;
+        margin: 0 auto;
+        padding: 0;
+        background: $red;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 999;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+        align-items: center;
+        list-style-type: none;
 
-		#burger-close {
-			cursor: pointer;
-			color: white;
-			font-weight: bold;
-			position: absolute;
-			top: 30%;
-			right: 30%;
-		}
+        #burger-close {
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+            position: absolute;
+            top: 30%;
+            right: 30%;
+        }
 
-		.nav-element {
-			.nav-link {
-				font-weight: bold;
-				color: white;
-				text-decoration: none;
+        .nav-element {
+            .nav-link {
+                font-weight: bold;
+                color: white;
+                text-decoration: none;
 
-				.nav-element-cart-len {
-					display: flex;
-					flex-direction: row;
-					justify-content: center;
-					align-items: center;
-					background: white;
-					color: $red;
-					width: 20px;
-					height: 20px;
-					padding: 3px;
-					border-radius: 50%;
-				}
-			}
+                .nav-element-cart-len {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                    background: white;
+                    color: $red;
+                    width: 20px;
+                    height: 20px;
+                    padding: 3px;
+                    border-radius: 50%;
+                }
+            }
 
-			.spe {
-				display: flex;
-				flex-direction: row;
-				justify-content: center;
-				align-items: center;
-				gap: 5px;
-			}
-		}
+            .spe {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                gap: 5px;
+            }
+        }
 
-		.nav-customer-instance-container {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
-			gap: 5px;
+        .nav-customer-instance-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
 
-			.btn {
-				background: white;
-				padding: 10px;
-				border: none;
-				font-weight: bold;
-				color: $red;
-				border-radius: 3px;
-				cursor: pointer;
-				border: 2px solid $dark_red;
+            .btn {
+                background: white;
+                padding: 10px;
+                border: none;
+                font-weight: bold;
+                color: $red;
+                border-radius: 3px;
+                cursor: pointer;
+                border: 2px solid $dark_red;
 
-				&:hover {
-					background: $black;
-					color: white;
-					border: 2px solid white;
-				}
-			}
-		}
-	}
+                &:hover {
+                    background: $black;
+                    color: white;
+                    border: 2px solid white;
+                }
+            }
+        }
+    }
 
-	#nav-elements-container {
-		display: flex;
-		flex-direction: row;
-		list-style-type: none;
-		align-items: center;
-		justify-content: space-around;
-		width: 100%;
-		padding: 0;
+    #nav-elements-container {
+        display: flex;
+        flex-direction: row;
+        list-style-type: none;
+        align-items: center;
+        justify-content: space-around;
+        width: 100%;
+        padding: 0;
 
-		.home {
-		}
+        .home {
+        }
 
-		.shop {
-			background: rgb(255, 136, 94);
-			background: -moz-linear-gradient(
-				124deg,
-				rgba(255, 136, 94, 1) 0%,
-				rgba(253, 235, 121, 1) 86%
-			);
-			background: -webkit-linear-gradient(
-				124deg,
-				rgba(255, 136, 94, 1) 0%,
-				rgba(253, 235, 121, 1) 86%
-			);
-			background: linear-gradient(
-				124deg,
-				rgba(255, 136, 94, 1) 0%,
-				rgba(253, 235, 121, 1) 86%
-			);
-			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff885e",endColorstr="#fdeb79",GradientType=1);
-		}
+        .shop {
+            background: rgb(255, 136, 94);
+            background: -moz-linear-gradient(
+                124deg,
+                rgba(255, 136, 94, 1) 0%,
+                rgba(253, 235, 121, 1) 86%
+            );
+            background: -webkit-linear-gradient(
+                124deg,
+                rgba(255, 136, 94, 1) 0%,
+                rgba(253, 235, 121, 1) 86%
+            );
+            background: linear-gradient(
+                124deg,
+                rgba(255, 136, 94, 1) 0%,
+                rgba(253, 235, 121, 1) 86%
+            );
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff885e",endColorstr="#fdeb79",GradientType=1);
+        }
 
-		.cart {
-			background: rgb(206, 219, 254);
-			background: -moz-linear-gradient(
-				124deg,
-				rgba(206, 219, 254, 1) 14%,
-				rgba(254, 207, 239, 1) 89%
-			);
-			background: -webkit-linear-gradient(
-				124deg,
-				rgba(206, 219, 254, 1) 14%,
-				rgba(254, 207, 239, 1) 89%
-			);
-			background: linear-gradient(
-				124deg,
-				rgba(206, 219, 254, 1) 14%,
-				rgba(254, 207, 239, 1) 89%
-			);
-			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#cedbfe",endColorstr="#fecfef",GradientType=1);
-		}
+        .cart {
+            background: rgb(206, 219, 254);
+            background: -moz-linear-gradient(
+                124deg,
+                rgba(206, 219, 254, 1) 14%,
+                rgba(254, 207, 239, 1) 89%
+            );
+            background: -webkit-linear-gradient(
+                124deg,
+                rgba(206, 219, 254, 1) 14%,
+                rgba(254, 207, 239, 1) 89%
+            );
+            background: linear-gradient(
+                124deg,
+                rgba(206, 219, 254, 1) 14%,
+                rgba(254, 207, 239, 1) 89%
+            );
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#cedbfe",endColorstr="#fecfef",GradientType=1);
+        }
 
-		.customer,
-		.gate {
-			background: rgb(203, 255, 243);
-			background: -moz-linear-gradient(
-				124deg,
-				rgba(203, 255, 243, 1) 14%,
-				rgba(213, 255, 207, 1) 68%
-			);
-			background: -webkit-linear-gradient(
-				124deg,
-				rgba(203, 255, 243, 1) 14%,
-				rgba(213, 255, 207, 1) 68%
-			);
-			background: linear-gradient(
-				124deg,
-				rgba(203, 255, 243, 1) 14%,
-				rgba(213, 255, 207, 1) 68%
-			);
-			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#cbfff3",endColorstr="#d5ffcf",GradientType=1);
-		}
+        .customer,
+        .gate {
+            background: rgb(203, 255, 243);
+            background: -moz-linear-gradient(
+                124deg,
+                rgba(203, 255, 243, 1) 14%,
+                rgba(213, 255, 207, 1) 68%
+            );
+            background: -webkit-linear-gradient(
+                124deg,
+                rgba(203, 255, 243, 1) 14%,
+                rgba(213, 255, 207, 1) 68%
+            );
+            background: linear-gradient(
+                124deg,
+                rgba(203, 255, 243, 1) 14%,
+                rgba(213, 255, 207, 1) 68%
+            );
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#cbfff3",endColorstr="#d5ffcf",GradientType=1);
+        }
 
-		#nav-elements-main {
-			display: flex;
-			justify-content: space-around;
-			width: 70%;
-			height: 70px;
-			border-radius: 50px 50px 0px 50px;
-			box-shadow: 0 2px 2px -2px rgba(0,0,0,.2);
-		}
+        #nav-elements-main {
+            display: flex;
+            justify-content: space-around;
+            width: 70%;
+            height: 70px;
+            border-radius: 50px 50px 0px 50px;
+            box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.2);
+        }
 
-		#burger {
-			display: none;
-			cursor: pointer;
-			font-weight: bold;
-			&:active {
-				color: red;
-			}
-		}
+        #burger {
+            display: none;
+            cursor: pointer;
+            font-weight: bold;
+            &:active {
+                color: red;
+            }
+        }
 
-		.nav-customer-instance-container {
-			display: flex;
-			flex-direction: column;
-			gap: 10px;
+        .nav-customer-instance-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
 
-			.btn-deco {
-				padding: 8px;
-				border: none;
-				border-radius: 3px;
-				font-size: 0.95em;
-			}
-		}
+            .btn-deco {
+                padding: 8px;
+                border: none;
+                border-radius: 3px;
+                font-size: 0.95em;
+            }
+        }
 
-		.nav-element {
-			display: flex;
-			justify-content: center;
-			align-items: center;
+        .nav-element {
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-			.img {
-				width: 180px;
-				cursor: pointer;
-			}
+            .img {
+                width: 180px;
+                cursor: pointer;
+            }
 
-			.nav-link {
-				text-decoration: none;
-				font-size: 1.1em;
-				color: $black;
-				display: flex;
-				gap: 5px;
-				flex-direction: row;
-				justify-content: center;
-				align-items: center;
+            .nav-link {
+                text-decoration: none;
+                font-size: 1.1em;
+                color: $black;
+                display: flex;
+                gap: 5px;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
 
-				.nav-element-cart-len {
-					display: flex;
-					flex-direction: row;
-					justify-content: center;
-					align-items: center;
-					background: $red;
-					color: white;
-					width: 13px;
-					height: 13px;
-					padding: 6px;
-					border-radius: 50%;
-				}
-			}
-		}
+                .nav-element-cart-len {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                    background: $red;
+                    color: white;
+                    width: 13px;
+                    height: 13px;
+                    padding: 6px;
+                    border-radius: 50%;
+                }
+            }
+        }
 
-		@media (max-width: $responsive) {
-			.resp,
-			#nav-elements-main {
-				display: none;
-			}
+        @media (max-width: $responsive) {
+            .resp,
+            #nav-elements-main {
+                display: none;
+            }
 
-			#burger {
-				display: inline;
-			}
-		}
-	}
+            #burger {
+                display: inline;
+            }
+        }
+    }
 }

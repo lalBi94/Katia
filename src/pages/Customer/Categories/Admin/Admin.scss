@@ -1,104 +1,104 @@
 @import "../../../../main.scss";
 
 #admin-container {
-	display: flex;
-	flex-direction: column;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: center;
-	gap: 20px;
-	width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
 
-	#admin-solde {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		gap: 25px;
+    #admin-solde {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 25px;
 
-		#admin-solde-AV,
-		#admin-solde-CA,
-		#admin-solde-O {
-			padding: 10px;
-			color: white;
-			font-weight: bold;
-		}
+        #admin-solde-AV,
+        #admin-solde-CA,
+        #admin-solde-O {
+            padding: 10px;
+            color: white;
+            font-weight: bold;
+        }
 
-		#admin-solde-O {
-			background: #4a5bcb;
-		}
+        #admin-solde-O {
+            background: #4a5bcb;
+        }
 
-		#admin-solde-CA {
-			background: $green;
-		}
+        #admin-solde-CA {
+            background: $green;
+        }
 
-		#admin-solde-AV {
-			background: $orange;
-		}
-	}
+        #admin-solde-AV {
+            background: $orange;
+        }
+    }
 
-	#admin-form-popup {
-		display: flex;
-		flex-direction: row;
-		position: absolute;
-		background: white;
-		padding: 20px;
-		border: 5px solid $red;
-		top: 50%;
-		left: 50%;
-		width: 80%;
-		transform: translate(-50%, -50%);
-	}
+    #admin-form-popup {
+        display: flex;
+        flex-direction: row;
+        position: absolute;
+        background: white;
+        padding: 20px;
+        border: 5px solid $red;
+        top: 50%;
+        left: 50%;
+        width: 80%;
+        transform: translate(-50%, -50%);
+    }
 
-	.admin-category {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		width: 80%;
+    .admin-category {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 80%;
 
-		.admin-category-title {
-			text-align: left;
-			border-bottom: 3px solid $red;
-			display: flex;
-			justify-content: left;
-			align-items: center;
-			gap: 5px;
+        .admin-category-title {
+            text-align: left;
+            border-bottom: 3px solid $red;
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            gap: 5px;
 
-			.spe-btn {
-				width: 5px;
-				height: 5px;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				border-radius: 100%;
-				margin-bottom: 2px;
-			}
-		}
+            .spe-btn {
+                width: 5px;
+                height: 5px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 100%;
+                margin-bottom: 2px;
+            }
+        }
 
-		.admin-category-btns {
-			display: flex;
-			flex-direction: row;
-			flex-wrap: wrap;
-			gap: 10px;
+        .admin-category-btns {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 10px;
 
-			.admin-category-btn {
-				background: $red;
-				border: none;
-				padding: 10px;
-				color: white;
-				font-size: 1.1em;
+            .admin-category-btn {
+                background: $red;
+                border: none;
+                padding: 10px;
+                color: white;
+                font-size: 1.1em;
 
-				&:hover {
-					background: $dark_red;
-				}
-			}
-		}
-	}
+                &:hover {
+                    background: $dark_red;
+                }
+            }
+        }
+    }
 
-	@media (max-width: $responsive) {
-		#admin-form-popup {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		}
-	}
+    @media (max-width: $responsive) {
+        #admin-form-popup {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
 }

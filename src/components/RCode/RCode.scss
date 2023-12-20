@@ -1,20 +1,20 @@
 @import "../../main.scss";
 
 .reservation {
-	width: 100px;
-	font-size: large;
-	font-family: "Courier New", Courier, serif;
-	background: #e7e7e7;
-	border-radius: 10px;
-	border: 1.3px solid rgb(131, 131, 131);
-	padding: 10px;
-	color: $black;
-	letter-spacing: 4px;
-	font-weight: bold;
-	text-align: center;
-	cursor: pointer;
+    width: 100px;
+    font-size: large;
+    font-family: "Courier New", Courier, serif;
+    background: #e7e7e7;
+    border-radius: 10px;
+    border: 1.3px solid rgb(131, 131, 131);
+    padding: 10px;
+    color: $black;
+    letter-spacing: 4px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
 
-	&::selection {
-		background: transparent;
-	}
+    &::selection {
+        background: transparent;
+    }
 }

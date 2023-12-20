@@ -1,69 +1,69 @@
 @import "../../main.scss";
 
 #footer-container {
-	width: 100%;
-	overflow: clip;
-	background: $red;
-	color: white;
-	display: flex;
-	flex-direction: column;
+    width: 100%;
+    overflow: clip;
+    background: $red;
+    color: white;
+    display: flex;
+    flex-direction: column;
 
-	#footer-cat-container {
-		width: 100%;
-		height: 100%;
-		padding: 15px;
-		display: flex;
-		flex-direction: row;
-		justify-content: space-around;
-		flex-wrap: wrap;
-		align-items: center;
+    #footer-cat-container {
+        width: 100%;
+        height: 100%;
+        padding: 15px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        align-items: center;
 
-		.footer-cat {
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			gap: 15px;
-			flex-wrap: wrap;
+        .footer-cat {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
 
-			.footer-cat-title {
-				font-weight: bold;
-			}
+            .footer-cat-title {
+                font-weight: bold;
+            }
 
-			.footer-cat-msg {
-				width: 250px;
-			}
-		}
-	}
+            .footer-cat-msg {
+                width: 250px;
+            }
+        }
+    }
 
-	#footer-socials {
-		display: flex;
-		justify-self: center;
-		align-items: center;
-		flex-direction: row;
-		justify-content: space-around;
-		border-bottom: 1.5px solid white;
-		padding: 10px;
-		flex-wrap: wrap;
+    #footer-socials {
+        display: flex;
+        justify-self: center;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-around;
+        border-bottom: 1.5px solid white;
+        padding: 10px;
+        flex-wrap: wrap;
 
-		#footer-socials-msg {
-			font-weight: bold;
-		}
+        #footer-socials-msg {
+            font-weight: bold;
+        }
 
-		#footer-socials-logos {
-			display: flex;
-			flex-direction: row;
-			gap: 20px;
-			justify-self: center;
-			align-items: center;
-			flex-wrap: wrap;
+        #footer-socials-logos {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            justify-self: center;
+            align-items: center;
+            flex-wrap: wrap;
 
-			.footer-socials-logo {
-				img {
-					width: 30px;
-					height: auto;
-					filter: invert(100);
-				}
-			}
-		}
-	}
+            .footer-socials-logo {
+                img {
+                    width: 30px;
+                    height: auto;
+                    filter: invert(100);
+                }
+            }
+        }
+    }
 }

@@ -12,109 +12,109 @@ import { useState, useEffect } from "react";
  * @return {HTMLElement}
  */
 export default function Home() {
-	const [test, setTest] = useState({});
+    const [test, setTest] = useState({});
 
-	useEffect(() => {
-		const data = {
-			columns: [
-				{
-					label: "#",
-					field: "id",
-					sort: "asc",
-				},
+    useEffect(() => {
+        const data = {
+            columns: [
+                {
+                    label: "#",
+                    field: "id",
+                    sort: "asc",
+                },
 
-				{
-					label: "QR Code",
-					field: "qrcode",
-					sort: "asc",
-				},
+                {
+                    label: "QR Code",
+                    field: "qrcode",
+                    sort: "asc",
+                },
 
-				{
-					label: "Code de réservation",
-					field: "cdr",
-					sort: "asc",
-				},
+                {
+                    label: "Code de réservation",
+                    field: "cdr",
+                    sort: "asc",
+                },
 
-				{
-					label: "Liste",
-					field: "list",
-					sort: "asc",
-				},
+                {
+                    label: "Liste",
+                    field: "list",
+                    sort: "asc",
+                },
 
-				{
-					label: "Total",
-					field: "total",
-					sort: "asc",
-				},
+                {
+                    label: "Total",
+                    field: "total",
+                    sort: "asc",
+                },
 
-				{
-					label: "tgggfefsefseggggg",
-				},
+                {
+                    label: "tgggfefsefseggggg",
+                },
 
-				{
-					label: "fseffesfsefsees",
-				},
-			],
-			rows: [
-				{
-					id: 1,
-					qrcode: "o",
-					cdr: "bonjour",
-					list: "-list",
-					total: 0,
-				},
-				{
-					id: 1,
-					qrcode: "o",
-					cdr: "bonjour",
-					list: "-list",
-					total: 0,
-				},
-				{
-					id: 1,
-					qrcode: "o",
-					cdr: "bonjour",
-					list: "-list",
-					total: 0,
-				},
-				{
-					id: 1,
-					qrcode: "o",
-					cdr: "bonjour",
-					list: "-list",
-					total: 0,
-				},
-				{
-					id: 1,
-					qrcode: "o",
-					cdr: "bonjour",
-					list: "-list",
-					total: 0,
-				},
-			],
-		};
+                {
+                    label: "fseffesfsefsees",
+                },
+            ],
+            rows: [
+                {
+                    id: 1,
+                    qrcode: "o",
+                    cdr: "bonjour",
+                    list: "-list",
+                    total: 0,
+                },
+                {
+                    id: 1,
+                    qrcode: "o",
+                    cdr: "bonjour",
+                    list: "-list",
+                    total: 0,
+                },
+                {
+                    id: 1,
+                    qrcode: "o",
+                    cdr: "bonjour",
+                    list: "-list",
+                    total: 0,
+                },
+                {
+                    id: 1,
+                    qrcode: "o",
+                    cdr: "bonjour",
+                    list: "-list",
+                    total: 0,
+                },
+                {
+                    id: 1,
+                    qrcode: "o",
+                    cdr: "bonjour",
+                    list: "-list",
+                    total: 0,
+                },
+            ],
+        };
 
-		setTest(data);
-	}, []);
+        setTest(data);
+    }, []);
 
-	return (
-		<Layout>
-			<div id="home-container">
-				{test.columns ? (
-					<MDBTable responsive>
-						<MDBTableHead columns={test.columns} />
-						<MDBTableBody rows={test.rows} />
-					</MDBTable>
-				) : null}
+    return (
+        <Layout>
+            <div id="home-container">
+                {test.columns ? (
+                    <MDBTable responsive>
+                        <MDBTableHead columns={test.columns} />
+                        <MDBTableBody rows={test.rows} />
+                    </MDBTable>
+                ) : null}
 
-				<Swiper
-					pagination={{
-						dynamicBullets: true,
-					}}
-					modules={[Pagination, Autoplay]}
-					className="the-swiper"
-				></Swiper>
-			</div>
-		</Layout>
-	);
+                <Swiper
+                    pagination={{
+                        dynamicBullets: true,
+                    }}
+                    modules={[Pagination, Autoplay]}
+                    className="the-swiper"
+                ></Swiper>
+            </div>
+        </Layout>
+    );
 }
