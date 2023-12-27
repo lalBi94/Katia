@@ -100,20 +100,6 @@ export default function Home() {
     return (
         <Layout>
             <div id="home-container">
-                {test.columns ? (
-                    <MDBTable responsive>
-                        <MDBTableHead columns={test.columns} />
-                        <MDBTableBody rows={test.rows} />
-                    </MDBTable>
-                ) : null}
-
-                <Swiper
-                    pagination={{
-                        dynamicBullets: true,
-                    }}
-                    modules={[Pagination, Autoplay]}
-                    className="the-swiper"
-                ></Swiper>
             </div>
         </Layout>
     );

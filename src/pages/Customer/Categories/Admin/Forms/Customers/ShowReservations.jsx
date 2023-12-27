@@ -93,8 +93,6 @@ export default function ShowReservation({ handleClose }) {
 
                 const tab_rows = [];
 
-                console.log(res2.reservations[0].items_list)
-
                 for (let i = 0; i <= res2.reservations.length - 1; ++i) {
                     tab_rows.push({
                         status: (

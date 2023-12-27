@@ -1,0 +1,77 @@
+@import "../../../../main.scss";
+
+#reservation-container {
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    table {
+        border: 1px solid $black;
+        padding: 30px;
+        background: white;
+
+        thead {
+            tr {
+                th {
+                    padding: 10px;
+                }
+            }
+        }
+
+        tbody {
+            overflow-y: auto;
+            tr {
+                td {
+                    padding: 10px;
+                    border-bottom: 1px solid $black;
+
+                    .tab-status {
+                        color: white;
+                        padding: 5px;
+                    }
+
+                    .actif-res {
+                        background: $green;
+                    }
+
+                    ul {
+                        height: 100px;
+                        overflow-y: scroll;
+
+                        li {
+                            font-size: smaller;
+                        }
+                    }
+
+                    .inactif-res {
+                        background: $red;
+                    }
+
+                    .tab-total {
+                    }
+
+                    .tab-actions {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 5px;
+
+                        .tab-btn {
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: $responsive) {
+    #reservation-container {
+        display: block;
+
+        table {
+            width: 100%;
+        }
+    }
+}

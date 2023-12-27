@@ -5,10 +5,10 @@
 
     #customer-header {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 30px;
+        gap: 10px;
         margin-bottom: 30px;
         font-size: 0.8em;
         width: 100%;
@@ -106,7 +106,7 @@
             align-items: center;
             justify-content: space-around;
             text-align: center;
-            border: 0.1px solid $black;
+            border-radius: 50px 50px 0px 50px;
 
             .customer-category-link {
                 cursor: pointer;

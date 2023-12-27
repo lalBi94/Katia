@@ -4,10 +4,10 @@ import { MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
 import RCode from "../../../../components/RCode/RCode";
 import { priceAfterPromo } from "../../../../services/Utils/utils";
 import { cipherRequest } from "../../../../services/KTSec/KTSec";
-import "./Reservation.scss";
+import "./History.scss";
 import { Vortex } from "react-loader-spinner";
 
-export default function Reservation() {
+export default function History() {
     const [reservations, setReservation] = useState([]);
     const [loader, setLoader] = useState(true);
 
@@ -18,7 +18,7 @@ export default function Reservation() {
 
         cipherRequest(
             toSend,
-            `${config.api}/reservation/getActiveReservationsOf`
+            `${config.api}/reservation/getConfirmedReservationsOf`
         ).then((res) => {
             console.log(res.data)
             if(!res.data) {
@@ -90,7 +90,7 @@ export default function Reservation() {
     }, []);
 
     return (
-        <div id="reservation-container">
+        <div id="history-container">
             {loader ? (
                 <div className="loader">
                     <Vortex

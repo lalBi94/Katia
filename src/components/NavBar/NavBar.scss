@@ -92,7 +92,25 @@
         padding: 0;
 
         .home {
-        }
+            background: rgb(194, 210, 240);
+            background: -moz-linear-gradient(
+                124deg,
+                rgba(194, 210, 240, 1) 0%,
+                rgba(224, 235, 255, 1) 86%
+            );
+            background: -webkit-linear-gradient(
+                124deg,
+                rgba(194, 210, 240, 1) 0%,
+                rgba(224, 235, 255, 1) 86%
+            );
+            background: linear-gradient(
+                124deg,
+                rgba(194, 210, 240, 1) 0%,
+                rgba(224, 235, 255, 1) 86%
+            );
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#c2d2f0",endColorstr="#e0ebff",GradientType=1);
+        
+                                }
 
         .shop {
             background: rgb(255, 136, 94);

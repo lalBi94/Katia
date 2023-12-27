@@ -39,7 +39,7 @@ export default function NavBar() {
             }
         }
 
-        setIsLogged(!!localStorage.getItem("katiacm"));
+        setIsLogged(localStorage.getItem("katiacm"));
     }, []);
 
     /**
@@ -60,7 +60,7 @@ export default function NavBar() {
         logo: (
             <li className="nav-element">
                 <img
-                    className="nav-link img hvr-pulse-grow"
+                    className="nav-link img"
                     src={logo}
                     alt="Logo des delices de Katia"
                     onClick={goToHome}
