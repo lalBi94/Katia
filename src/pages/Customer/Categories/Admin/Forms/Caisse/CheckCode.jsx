@@ -4,6 +4,7 @@ import { cipherRequest } from "../../../../../../services/KTSec/KTSec";
 import config from "../../../../../../global.json";
 import { MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
 import RCode from "../../../../../../components/RCode/RCode";
+import { priceAfterPromo } from "../../../../../../services/Utils/utils";
 
 export default function CheckCode({ handleClose }) {
     const [reservationInfo, setReservationInfo] = useState({ found: false });
@@ -41,6 +42,10 @@ export default function CheckCode({ handleClose }) {
                         field: "rcode",
                     },
                     {
+                        label: "Panier",
+                        field: "panier"
+                    },
+                    {
                         label: "Total",
                         field: "total",
                     },
@@ -64,6 +69,17 @@ export default function CheckCode({ handleClose }) {
                             </span>
                         ),
                         rcode: <RCode code={res.info.qrtxt} />,
+
+                        panier: (
+                            <div className="panier-container">
+                                <ul className="panier-container-ul">
+                                        {Object.keys(res.info.items_list).map((v, k) => (
+                                            <li className="panier-container-li" key={k}>{res.info.items_list[v].name} ({ res.info.items_list[v].promotion > 0 ? (priceAfterPromo(res.info.items_list[v].price, res.info.items_list[v].promotion)).toFixed(2) : (res.info.items_list[v].price)}€)</li>
+                                        ))}
+                                </ul>
+                            </div>
+                        ),
+
                         total: (
                             <span className="tab-total">{res.info.total}€</span>
                         ),

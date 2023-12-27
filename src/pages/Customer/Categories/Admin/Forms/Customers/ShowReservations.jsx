@@ -4,6 +4,7 @@ import "../popup.scss";
 import config from "../../../../../../global.json";
 import { MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
 import RCode from "../../../../../../components/RCode/RCode";
+import { priceAfterPromo } from "../../../../../../services/Utils/utils";
 
 export default function ShowReservation({ handleClose }) {
     const [users, setUsers] = useState({});
@@ -81,12 +82,18 @@ export default function ShowReservation({ handleClose }) {
                         field: "total",
                     },
                     {
+                        label: "Panier",
+                        field: "panier",
+                    },
+                    {
                         label: "Action",
                         field: "action",
                     },
                 ];
 
                 const tab_rows = [];
+
+                console.log(res2.reservations[0].items_list)
 
                 for (let i = 0; i <= res2.reservations.length - 1; ++i) {
                     tab_rows.push({
@@ -108,6 +115,15 @@ export default function ShowReservation({ handleClose }) {
                             <span className="tab-total">
                                 {res2.reservations[i].total}€
                             </span>
+                        ),
+                        panier: (
+                            <div className="panier-container">
+                                <ul className="panier-container-ul">
+                                    { Object.keys(res2.reservations[i].items_list).map((v, k) => (
+                                        <li className="panier-container-li" key={k}>{res2.reservations[i].items_list[v].name} ({ res2.reservations[i].items_list[v].promotion > 0 ? (priceAfterPromo(res2.reservations[i].items_list[v].price, res2.reservations[i].items_list[v].promotion)).toFixed(2) : (res2.reservations[i].items_list[v].price)}€)</li>
+                                    ))}
+                                </ul>
+                            </div>
                         ),
                         action: (
                             <div className="tab-actions">

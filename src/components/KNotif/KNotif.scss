@@ -28,7 +28,7 @@
     align-items: left;
     padding: 20px;
     gap: 5px;
-    border-radius: 10px;
+    border-radius: 8px;
     border: 1px solid $black;
 
     .notif-close {
@@ -54,5 +54,11 @@
 
     .notif-text {
         font-weight: bold;
+    }
+}
+
+@media (max-width: $responsive) {
+    .notif-container {
+        width: 50%;
     }
 }

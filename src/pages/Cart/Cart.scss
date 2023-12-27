@@ -200,7 +200,7 @@
 @media (max-width: $responsive) {
     #cart-table-container {
         padding: 10px;
-        display: flex;
+        display: block;
 
         table {
             width: 100%;

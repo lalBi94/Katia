@@ -3,6 +3,7 @@ import Layout from "../../Layout/Layout";
 import "./Customer.scss";
 import MyAccount from "./Categories/MyAccount/MyAccount";
 import { cipherRequest } from "../../services/KTSec/KTSec";
+import Reservation from "./Categories/Reservations/Reservation";
 import Admin from "./Categories/Admin/Admin";
 import { Puff } from "react-loader-spinner";
 import config from "../../global.json";
@@ -46,7 +47,7 @@ export default function Customer() {
      * @return {void}
      */
     const handleReservations = () => {
-        setSelectedComponent(null);
+        setSelectedComponent(<Reservation/>);
     };
 
     /**
@@ -117,7 +118,7 @@ export default function Customer() {
                                 Mon compte
                             </div>
 
-                            <div className="customer-category-link">
+                            <div className="customer-category-link" onClick={handleReservations}>
                                 Mes reservations
                             </div>
 

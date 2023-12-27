@@ -4,6 +4,7 @@ import { cipherRequest } from "../../../../../../services/KTSec/KTSec";
 import config from "../../../../../../global.json";
 import RCode from "../../../../../../components/RCode/RCode";
 import { MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
+import { priceAfterPromo } from "../../../../../../services/Utils/utils";
 
 export default function ShowReservationsActive({ handleClose }) {
     const [reservations, setReservation] = useState([]);
@@ -27,6 +28,10 @@ export default function ShowReservationsActive({ handleClose }) {
                     field: "rcode",
                 },
                 {
+                    label: "Panier",
+                    field: "panier",
+                },
+                {
                     label: "Total",
                     field: "total",
                 },
@@ -37,6 +42,8 @@ export default function ShowReservationsActive({ handleClose }) {
             ];
 
             const tab_rows = [];
+
+            console.log(res.data)
 
             for (let i = 0; i <= res.data.length - 1; ++i) {
                 tab_rows.push({
@@ -50,6 +57,15 @@ export default function ShowReservationsActive({ handleClose }) {
                         </span>
                     ),
                     rcode: <RCode code={res.data[i].qrtxt} />,
+                    panier: (
+                        <div className="panier-container">
+                            <ul className="panier-container-ul">
+                                    {Object.keys(res.data[i].items_list).map((v, k) => (
+                                        <li className="panier-container-li" key={k}>{res.data[i].items_list[v].name} ({ res.data[i].items_list[v].promotion > 0 ? (priceAfterPromo(res.data[i].items_list[v].price, res.data[i].items_list[v].promotion)).toFixed(2) : (res.data[i].items_list[v].price)}€)</li>
+                                    ))}
+                            </ul>
+                        </div>
+                    ),
                     total: (
                         <span className="tab-total">{res.data[i].total}€</span>
                     ),
