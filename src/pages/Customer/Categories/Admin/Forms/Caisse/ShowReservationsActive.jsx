@@ -43,8 +43,6 @@ export default function ShowReservationsActive({ handleClose }) {
 
             const tab_rows = [];
 
-            console.log(res.data)
-
             for (let i = 0; i <= res.data.length - 1; ++i) {
                 tab_rows.push({
                     status: (

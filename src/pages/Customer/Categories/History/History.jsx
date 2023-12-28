@@ -20,7 +20,6 @@ export default function History() {
             toSend,
             `${config.api}/reservation/getConfirmedReservationsOf`
         ).then((res) => {
-            console.log(res.data)
             if(!res.data) {
                 setLoader(false)
                 return

@@ -20,7 +20,6 @@ export default function Reservation() {
             toSend,
             `${config.api}/reservation/getActiveReservationsOf`
         ).then((res) => {
-            console.log(res.data)
             if(!res.data) {
                 setLoader(false)
                 return
