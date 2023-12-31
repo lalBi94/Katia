@@ -38,8 +38,8 @@ export default function Shop() {
      * Page de produits suivante
      */
     const handleAfter = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
         setCurrent(current === chunked.length - 1 ? current : current + 1);
-        window.scrollTo(0, 0);
         setLockdown(false);
     };
 
@@ -47,8 +47,8 @@ export default function Shop() {
      * Page de produits precedente
      */
     const handleBefore = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
         setCurrent(current === 0 ? current : current - 1);
-        window.scrollTo(0, 0);
         setLockdown(false);
     };
 

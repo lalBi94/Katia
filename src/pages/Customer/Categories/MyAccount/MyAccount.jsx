@@ -269,7 +269,7 @@ export default function MyAccount({ data }) {
             </div>
 
             <div className="data-container">
-                <span id="identifier">N° Client {data.createdAt}</span>
+                <span id="identifier">ID #{data._id}</span>
             </div>
         </div>
     );

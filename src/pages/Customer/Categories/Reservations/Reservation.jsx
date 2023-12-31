@@ -90,6 +90,11 @@ export default function Reservation() {
 
     return (
         <div id="reservation-container">
+            <div id="reservation-header-container">
+                <h3>Vos achats en attente</h3>
+                <p>Pour recuperer vos achats, dirigez vous vers notre stand au marché de Fontainebleau et presentez nous le code de réservation a 6 characteres alpha-numerique.</p>
+            </div>
+
             {loader ? (
                 <div className="loader">
                     <Vortex
