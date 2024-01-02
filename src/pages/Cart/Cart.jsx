@@ -89,10 +89,10 @@ export default function Cart() {
                                 <span className="price">
                                     {res.data[i].promotion > 0
                                         ? (
-                                              res.data[i].price -
+                                              (res.data[i].price -
                                               (res.data[i].price *
                                                   res.data[i].promotion) /
-                                                  100
+                                                  100)*res.data[i].qte
                                           ).toFixed(2)
                                         : (
                                               res.data[i].price *
@@ -186,7 +186,7 @@ export default function Cart() {
     };
 
     /**
-     * Envoyer le panier dans les reservations
+     * Envoyer le panier dans les reservations (et le supprimer ensuite)
      * @return {void}
      */
     const buy = () => {

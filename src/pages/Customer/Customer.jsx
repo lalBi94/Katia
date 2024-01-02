@@ -68,8 +68,6 @@ export default function Customer() {
         });
 
         cipherRequest(toSend, `${config.api}/customer/getInfo`).then((res) => {
-            console.log(res)
-
             if (!res || res.status === 1) {
                 localStorage.removeItem("katiacm");
                 window.location.href = "/Katia/#/gate";
