@@ -234,7 +234,7 @@ export default function ShowReservation({ handleClose }) {
                               </span>
 
                               <span className="popup-list-data-lower">
-                                  {users[v].createdAt}
+                                  #{users[v]._id}
                               </span>
                           </div>
                       ))
