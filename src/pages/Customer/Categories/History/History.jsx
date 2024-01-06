@@ -31,6 +31,21 @@ export default function History() {
         setAdvice(cpy)
     }
 
+    const note = () => {
+        const withoutM1 = advice.filter((e) => e.stars >= 1);
+
+        const toSend = JSON.stringify({
+            token: localStorage.getItem("katiacm"),
+            evaluations: withoutM1
+        })
+
+        console.log(toSend)
+
+        cipherRequest(toSend, `${config.api}/item/note`).then((res) => {
+            console.log(res)
+        })
+    }
+
     const modifyMsg = (e, item_id) => {
         let cpy = [...advice]
 
@@ -250,7 +265,7 @@ export default function History() {
                     </div>
 
                     <div id="popup-actions-container">
-                        <button className="btn hvr-shrink popup-actions">
+                        <button className="btn hvr-shrink popup-actions" onClick={note}>
                             Envoyer
                         </button>
                         <button
